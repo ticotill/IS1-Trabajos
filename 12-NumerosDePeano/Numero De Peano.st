@@ -65,3 +65,35 @@ II class
 /unNumero
 	unNumero = I ifTrue: [^self].
 	^self - unNumero /  unNumero previous.! !
+
+
+!classDefinition: #III category: #'Numero De Peano'!
+II subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero De Peano'!
+
+
+!classDefinition: #IIII category: #'Numero De Peano'!
+III subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero De Peano'!
+
+
+!classDefinition: #IIIII category: #'Numero De Peano'!
+IIII subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero De Peano'!
+
+
+!classDefinition: #IIIIII category: #'Numero De Peano'!
+IIIII subclass: #IIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Numero De Peano'!
