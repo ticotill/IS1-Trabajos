@@ -139,103 +139,103 @@ test10CanNotTopWhenThereAreNoObjectsInTheStack
 
 !classDefinition: #SentenceFinderByPrefixTest category: #'Stack-Exercise'!
 TestCase subclass: #SentenceFinderByPrefixTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'sentenceFinderByPrefix exampleSentences sentencesWithSamePrefix sentencesWithDifferentsPrefix'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:04:41'!
+!SentenceFinderByPrefixTest methodsFor: 'setUp' stamp: 'DB 10/7/2020 21:08:56'!
+setUp
+
+	sentenceFinderByPrefix := SentenceFinderByPrefix  new.
+	sentencesWithSamePrefix := #('winter is coming' 'winning is everything' 'winds of Winter' 'winter is here' ).
+	sentencesWithDifferentsPrefix := #('winter is coming' 'Winning is everything' 'The winds of Winter' 'winter is here' ).
+	
+	
+
+	
+	
+
+	
+! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'DB 10/7/2020 21:39:57'!
 test01AddASentece
-
-	| aSentence  finder |
-	aSentence := 'Winter is here'.
 	
-	finder := SentenceFinderByPrefix  new.
-	finder add: aSentence.
+	sentenceFinderByPrefix add: 'Winter is here'.
 	
-	self assert: 1 = (finder sentences).! !
+	self assert: 1 = (sentenceFinderByPrefix sentences).! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:07:42'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'DB 10/7/2020 22:10:07'!
 test02AddMultipleSentences
 
-	| finder aSentences |
-	aSentences := #('winter is coming' 'winning is everything' 'The winds of Winter' 'Winter is here' ).
+	sentenceFinderByPrefix addSentences: sentencesWithDifferentsPrefix.
 	
-	finder := SentenceFinderByPrefix  new.
-	finder addSentences: aSentences.
-	
-	self assert: 4 = (finder sentences).! !
+	self assert: (sentencesWithDifferentsPrefix size) = (sentenceFinderByPrefix sentences).! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:19:02'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'DB 10/7/2020 21:30:51'!
 test03PrefixCanNotBeEmpty
 
-	| aSentence aPrefix finder |
-	aSentence := 'Winter is here'.
-	aPrefix := ''.
-	
-	finder := SentenceFinderByPrefix  new.
-	finder add: aSentence.
+	|  aEmptyPrefix |
+	aEmptyPrefix := ''.
 
 	self
-		should: [ finder find: aPrefix ]
+		should: [ sentenceFinderByPrefix find: aEmptyPrefix ]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = SentenceFinderByPrefix prefixCanNotBeEmpty]
+			self assert: anError messageText = SentenceFinderByPrefix prefixCanNotBeEmptyErrorMessage ]
 	
 ! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:19:19'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'DB 10/7/2020 21:30:56'!
 test04PrefixCanNotContainEmptySpaces
 
-	| aPrefix finder |
-
-	aPrefix := 'Winter is'.
-	
-	finder := SentenceFinderByPrefix  new.
+	| aPrefixWithEmptySpaces |
+	aPrefixWithEmptySpaces := 'Winter is '.
 
 	self
-		should: [ finder find: aPrefix ]
+		should: [ sentenceFinderByPrefix find: aPrefixWithEmptySpaces ]
 		raise: Error - MessageNotUnderstood 
 		withExceptionDo: [ :anError |
-			self assert: anError messageText = SentenceFinderByPrefix prefixCanNotContainEmptySpaces]
+			self assert: anError messageText = SentenceFinderByPrefix prefixCanNotContainEmptySpacesErrorMessage ]
 	
 ! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:19:38'!
-test05FinderReturnOneSentence
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'DB 10/7/2020 22:05:04'!
+test05FinderReturnsOneSentence
 
-	| aPrefix finder aSentence sentencesFound |
+	| aPrefix aSentenceToBeFound sentencesFound expected |
 
-	aPrefix := 'Wint'.
-	aSentence := 'Winter is here'.
+	aPrefix := 'The'.
+	aSentenceToBeFound := 'The winds of Winter'.
 	
-	finder := SentenceFinderByPrefix  new.
-	finder add: aSentence.
+	sentenceFinderByPrefix addSentences: sentencesWithDifferentsPrefix.
 	
-	sentencesFound := finder find: aPrefix .
+	sentencesFound := sentenceFinderByPrefix find: aPrefix.
 	
-	self assert: 1 equals: (sentencesFound size).
-	self assert: (aSentence = (sentencesFound at: 1))
+	expected := OrderedCollection new.
+	expected add: aSentenceToBeFound.
+
+	self should: expected actual: sentencesFound.
+	
 	
 
+	
 	
 	
 
 	
 ! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:29:53'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'DB 10/7/2020 21:13:46'!
 test06FinderReturnsEmptyWhenThereIsNoResult
 
-	| aPrefix finder sentencesFound sentences |
+	| aPrefix sentencesFound |
 
 	aPrefix := 'Unfindable'.
-	sentences := #('winter is coming' 'winning is everything' 'winds of Winter' 'winter is here' ).
-	
-	finder := SentenceFinderByPrefix  new.
-	finder addSentences: sentences.
-	
-	sentencesFound := finder find: aPrefix.
+	sentenceFinderByPrefix addSentences: sentencesWithDifferentsPrefix.
+	sentencesFound := sentenceFinderByPrefix find: aPrefix.
 	
 	self assert: 0 equals: (sentencesFound size).
 	
@@ -246,22 +246,77 @@ test06FinderReturnsEmptyWhenThereIsNoResult
 	
 ! !
 
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:45:21'!
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'DB 10/7/2020 22:06:04'!
 test07AllSentencesAreMatches
 
-	| aPrefix finder sentencesFound  sentences |
+	| aPrefix sentencesFound  |
 
 	aPrefix := 'win'.
-	sentences := #('winter is coming' 'winning is everything' 'winds of Winter' 'winter is here' ).
+	sentenceFinderByPrefix addSentences: sentencesWithSamePrefix.
 	
-	finder := SentenceFinderByPrefix  new.
-	finder addSentences: sentences.
+	sentencesFound := sentenceFinderByPrefix find: aPrefix.
 	
-	sentencesFound := finder find: aPrefix.
+	self should: sentencesWithSamePrefix actual: sentencesFound.
 	
-	self assert: 4 equals: (sentencesFound size). 
+	
+	
+	
+	
+
+	
+	
+
+	
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'DB 10/7/2020 22:06:47'!
+test08ExecuteFinderMoreThanOneTime
+
+	| aPrefix  sentencesFound  |
+	aPrefix := 'win'.
+	sentenceFinderByPrefix addSentences: sentencesWithSamePrefix .
+	
+	sentencesFound := sentenceFinderByPrefix find: aPrefix.
+	
+	self should: sentencesWithSamePrefix actual: sentencesFound.
+	
+	sentencesFound := sentenceFinderByPrefix find: aPrefix.
+	
+	self should: sentencesWithSamePrefix actual: sentencesFound.
+	
+	
+
+	
+	
+
+	
+! !
+
+!SentenceFinderByPrefixTest methodsFor: 'testing' stamp: 'DB 10/7/2020 22:07:54'!
+test09FinderWithoutSentencesShouldReturnsEmptyResult
+
+	| aPrefix sentencesFound  |
+
+	aPrefix := 'win'.
+	sentencesFound := sentenceFinderByPrefix find: aPrefix.
+	
+	self assert: sentencesFound isEmpty 	
+
+	
+	
+
+	
+! !
+
+
+!SentenceFinderByPrefixTest methodsFor: 'assertions' stamp: 'DB 10/7/2020 22:03:33'!
+should: sentencesExpected actual: sentencesFound
+
+	| size |
+	size := (sentencesExpected size) + 1.
+	self assert: (sentencesExpected size) equals: (sentencesFound size). 
 	1 to: sentencesFound size do: [ :index |
-		self assert: ((sentencesFound at: index) = (sentences at: 5-index))
+		self assert: ((sentencesFound at: index) = (sentencesExpected at: size-index))
 	]
 	
 	
@@ -275,111 +330,6 @@ test07AllSentencesAreMatches
 
 	
 ! !
-
-!SentenceFinderByPrefixTest methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:31:37'!
-test08FinderReturnsUniqueResultWhenThereIsMoreThanOneSentence
-
-	| aPrefix finder aSentenceToBeFound sentencesFound sentences |
-
-	aPrefix := 'Wint'.
-	aSentenceToBeFound := 'Winter is here'.
-	
-	sentences := #('winter is coming' 'winning is everything' 'winds of Winter' 'Winter is here' ).
-	
-	finder := SentenceFinderByPrefix  new.
-	finder addSentences: sentences.
-	
-	sentencesFound := finder find: aPrefix .
-	
-	self assert: 1 equals: (sentencesFound size).
-	self assert: (aSentenceToBeFound = (sentencesFound at: 1))
-	
-
-	
-	
-
-	
-! !
-
-
-!classDefinition: #OONode category: #'Stack-Exercise'!
-Object subclass: #OONode
-	instanceVariableNames: 'data next'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-!OONode methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:52:38'!
-data
-	^data! !
-
-!OONode methodsFor: 'as yet unclassified' stamp: 'DB 10/5/2020 17:38:14'!
-next
-	^next! !
-
-!OONode methodsFor: 'as yet unclassified' stamp: 'DB 10/5/2020 17:43:22'!
-next: aNode
-	next := aNode ! !
-
-!OONode methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:39:44'!
-pop
-	self subclassResponsibility ! !
-
-!OONode methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:39:41'!
-push
-	self subclassResponsibility ! !
-
-!OONode methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:53:04'!
-with: aData
-	data := aData.
-! !
-
-
-!classDefinition: #OONotNullNode category: #'Stack-Exercise'!
-OONode subclass: #OONotNullNode
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-!OONotNullNode methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:53:11'!
-pop
-	^data
-	
-		
-	! !
-
-!OONotNullNode methodsFor: 'as yet unclassified' stamp: 'DB 10/5/2020 21:08:04'!
-push: aNode
-
-	aNode next: self! !
-
-!OONotNullNode methodsFor: 'as yet unclassified' stamp: 'DB 10/6/2020 20:53:18'!
-top
-	^data! !
-
-
-!classDefinition: #OONullNode category: #'Stack-Exercise'!
-OONode subclass: #OONullNode
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'Stack-Exercise'!
-
-!OONullNode methodsFor: 'as yet unclassified' stamp: 'DB 10/5/2020 20:57:14'!
-pop
-
-	self error: OOStack stackEmptyErrorDescription.! !
-
-!OONullNode methodsFor: 'as yet unclassified' stamp: 'DB 10/5/2020 20:49:20'!
-push: aNode
-	
-	aNode next: self.! !
-
-!OONullNode methodsFor: 'as yet unclassified' stamp: 'DB 10/5/2020 21:11:41'!
-top
-
-	self error: OOStack stackEmptyErrorDescription.! !
 
 
 !classDefinition: #OOStack category: #'Stack-Exercise'!
@@ -395,36 +345,39 @@ initialize
 	head := OONullNode new.! !
 
 
-!OOStack methodsFor: 'operations' stamp: 'DB 10/6/2020 20:54:05'!
+!OOStack methodsFor: 'operations' stamp: 'DB 10/7/2020 20:27:10'!
 pop
-	| data |
-	data := head pop.
+
+	| value |
+	value := head pop.
 	size := size - 1.	
 	head := head next.
-	^data
+	^value
 ! !
 
-!OOStack methodsFor: 'operations' stamp: 'DB 10/6/2020 20:54:41'!
-push: aData
+!OOStack methodsFor: 'operations' stamp: 'DB 10/7/2020 20:26:17'!
+push: aValue
 
 	| newHead |
-	newHead := OONotNullNode new with: aData.
-	
+	newHead := OONotNullNode new with: aValue.
 	head push: newHead.
 	head := newHead.	
 	size := size + 1.! !
 
-!OOStack methodsFor: 'operations' stamp: 'DB 10/5/2020 17:48:29'!
+!OOStack methodsFor: 'operations' stamp: 'DB 10/7/2020 20:27:18'!
 size 
+
 	^size.! !
 
-!OOStack methodsFor: 'operations' stamp: 'DB 10/5/2020 21:16:54'!
+!OOStack methodsFor: 'operations' stamp: 'DB 10/7/2020 20:27:21'!
 top
+
 	^head top! !
 
 
-!OOStack methodsFor: 'results' stamp: 'DB 10/4/2020 22:10:12'!
+!OOStack methodsFor: 'results' stamp: 'DB 10/7/2020 20:27:26'!
 isEmpty
+
 	^size = 0! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -439,6 +392,88 @@ stackEmptyErrorDescription
 	^ 'Stack is empty!!'! !
 
 
+!classDefinition: #OOStackNode category: #'Stack-Exercise'!
+Object subclass: #OOStackNode
+	instanceVariableNames: 'value next'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!OOStackNode methodsFor: 'accesing' stamp: 'DB 10/5/2020 17:38:14'!
+next
+	^next! !
+
+!OOStackNode methodsFor: 'accesing' stamp: 'DB 10/5/2020 17:43:22'!
+next: aNode
+	next := aNode ! !
+
+
+!OOStackNode methodsFor: 'initialization' stamp: 'DB 10/7/2020 20:24:48'!
+with: aValue
+	value := aValue.
+! !
+
+
+!OOStackNode methodsFor: 'operations' stamp: 'DB 10/6/2020 20:39:44'!
+pop
+	self subclassResponsibility ! !
+
+!OOStackNode methodsFor: 'operations' stamp: 'DB 10/6/2020 20:39:41'!
+push
+	self subclassResponsibility ! !
+
+!OOStackNode methodsFor: 'operations' stamp: 'DB 10/7/2020 20:23:09'!
+value
+	^value! !
+
+
+!classDefinition: #OONotNullNode category: #'Stack-Exercise'!
+OOStackNode subclass: #OONotNullNode
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!OONotNullNode methodsFor: 'operations' stamp: 'DB 10/7/2020 20:22:42'!
+pop
+	^value
+	
+		
+	! !
+
+!OONotNullNode methodsFor: 'operations' stamp: 'DB 10/5/2020 21:08:04'!
+push: aNode
+
+	aNode next: self! !
+
+!OONotNullNode methodsFor: 'operations' stamp: 'DB 10/7/2020 20:22:49'!
+top
+	^value! !
+
+
+!classDefinition: #OONullNode category: #'Stack-Exercise'!
+OOStackNode subclass: #OONullNode
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Stack-Exercise'!
+
+!OONullNode methodsFor: 'operations' stamp: 'DB 10/5/2020 20:57:14'!
+pop
+
+	self error: OOStack stackEmptyErrorDescription.! !
+
+!OONullNode methodsFor: 'operations' stamp: 'DB 10/5/2020 20:49:20'!
+push: aNode
+	
+	aNode next: self.! !
+
+!OONullNode methodsFor: 'operations' stamp: 'DB 10/5/2020 21:11:41'!
+top
+
+	self error: OOStack stackEmptyErrorDescription.! !
+
+
 !classDefinition: #SentenceFinderByPrefix category: #'Stack-Exercise'!
 Object subclass: #SentenceFinderByPrefix
 	instanceVariableNames: 'stack'
@@ -446,47 +481,72 @@ Object subclass: #SentenceFinderByPrefix
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!SentenceFinderByPrefix methodsFor: 'operations' stamp: 'DB 10/5/2020 21:23:10'!
-add: aSentence
+!SentenceFinderByPrefix methodsFor: 'private operations' stamp: 'DB 10/7/2020 10:48:54'!
+restoreStackFrom: aBackup
 
-	stack push: aSentence! !
-
-!SentenceFinderByPrefix methodsFor: 'operations' stamp: 'DB 10/6/2020 20:02:30'!
-addSentences: aSentences
-
-	aSentences do: [:each | self add: each].! !
-
-!SentenceFinderByPrefix methodsFor: 'operations' stamp: 'DB 10/6/2020 20:37:07'!
-find: aPrefix
-
-	| sentence cache withAPrefix  |
-	
-	aPrefix isEmpty ifTrue: [self error: self class prefixCanNotBeEmpty].
-	((aPrefix findString: ' ') = 0) ifFalse: [self error: self class prefixCanNotContainEmptySpaces].
-	
-	cache := OOStack new.
-	withAPrefix := OrderedCollection new.
-	
-	[stack isEmpty] whileFalse: [
-		sentence := stack pop.
-		(sentence beginsWith: aPrefix) ifTrue: [withAPrefix  add: sentence].
-		cache push: sentence.
-	].
-
-	[cache isEmpty] whileFalse: [
-		stack push: (cache pop).
-	].
-
-	^withAPrefix 
-
+	[aBackup isEmpty] whileFalse: [
+		stack push: (aBackup pop)
+	]
 	
 	
 
 ! !
 
-!SentenceFinderByPrefix methodsFor: 'operations' stamp: 'DB 10/6/2020 20:03:21'!
+!SentenceFinderByPrefix methodsFor: 'private operations' stamp: 'DB 10/7/2020 22:12:31'!
+save: aData in: aBackup
+
+	aBackup push: aData
+	
+	
+
+! !
+
+!SentenceFinderByPrefix methodsFor: 'private operations' stamp: 'DB 10/7/2020 21:30:08'!
+validatePrefix: aPrefix
+
+	aPrefix isEmpty ifTrue: [self error: self class prefixCanNotBeEmptyErrorMessage ].
+	((aPrefix findString: ' ') = 0) ifFalse: [self error: self class prefixCanNotContainEmptySpacesErrorMessage ].! !
+
+
+!SentenceFinderByPrefix methodsFor: 'testing' stamp: 'DB 10/6/2020 20:03:21'!
 sentences
 	^stack size! !
+
+
+!SentenceFinderByPrefix methodsFor: 'operations' stamp: 'DB 10/5/2020 21:23:10'!
+add: aSentence
+
+	stack push: aSentence! !
+
+!SentenceFinderByPrefix methodsFor: 'operations' stamp: 'DB 10/7/2020 22:14:10'!
+addSentences: theSentences
+
+	theSentences do: [:each | self add: each].! !
+
+!SentenceFinderByPrefix methodsFor: 'operations' stamp: 'DB 10/7/2020 21:30:30'!
+find: aPrefix
+
+	| sentence backup answer  |	
+	
+	self validatePrefix: aPrefix.
+
+	backup := OOStack new.
+	answer := OrderedCollection new.
+	
+	[stack isEmpty] whileFalse: [
+		sentence := stack pop.
+		(sentence beginsWith: aPrefix) ifTrue: [answer add: sentence].
+		self save: sentence in: backup
+	].
+
+	self restoreStackFrom: backup.
+
+	^answer 
+
+	
+	
+
+! !
 
 
 !SentenceFinderByPrefix methodsFor: 'initialization' stamp: 'DB 10/5/2020 21:23:33'!
@@ -500,10 +560,10 @@ initialize
 SentenceFinderByPrefix class
 	instanceVariableNames: ''!
 
-!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'DB 10/5/2020 21:33:13'!
-prefixCanNotBeEmpty
-	^'prefix can not be empty'! !
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'DB 10/7/2020 21:29:30'!
+prefixCanNotBeEmptyErrorMessage
+	^'prefix cannot be empty'! !
 
-!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'DB 10/5/2020 21:42:11'!
-prefixCanNotContainEmptySpaces
+!SentenceFinderByPrefix class methodsFor: 'as yet unclassified' stamp: 'DB 10/7/2020 21:29:36'!
+prefixCanNotContainEmptySpacesErrorMessage
 	^'prefix can not contain empty spaces'! !
