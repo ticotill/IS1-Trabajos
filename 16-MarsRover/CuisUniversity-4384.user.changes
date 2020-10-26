@@ -33635,3 +33635,23 @@ test17DoesntContinueExecutingAfterAnInvalidCommand
 ----SNAPSHOT----(25 October 2020 21:11:46) CuisUniversity-4384.image priorSource: 17372887!
 
 ----QUIT----(25 October 2020 21:23:33) CuisUniversity-4384.image priorSource: 17378891!
+
+----STARTUP---- (25 October 2020 21:37:45) as /Users/dbenitez/uba/2c2020-IS1/Quiz/macos64-MarsRover/CuisUniversity-4384.image!
+
+!MarsRoverTest methodsFor: 'Backward tests' stamp: 'DB 10/25/2020 21:44:39' prior: 50874620!
+test09BackwardWhenPointingSouth
+
+	self assertCorrectPositionAfterBackwardMovement: (MarsRover atSouth: 1@1) expectPosition: (1@2)
+	! !
+!MarsRoverTest methodsFor: 'Turning Left tests' stamp: 'DB 10/25/2020 21:44:53' prior: 50874095!
+test12TuringLeftWhenPointingSouth
+
+	self assertCorrectPositionAfterTurnLeftMovement: (MarsRover atSouth: 1@1) expectedDirection: EastDirection ! !
+!MarsRoverTest methodsFor: 'Turning Right tests' stamp: 'DB 10/25/2020 21:45:01' prior: 50874205!
+test15TurningRightWhenPointingSouth
+
+	self assertCorrectPositionAfterTurnRighttMovement: (MarsRover atSouth: 1@1) expectedDirection: WestDirection! !
+
+----SNAPSHOT----(25 October 2020 21:45:27) CuisUniversity-4384.image priorSource: 17378984!
+
+----QUIT----(25 October 2020 21:46:00) CuisUniversity-4384.image priorSource: 17379957!

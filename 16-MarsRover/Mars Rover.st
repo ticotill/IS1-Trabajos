@@ -23,10 +23,10 @@ test08BackwardWhenPointingEast
 	
 ! !
 
-!MarsRoverTest methodsFor: 'Backward tests' stamp: 'DB 10/25/2020 20:53:00'!
+!MarsRoverTest methodsFor: 'Backward tests' stamp: 'DB 10/25/2020 21:44:39'!
 test09BackwardWhenPointingSouth
 
-	self assertCorrectPositionAfterBackwardMovement: (MarsRover atSouth: 1@1)  expectPosition: (1@2)
+	self assertCorrectPositionAfterBackwardMovement: (MarsRover atSouth: 1@1) expectPosition: (1@2)
 	! !
 
 !MarsRoverTest methodsFor: 'Backward tests' stamp: 'DB 10/25/2020 20:30:22'!
@@ -54,10 +54,10 @@ test11TuringLeftWhenPointingEast
 	self assertCorrectPositionAfterTurnLeftMovement: (MarsRover atEast: 1@1) expectedDirection: NorthDirection
 	! !
 
-!MarsRoverTest methodsFor: 'Turning Left tests' stamp: 'DB 10/25/2020 20:37:26'!
+!MarsRoverTest methodsFor: 'Turning Left tests' stamp: 'DB 10/25/2020 21:44:53'!
 test12TuringLeftWhenPointingSouth
 
-	self assertCorrectPositionAfterTurnLeftMovement: (MarsRover atSouth: 1@1)  expectedDirection: EastDirection ! !
+	self assertCorrectPositionAfterTurnLeftMovement: (MarsRover atSouth: 1@1) expectedDirection: EastDirection ! !
 
 !MarsRoverTest methodsFor: 'Turning Left tests' stamp: 'DB 10/25/2020 20:37:51'!
 test13TuringLeftWhenPointingWest
@@ -81,10 +81,10 @@ test14TurningRightWhenPointingEast
 
 	self assertCorrectPositionAfterTurnRighttMovement: (MarsRover atEast: 1@1) expectedDirection: SouthDirection! !
 
-!MarsRoverTest methodsFor: 'Turning Right tests' stamp: 'DB 10/25/2020 20:40:11'!
+!MarsRoverTest methodsFor: 'Turning Right tests' stamp: 'DB 10/25/2020 21:45:01'!
 test15TurningRightWhenPointingSouth
 
-	self assertCorrectPositionAfterTurnRighttMovement: (MarsRover atSouth: 1@1)  expectedDirection: WestDirection! !
+	self assertCorrectPositionAfterTurnRighttMovement: (MarsRover atSouth: 1@1) expectedDirection: WestDirection! !
 
 !MarsRoverTest methodsFor: 'Turning Right tests' stamp: 'DB 10/25/2020 20:40:39'!
 test16TurningRightWhenPointingWest
@@ -157,24 +157,25 @@ Object subclass: #CardinalDirection
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!CardinalDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:18:12'!
+!CardinalDirection methodsFor: 'initialization' stamp: 'DB 10/25/2020 18:18:12'!
 initializeWith: aMarsRover
 	
 	marsRover := aMarsRover ! !
 
-!CardinalDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:18:34'!
+
+!CardinalDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:18:34'!
 moveBackward
 	self subclassResponsibility ! !
 
-!CardinalDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:19:14'!
+!CardinalDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:19:14'!
 moveForward
 	self subclassResponsibility ! !
 
-!CardinalDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:19:36'!
+!CardinalDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:19:36'!
 turnLeft
 	self subclassResponsibility ! !
 
-!CardinalDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:19:54'!
+!CardinalDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:19:54'!
 turnRight
 	self subclassResponsibility ! !
 
@@ -184,7 +185,7 @@ turnRight
 CardinalDirection class
 	instanceVariableNames: ''!
 
-!CardinalDirection class methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:17:20'!
+!CardinalDirection class methodsFor: 'instance creation' stamp: 'DB 10/25/2020 18:17:20'!
 for: aMarsRover
 
 	^self new initializeWith: aMarsRover ! !
@@ -197,22 +198,22 @@ CardinalDirection subclass: #EastDirection
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!EastDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:20:41'!
+!EastDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:20:41'!
 moveBackward
 
 	marsRover moveBackwardWhenDirectionIsEast ! !
 
-!EastDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:21:01'!
+!EastDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:21:01'!
 moveForward
 
 	marsRover moveForwardWhenDirectionIsEast ! !
 
-!EastDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:21:55'!
+!EastDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:21:55'!
 turnLeft
 
 	marsRover turnLeftWhenDirectionIsEast ! !
 
-!EastDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 19:02:31'!
+!EastDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 19:02:31'!
 turnRight
 
 	marsRover turnRightWhenDirectionIsEast ! !
@@ -225,22 +226,22 @@ CardinalDirection subclass: #NorthDirection
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!NorthDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:22:41'!
+!NorthDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:22:41'!
 moveBackward 
 	
 	marsRover moveBackwardWhenDirectionIsNorth ! !
 
-!NorthDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:22:58'!
+!NorthDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:22:58'!
 moveForward 
 	
 	marsRover moveForwardWhenDirectionIsNorth ! !
 
-!NorthDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:23:43'!
+!NorthDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:23:43'!
 turnLeft
 	
 	marsRover turnLeftWhenDirectionIsNorth ! !
 
-!NorthDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:23:21'!
+!NorthDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:23:21'!
 turnRight 
 	
 	marsRover turnRightWhenDirectionIsNorth ! !
@@ -253,22 +254,22 @@ CardinalDirection subclass: #SouthDirection
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!SouthDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:24:34'!
+!SouthDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:24:34'!
 moveBackward
 	
 	marsRover moveBackwardWhenDirectionIsSouth! !
 
-!SouthDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:24:16'!
+!SouthDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:24:16'!
 moveForward
 	
 	marsRover moveForwardWhenDirectionIsSouth! !
 
-!SouthDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:25:02'!
+!SouthDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:25:02'!
 turnLeft
 	
 	marsRover turnLeftWhenDirectionIsSouth! !
 
-!SouthDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:24:49'!
+!SouthDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:24:49'!
 turnRight
 	
 	marsRover turnRightWhenDirectionIsSouth! !
@@ -281,22 +282,22 @@ CardinalDirection subclass: #WestDirection
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!WestDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:25:47'!
+!WestDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:25:47'!
 moveBackward
 
 	marsRover moveBackwardWhenDirectionIsWest! !
 
-!WestDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:25:34'!
+!WestDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:25:34'!
 moveForward
 
 	marsRover moveForwardWhenDirectionIsWest! !
 
-!WestDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:26:12'!
+!WestDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:26:12'!
 turnLeft
 
 	marsRover turnLeftWhenDirectionIsWest! !
 
-!WestDirection methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 18:26:27'!
+!WestDirection methodsFor: 'movement' stamp: 'DB 10/25/2020 18:26:27'!
 turnRight
 
 	marsRover turnRightWhenDirectionIsWest! !
@@ -309,14 +310,15 @@ Object subclass: #Command
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!Command methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 20:17:46'!
+!Command methodsFor: 'movement' stamp: 'DB 10/25/2020 19:43:33'!
+move
+	self subclassResponsibility ! !
+
+
+!Command methodsFor: 'initialization' stamp: 'DB 10/25/2020 20:17:46'!
 initilizeFor: aCardinalDirection
 
 	cardinalDirection  := aCardinalDirection ! !
-
-!Command methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 19:43:33'!
-move
-	self subclassResponsibility ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -324,17 +326,18 @@ move
 Command class
 	instanceVariableNames: ''!
 
-!Command class methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 20:07:28'!
-canHandle
-	
-	self subclassResponsibility ! !
-
-!Command class methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 20:08:15'!
+!Command class methodsFor: 'instance creation' stamp: 'DB 10/25/2020 20:08:15'!
 for: aCardinalDirection
 	
 	^self new initilizeFor: aCardinalDirection ! !
 
-!Command class methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 20:17:04'!
+
+!Command class methodsFor: 'command selection' stamp: 'DB 10/25/2020 20:07:28'!
+canHandle
+	
+	self subclassResponsibility ! !
+
+!Command class methodsFor: 'command selection' stamp: 'DB 10/25/2020 20:17:04'!
 for: aCommand with: aCardinalDirection ifNone: aNoneCommand
 
 	^self subclasses  
@@ -351,7 +354,7 @@ Command subclass: #BackwardCommand
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!BackwardCommand methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 19:45:48'!
+!BackwardCommand methodsFor: 'movement' stamp: 'DB 10/25/2020 19:45:48'!
 move
 
 	cardinalDirection moveBackward! !
@@ -375,7 +378,7 @@ Command subclass: #ForwardCommand
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!ForwardCommand methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 19:46:27'!
+!ForwardCommand methodsFor: 'movement' stamp: 'DB 10/25/2020 19:46:27'!
 move
 
 	cardinalDirection moveForward ! !
@@ -399,7 +402,7 @@ Command subclass: #TurnLeftCommand
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!TurnLeftCommand methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 19:46:45'!
+!TurnLeftCommand methodsFor: 'movement' stamp: 'DB 10/25/2020 19:46:45'!
 move
 
 	cardinalDirection turnLeft ! !
@@ -423,7 +426,7 @@ Command subclass: #TurnRightCommand
 	poolDictionaries: ''
 	category: 'Mars Rover'!
 
-!TurnRightCommand methodsFor: 'as yet unclassified' stamp: 'DB 10/25/2020 19:47:10'!
+!TurnRightCommand methodsFor: 'movement' stamp: 'DB 10/25/2020 19:47:10'!
 move
 	
 	cardinalDirection turnRight ! !
