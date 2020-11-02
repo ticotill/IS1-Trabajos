@@ -123,20 +123,23 @@ test05CantPutChipOutOfBound
 	self checkThatYouCantPutOutOfBounds.
 		! !
 
-!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:36:56'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 14:20:41'!
 test06assertPlayerXCantPutChipWhenAllChipsHaveBeenPut
 	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	aCollectionOfPositions := OrderedCollection with: (1@1) with: (1@2) with: (0@2) with:(2@1) with:(2@2) with:(0@1).	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
+	aCollectionOfPositions := OrderedCollection with: (1@1) with: (1@2) with: (0@2) with:(2@1) with:(2@2) with:(0@1).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
 
 	self   should: [newTerniLapilliGame putXAt: (2@0)] 
 		 raise: Error 
 		 withMessageText: TerniLapilli cantPutIfInMovingPhase .! !
 
-!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:37:11'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 14:21:14'!
 test07assertPlayerOCantPutChipWhenAllChipsHaveBeenPut
-	|newTerniLapilliGame aCollectionOfPositions|	
-	newTerniLapilliGame := TerniLapilli new.	aCollectionOfPositions := OrderedCollection with: (1@1)with: (1@2) with: (0@2)with: (2@1) with: (2@2)with: (0@1).
+	|newTerniLapilliGame aCollectionOfPositions|
+	
+	newTerniLapilliGame := TerniLapilli new.
+	aCollectionOfPositions := OrderedCollection with: (1@1)with: (1@2) with: (0@2)with: (2@1) with: (2@2)with: (0@1).
 	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	
 	self   should: [newTerniLapilliGame putOAt: (2@0)] 
@@ -292,10 +295,11 @@ test18assertCorrectVerticalAndHorizontalMovementAsWellAsCorrectlyPassingTurn
 	self assert: newTerniLapilliGame isPlayingX.
 	 ! !
 
-!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:28:51'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 14:21:42'!
 test19assertPlayerXWonHorizontally
 	|newTerniLapilliGame aCollectionOfPositions|
-	newTerniLapilliGame := TerniLapilli new.	aCollectionOfPositions := OrderedCollection with: (0@0) with: (1@2) with: (0@1) with:(2@1) with:(0@2).
+	newTerniLapilliGame := TerniLapilli new.
+	aCollectionOfPositions := OrderedCollection with: (0@0) with: (1@2) with: (0@1) with:(2@1) with:(0@2).
 	
 	self fillBoardWith5Positions: aCollectionOfPositions in: newTerniLapilliGame.
 	
