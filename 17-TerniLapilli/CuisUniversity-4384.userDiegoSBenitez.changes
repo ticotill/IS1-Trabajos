@@ -52959,3 +52959,403 @@ PASSED!
 ----SNAPSHOT----(2 November 2020 03:59:21) CuisUniversity-4384.image priorSource: 18150928!
 
 ----QUIT----(2 November 2020 04:00:27) CuisUniversity-4384.image priorSource: 18203514!
+
+----STARTUP---- (2 November 2020 13:59:50) as /Users/dbenitez/uba/2c2020-IS1/Quiz/macos64-MarsRover/CuisUniversity-4384.image!
+
+
+!classRemoval: #TerniLapilliPlayerX stamp: 'DB 11/2/2020 13:59:58'!
+TerniLapilliPlayer subclass: #TerniLapilliPlayerX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPlayerO stamp: 'DB 11/2/2020 13:59:58'!
+TerniLapilliPlayer subclass: #TerniLapilliPlayerO
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPlayer stamp: 'DB 11/2/2020 13:59:58'!
+Object subclass: #TerniLapilliPlayer
+	instanceVariableNames: 'terniLapilliGame'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPuttingPhase stamp: 'DB 11/2/2020 13:59:59'!
+TerniLapilliPhase subclass: #TerniLapilliPuttingPhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliMovingPhase stamp: 'DB 11/2/2020 13:59:59'!
+TerniLapilliPhase subclass: #TerniLapilliMovingPhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliGameOverPhase stamp: 'DB 11/2/2020 13:59:59'!
+TerniLapilliPhase subclass: #TerniLapilliGameOverPhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPhase stamp: 'DB 11/2/2020 13:59:59'!
+Object subclass: #TerniLapilliPhase
+	instanceVariableNames: 'terniLapilliGame'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilli stamp: 'DB 11/2/2020 14:00:00'!
+Object subclass: #TerniLapilli
+	instanceVariableNames: 'chipsX chipsO turn'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliTest stamp: 'DB 11/2/2020 14:00:00'!
+TestCase subclass: #TerniLapilliTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+----End fileIn of /Users/dbenitez/uba/2c2020-IS1/Quiz/macos64-MarsRover/Terni_Lapilli.st----!
+
+!testRun: #TerniLapilliTest #test01assertOnStartItsPlayerXTurn stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test02assertAfterXTurnGoesO stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test03assertPlayerOCantPutChipIfItIsntItsTurn stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test04assertPlayerOCantPutChipOnAnOccupiedSlot stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test05CantPutChipOutOfBound stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test06assertPlayerXCantPutChipWhenAllChipsHaveBeenPut stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test07assertPlayerOCantPutChipWhenAllChipsHaveBeenPut stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test08assertPlayerXCantPutChipIfItIsntItsTurn stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test09assertPlayerXCantPutChipOnAnOccupiedSlot stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test10assertCantMoveMoreThanOnePositionAtATime stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test11assertCantDoInvalidDiagonalMovement stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test12assertCantMoveAnEmptyPosition stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test13assertCantMoveOutOfBounds stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test14CantPutWhileMovingPhase stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test15CantMoveIfIsNotYourTurn stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test16CantMoveIfNotAllChipHaveBeenPutDown stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test17InMovementPhasePlayerXStartsThenItIsPlayerOTurn stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test18assertCorrectVerticalAndHorizontalMovementAsWellAsCorrectlyPassingTurn stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test19assertPlayerXWonHorizontally stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test20assertPlayerOWonHorizontally stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test21CantWinHorizontalWithLessThanThreeChips stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test22CantWinVerticalWithLessThanThreeChips stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test23assertPlayerXWonVertically stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test24assertPlayerOWonVertically stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test25XWinsDiagonally stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test26OWinsDiagonally stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test27GameDoesNotContinueAfterWinningInPutingPhase stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test28AfterMovingWin stamp: 'DB 11/2/2020 14:01:22'!
+PASSED!
+
+!classRemoval: #TerniLapilliPlayerX stamp: 'DB 11/2/2020 14:01:31'!
+TerniLapilliPlayer subclass: #TerniLapilliPlayerX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPlayerO stamp: 'DB 11/2/2020 14:01:32'!
+TerniLapilliPlayer subclass: #TerniLapilliPlayerO
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPlayer stamp: 'DB 11/2/2020 14:01:32'!
+Object subclass: #TerniLapilliPlayer
+	instanceVariableNames: 'terniLapilliGame'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPuttingPhase stamp: 'DB 11/2/2020 14:01:32'!
+TerniLapilliPhase subclass: #TerniLapilliPuttingPhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliMovingPhase stamp: 'DB 11/2/2020 14:01:32'!
+TerniLapilliPhase subclass: #TerniLapilliMovingPhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliGameOverPhase stamp: 'DB 11/2/2020 14:01:33'!
+TerniLapilliPhase subclass: #TerniLapilliGameOverPhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPhase stamp: 'DB 11/2/2020 14:01:33'!
+Object subclass: #TerniLapilliPhase
+	instanceVariableNames: 'terniLapilliGame'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilli stamp: 'DB 11/2/2020 14:01:33'!
+Object subclass: #TerniLapilli
+	instanceVariableNames: 'chipsX chipsO turn'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliTest stamp: 'DB 11/2/2020 14:01:34'!
+TestCase subclass: #TerniLapilliTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+----End fileIn of /Users/dbenitez/uba/2c2020-IS1/Quiz/macos64-MarsRover/Terni_Lapilli.st----!
+
+!classRemoval: #TerniLapilliPlayerX stamp: 'DB 11/2/2020 14:08:38'!
+TerniLapilliPlayer subclass: #TerniLapilliPlayerX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPlayerO stamp: 'DB 11/2/2020 14:08:39'!
+TerniLapilliPlayer subclass: #TerniLapilliPlayerO
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPlayer stamp: 'DB 11/2/2020 14:08:39'!
+Object subclass: #TerniLapilliPlayer
+	instanceVariableNames: 'terniLapilliGame'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPuttingPhase stamp: 'DB 11/2/2020 14:08:39'!
+TerniLapilliPhase subclass: #TerniLapilliPuttingPhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliMovingPhase stamp: 'DB 11/2/2020 14:08:39'!
+TerniLapilliPhase subclass: #TerniLapilliMovingPhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliGameOverPhase stamp: 'DB 11/2/2020 14:08:40'!
+TerniLapilliPhase subclass: #TerniLapilliGameOverPhase
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliPhase stamp: 'DB 11/2/2020 14:08:40'!
+Object subclass: #TerniLapilliPhase
+	instanceVariableNames: 'terniLapilliGame'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilli stamp: 'DB 11/2/2020 14:08:40'!
+Object subclass: #TerniLapilli
+	instanceVariableNames: 'chipsX chipsO turn'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+!classRemoval: #TerniLapilliTest stamp: 'DB 11/2/2020 14:08:41'!
+TestCase subclass: #TerniLapilliTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Terni Lapilli'!
+
+----End fileIn of /Users/dbenitez/uba/2c2020-IS1/Quiz/macos64-MarsRover/Terni_Lapilli.st----!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 14:11:09' prior: 50903674!
+test14CantPutWhileMovingPhase
+	|newTerniLapilliGame aCollectionOfPositions|
+	newTerniLapilliGame := TerniLapilli new.
+	aCollectionOfPositions := OrderedCollection with: (0@1)with: (0@0) with: (1@2)with: (2@1) with: (1@1)with: (2@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .	
+	newTerniLapilliGame move: (1@1) to: (1@0).
+	
+	self assert: newTerniLapilliGame isMovingPhase.
+			
+	self   should: [newTerniLapilliGame putOAt: (2@0)] 
+		 raise: Error 
+		 withMessageText: TerniLapilli cantPutIfInMovingPhase.
+		
+! !
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 14:11:30' prior: 50903792!
+test20assertPlayerOWonHorizontally
+	|newTerniLapilliGame aCollectionOfPositions|
+	newTerniLapilliGame := TerniLapilli new.
+	aCollectionOfPositions := OrderedCollection with: (0@0) with: (1@1) with: (0@1) with:(1@0) with:(2@0) with:(1@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
+	self assert: newTerniLapilliGame hasPlayerOWon.
+	self deny: newTerniLapilliGame hasPlayerXWon.
+	! !
+!TerniLapilli methodsFor: 'comparing' stamp: 'DB 11/2/2020 14:12:51' prior: 50904197!
+isBoardFull
+	^(chipsX size = 3) and: (chipsO size = 3)! !
+
+----QUIT----(2 November 2020 14:14:54) CuisUniversity-4384.image priorSource: 18203607!
+
+----STARTUP---- (2 November 2020 14:15:05) as /Users/dbenitez/uba/2c2020-IS1/Quiz/macos64-MarsRover/CuisUniversity-4384.image!
+
+
+!testRun: #TerniLapilliTest #test01assertOnStartItsPlayerXTurn stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test02assertAfterXTurnGoesO stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test03assertPlayerOCantPutChipIfItIsntItsTurn stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test04assertPlayerOCantPutChipOnAnOccupiedSlot stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test05CantPutChipOutOfBound stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test06assertPlayerXCantPutChipWhenAllChipsHaveBeenPut stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test07assertPlayerOCantPutChipWhenAllChipsHaveBeenPut stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test08assertPlayerXCantPutChipIfItIsntItsTurn stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test09assertPlayerXCantPutChipOnAnOccupiedSlot stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test10assertCantMoveMoreThanOnePositionAtATime stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test11assertCantDoInvalidDiagonalMovement stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test12assertCantMoveAnEmptyPosition stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test13assertCantMoveOutOfBounds stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test14CantPutWhileMovingPhase stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test15CantMoveIfIsNotYourTurn stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test16CantMoveIfNotAllChipHaveBeenPutDown stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test17InMovementPhasePlayerXStartsThenItIsPlayerOTurn stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test18assertCorrectVerticalAndHorizontalMovementAsWellAsCorrectlyPassingTurn stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test19assertPlayerXWonHorizontally stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test20assertPlayerOWonHorizontally stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test21CantWinHorizontalWithLessThanThreeChips stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test22CantWinVerticalWithLessThanThreeChips stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test23assertPlayerXWonVertically stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test24assertPlayerOWonVertically stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test25XWinsDiagonally stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test26OWinsDiagonally stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test27GameDoesNotContinueAfterWinningInPutingPhase stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+!testRun: #TerniLapilliTest #test28AfterMovingWin stamp: 'DB 11/2/2020 14:15:09'!
+PASSED!
+
+----QUIT----(2 November 2020 14:15:14) CuisUniversity-4384.image priorSource: 18337817!

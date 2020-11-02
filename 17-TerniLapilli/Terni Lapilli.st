@@ -5,42 +5,9 @@ TestCase subclass: #TerniLapilliTest
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 23:51:40'!
-test01assertOnStartItsPlayerXTurn
-	|newTerniLapilliGame|
-	newTerniLapilliGame := TerniLapilli new.
-	self assert: newTerniLapilliGame isEmpty.
-	self assert: newTerniLapilliGame isPlayingX.
-	self deny: newTerniLapilliGame isPlayingO.! !
+!TerniLapilliTest methodsFor: 'Testing Methods' stamp: 'ad 11/2/2020 13:34:46'!
+checkThatYouCantPutOutOfBounds
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'ad 10/29/2020 19:31:14'!
-test02assertAfterXTurnGoesO
-	|newTerniLapilliGame|
-	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (1@1).
-	self assert: newTerniLapilliGame isPlayingO.
-	self deny: newTerniLapilliGame isPlayingX.! !
-
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:52'!
-test03assertPlayerOCantPutChipIfItIsntItsTurn
-	|newTerniLapilliGame|
-	newTerniLapilliGame := TerniLapilli new.
-	
-	self   should: [newTerniLapilliGame putOAt: (1@1)] 
-		 raise: Error 
-		 withMessageText: TerniLapilli invalidMoveNotYourTurn .! !
-
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:02'!
-test04assertPlayerOCantPutChipOnAnOccupiedSlot
-	|newTerniLapilliGame|
-	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (1@1).
-	self   should: [newTerniLapilliGame putOAt: (1@1)] 
-		 raise: Error 
-		 withMessageText: TerniLapilli invalidMoveCantPutChipOnOccupiedSlot .! !
-
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:47'!
-test05CantPutChipOutOfBound
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
 	
@@ -58,39 +25,125 @@ test05CantPutChipOutOfBound
 		
 	self should: [newTerniLapilliGame putXAt: (1@-1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
-		! !
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:38:02'!
-test06assertPlayerXCantPutChipWhenAllChipsHaveBeenPut
+!TerniLapilliTest methodsFor: 'Testing Methods' stamp: 'ad 11/2/2020 13:31:43'!
+createEmptyAndCheckThatPlayerXStarts
+
+	|newTerniLapilliGame|
+	newTerniLapilliGame := TerniLapilli new.
+	self assert: newTerniLapilliGame isEmpty.
+	self assert: newTerniLapilliGame isPlayingX.
+	self deny: newTerniLapilliGame isPlayingO! !
+
+!TerniLapilliTest methodsFor: 'Testing Methods' stamp: 'ad 11/2/2020 13:32:55'!
+createGameAndCheckThatAfterPlayerXGoesPlayerO
+
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
 	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (1@2).
-	newTerniLapilliGame putXAt: (0@2).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (2@2).
-	newTerniLapilliGame putOAt: (0@1).
+	self assert: newTerniLapilliGame isPlayingO.
+	self deny: newTerniLapilliGame isPlayingX! !
+
+!TerniLapilliTest methodsFor: 'Testing Methods' stamp: 'ad 11/2/2020 13:39:21'!
+fillBoardWith2Positions: aCollectionOfPositions in: aTerniLapilliGame 
+	
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 1).
+	aTerniLapilliGame putOAt:(aCollectionOfPositions at: 2).! !
+
+!TerniLapilliTest methodsFor: 'Testing Methods' stamp: 'ad 11/2/2020 13:28:09'!
+fillBoardWith3Positions: aCollectionOfPositions in: aTerniLapilliGame
+
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 1).
+	aTerniLapilliGame putOAt:(aCollectionOfPositions at: 2).
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 3).
+	
+	
+	! !
+
+!TerniLapilliTest methodsFor: 'Testing Methods' stamp: 'ad 11/2/2020 13:27:59'!
+fillBoardWith4Positions: aCollectionOfPositions in: aTerniLapilliGame
+
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 1).
+	aTerniLapilliGame putOAt:(aCollectionOfPositions at: 2).
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 3).
+	aTerniLapilliGame putOAt:(aCollectionOfPositions at: 4).
+	
+	! !
+
+!TerniLapilliTest methodsFor: 'Testing Methods' stamp: 'ad 11/2/2020 13:27:44'!
+fillBoardWith5Positions: aCollectionOfPositions in: aTerniLapilliGame
+
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 1).
+	aTerniLapilliGame putOAt:(aCollectionOfPositions at: 2).
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 3).
+	aTerniLapilliGame putOAt:(aCollectionOfPositions at: 4).
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 5).
+	! !
+
+!TerniLapilliTest methodsFor: 'Testing Methods' stamp: 'ad 11/2/2020 13:27:30'!
+fillBoardWith6Positions: aCollectionOfPositions in: aTerniLapilliGame
+
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 1).
+	aTerniLapilliGame putOAt:(aCollectionOfPositions at: 2).
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 3).
+	aTerniLapilliGame putOAt:(aCollectionOfPositions at: 4).
+	aTerniLapilliGame putXAt: (aCollectionOfPositions at: 5).
+	aTerniLapilliGame putOAt:(aCollectionOfPositions at: 6).! !
+
+
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:31:44'!
+test01assertOnStartItsPlayerXTurn
+	self createEmptyAndCheckThatPlayerXStarts.! !
+
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:32:55'!
+test02assertAfterXTurnGoesO
+	self createGameAndCheckThatAfterPlayerXGoesPlayerO.! !
+
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 02:39:52'!
+test03assertPlayerOCantPutChipIfItIsntItsTurn
+	|newTerniLapilliGame|
+	newTerniLapilliGame := TerniLapilli new.
+	
+	self   should: [newTerniLapilliGame putOAt: (1@1)] 
+		 raise: Error 
+		 withMessageText: TerniLapilli invalidMoveNotYourTurn .! !
+
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 02:39:02'!
+test04assertPlayerOCantPutChipOnAnOccupiedSlot
+	|newTerniLapilliGame|
+	newTerniLapilliGame := TerniLapilli new.
+	newTerniLapilliGame putXAt: (1@1).
+	self   should: [newTerniLapilliGame putOAt: (1@1)] 
+		 raise: Error 
+		 withMessageText: TerniLapilli invalidMoveCantPutChipOnOccupiedSlot .! !
+
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:34:46'!
+test05CantPutChipOutOfBound
+	self checkThatYouCantPutOutOfBounds.
+		! !
+
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:36:56'!
+test06assertPlayerXCantPutChipWhenAllChipsHaveBeenPut
+	|newTerniLapilliGame aCollectionOfPositions|
+	newTerniLapilliGame := TerniLapilli new.
+	aCollectionOfPositions := OrderedCollection with: (1@1) with: (1@2) with: (0@2) with:(2@1) with:(2@2) with:(0@1).	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
+
 	self   should: [newTerniLapilliGame putXAt: (2@0)] 
 		 raise: Error 
 		 withMessageText: TerniLapilli cantPutIfInMovingPhase .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:38:02'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:37:11'!
 test07assertPlayerOCantPutChipWhenAllChipsHaveBeenPut
-	|newTerniLapilliGame|
-	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (1@2).
-	newTerniLapilliGame putXAt: (0@2).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (2@2).
-	newTerniLapilliGame putOAt: (0@1).
-
+	|newTerniLapilliGame aCollectionOfPositions|	
+	newTerniLapilliGame := TerniLapilli new.	aCollectionOfPositions := OrderedCollection with: (1@1)with: (1@2) with: (0@2)with: (2@1) with: (2@2)with: (0@1).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
+	
 	self   should: [newTerniLapilliGame putOAt: (2@0)] 
 		 raise: Error 
 		 withMessageText: TerniLapilli cantPutIfInMovingPhase .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:52'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 02:39:52'!
 test08assertPlayerXCantPutChipIfItIsntItsTurn
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -101,98 +154,76 @@ test08assertPlayerXCantPutChipIfItIsntItsTurn
 		 raise: Error 
 		 withMessageText: TerniLapilli invalidMoveNotYourTurn .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:02'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:39:35'!
 test09assertPlayerXCantPutChipOnAnOccupiedSlot
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (1@0).
-	newTerniLapilliGame putOAt: (1@1).
+	aCollectionOfPositions := OrderedCollection with: (1@0) with: (1@1).
+	self fillBoardWith2Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	self   should: [newTerniLapilliGame putXAt: (1@1)] 
 		 raise: Error 
 		 withMessageText: TerniLapilli invalidMoveCantPutChipOnOccupiedSlot .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:33'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:40:48'!
 test10assertCantMoveMoreThanOnePositionAtATime
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (1@2).
-	newTerniLapilliGame putXAt: (0@2).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (2@2).
-	newTerniLapilliGame putOAt: (0@0).
+	aCollectionOfPositions := OrderedCollection with: (1@1)with: (1@2) with: (0@2)with: (2@1) with: (2@2)with: (0@0).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
+	
 	self   should: [newTerniLapilliGame move: (0@0) to: (2@0)] 
 		 raise: Error 
 		 withMessageText: TerniLapilli cantMoveMoreThanOnePositionAtATime.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:36:54'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:41:37'!
 test11assertCantDoInvalidDiagonalMovement
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (2@2).
-	newTerniLapilliGame putOAt: (0@2).
-	"(0@1) no me puedo mover para (1@0) o (1@2)"
+	aCollectionOfPositions := OrderedCollection with: (0@1)with: (0@0) with: (1@1)with: (2@1) with: (2@2)with: (0@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	self   should: [newTerniLapilliGame move: (0@1) to: (1@2)] 
 		 raise: Error 
 		 withMessageText: TerniLapilli cantDoInvalidDiagonalMovement.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:17'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:42:15'!
 test12assertCantMoveAnEmptyPosition
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (2@2).
-	newTerniLapilliGame putOAt: (0@2).
-	
+	aCollectionOfPositions := OrderedCollection with: (0@1)with: (0@0) with: (1@1)with: (2@1) with: (2@2)with: (0@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
+
 	self   should: [newTerniLapilliGame move: (1@0) to: (2@0)] 
 		 raise: Error 
 		 withMessageText: TerniLapilli cantMoveAnEmptyPosition.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:47'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:42:34'!
 test13assertCantMoveOutOfBounds
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (2@2).
-	newTerniLapilliGame putOAt: (0@2).
-	
+	aCollectionOfPositions := OrderedCollection with: (0@1)with: (0@0) with: (1@1)with: (2@1) with: (2@2)with: (0@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
+
 	self   should: [newTerniLapilliGame move: (0@2) to: (-1@2)] 
 		 raise: Error 
 		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:47'!
-test14OCantPutChipOutOfBound
-	|newTerniLapilliGame|
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 14:11:09'!
+test14CantPutWhileMovingPhase
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
+	aCollectionOfPositions := OrderedCollection with: (0@1)with: (0@0) with: (1@2)with: (2@1) with: (1@1)with: (2@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .	
+	newTerniLapilliGame move: (1@1) to: (1@0).
 	
-	self should: [newTerniLapilliGame putOAt: (3@1)] 
+	self assert: newTerniLapilliGame isMovingPhase.
+			
+	self   should: [newTerniLapilliGame putOAt: (2@0)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
+		 withMessageText: TerniLapilli cantPutIfInMovingPhase.
 		
-	self should: [newTerniLapilliGame putOAt: (-1@1)] 
-		 raise: Error 
-		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
-		
-	self should: [newTerniLapilliGame putOAt: (0@3)] 
-		 raise: Error 
-		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
-		
-	self should: [newTerniLapilliGame putOAt: (1@-1)] 
-		 raise: Error 
-		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
-		! !
+! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:52'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 02:39:52'!
 test15CantMoveIfIsNotYourTurn
 	
 	|newTerniLapilliGame|
@@ -209,14 +240,13 @@ test15CantMoveIfIsNotYourTurn
 		 withMessageText: TerniLapilli invalidMoveNotYourTurn.
 ! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:42:18'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:44:44'!
 test16CantMoveIfNotAllChipHaveBeenPutDown
 	
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@1).
+	aCollectionOfPositions := OrderedCollection with: (0@1)with: (0@0) with: (1@1).
+	self fillBoardWith3Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	
 	self assert: newTerniLapilliGame isPuttingPhase.
 	
@@ -224,42 +254,30 @@ test16CantMoveIfNotAllChipHaveBeenPutDown
 		 raise: Error 
 		 withMessageText: TerniLapilli cantMoveIfInPuttingPhase .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 23:11:04'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:45:28'!
 test17InMovementPhasePlayerXStartsThenItIsPlayerOTurn
 	
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (2@2).
-	newTerniLapilliGame putOAt: (0@2).
+	aCollectionOfPositions := OrderedCollection with: (0@1)with: (0@0) with: (1@1)with: (2@1) with: (2@2)with: (0@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame.
 	
 	newTerniLapilliGame move: (1@1) to: (1@2).
 	
 	self assert: newTerniLapilliGame isPlayingO.
 	
 	newTerniLapilliGame move: (0@0) to: (1@0).
-	
 	self assert: newTerniLapilliGame isPlayingX.
-	
-	
-	
 	
 	 ! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 21:18:34'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:46:19'!
 test18assertCorrectVerticalAndHorizontalMovementAsWellAsCorrectlyPassingTurn
-	
-	|newTerniLapilliGame|
+
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (2@2).
-	newTerniLapilliGame putOAt: (0@2).
+	aCollectionOfPositions := OrderedCollection with: (0@1)with: (0@0) with: (1@1)with: (2@1) with: (2@2)with: (0@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	
 	newTerniLapilliGame move: (1@1) to: (1@2).
 	
@@ -272,130 +290,96 @@ test18assertCorrectVerticalAndHorizontalMovementAsWellAsCorrectlyPassingTurn
 	self assert: (newTerniLapilliGame chipOIsInPosition: (1@0)).
 	self assert: (newTerniLapilliGame isAnEmptyPosition: (0@0)).
 	self assert: newTerniLapilliGame isPlayingX.
-	
-	
-	
-	
 	 ! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 21:20:02'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:28:51'!
 test19assertPlayerXWonHorizontally
-	|newTerniLapilliGame|
-	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@0).
-	newTerniLapilliGame putOAt: (1@2).
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (0@2).
+	|newTerniLapilliGame aCollectionOfPositions|
+	newTerniLapilliGame := TerniLapilli new.	aCollectionOfPositions := OrderedCollection with: (0@0) with: (1@2) with: (0@1) with:(2@1) with:(0@2).
+	
+	self fillBoardWith5Positions: aCollectionOfPositions in: newTerniLapilliGame.
+	
 	self assert: (newTerniLapilliGame hasPlayerXWon).
 	self deny: newTerniLapilliGame hasPlayerOWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 21:24:39'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'DB 11/2/2020 14:11:30'!
 test20assertPlayerOWonHorizontally
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@0).
-	newTerniLapilliGame putOAt: (1@1).
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (1@0).
-	newTerniLapilliGame putXAt: (2@0).
-	newTerniLapilliGame putOAt: (1@2).	
-	
+	aCollectionOfPositions := OrderedCollection with: (0@0) with: (1@1) with: (0@1) with:(1@0) with:(2@0) with:(1@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	self assert: newTerniLapilliGame hasPlayerOWon.
 	self deny: newTerniLapilliGame hasPlayerXWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 21:39:08'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:47:29'!
 test21CantWinHorizontalWithLessThanThreeChips
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@0).
-	newTerniLapilliGame putOAt: (1@1).
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (1@0).
-	
+	aCollectionOfPositions := OrderedCollection with: (0@0)with: (1@1) with: (0@1)with: (1@0).
+	self fillBoardWith4Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	self deny: newTerniLapilliGame hasPlayerOWon.
 	self deny: newTerniLapilliGame hasPlayerXWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 21:47:08'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:48:04'!
 test22CantWinVerticalWithLessThanThreeChips
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@0).
-	newTerniLapilliGame putOAt: (1@1).
-	newTerniLapilliGame putXAt: (1@0).
-	newTerniLapilliGame putOAt: (2@0).
-	
+	aCollectionOfPositions := OrderedCollection with: (0@0)with: (1@1) with: (1@0)with: (2@0).
+	self fillBoardWith4Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	self deny: newTerniLapilliGame hasPlayerOWon.
 	self deny: newTerniLapilliGame hasPlayerXWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 21:47:01'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:48:46'!
 test23assertPlayerXWonVertically
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@0).
-	newTerniLapilliGame putOAt: (1@2).
-	newTerniLapilliGame putXAt: (1@0).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (2@0).
+	aCollectionOfPositions := OrderedCollection with: (0@0)with: (1@2) with: (1@0)with: (2@1) with: (2@0).
+	self fillBoardWith5Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	self assert: (newTerniLapilliGame hasPlayerXWon).
 	self deny: newTerniLapilliGame hasPlayerOWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 21:46:52'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:49:21'!
 test24assertPlayerOWonVertically
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@2).
-	newTerniLapilliGame putOAt: (1@0).
-	newTerniLapilliGame putXAt: (2@1).
-	newTerniLapilliGame putOAt: (2@0).
+	aCollectionOfPositions := OrderedCollection with: (0@1)with: (0@0) with: (1@2)with: (1@0) with: (2@1)with: (2@0).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	self assert: (newTerniLapilliGame hasPlayerOWon).
 	self deny: newTerniLapilliGame hasPlayerXWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 22:14:33'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:49:48'!
 test25XWinsDiagonally
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (2@0).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (1@0).
-	newTerniLapilliGame putXAt: (0@2).
+	aCollectionOfPositions := OrderedCollection with: (2@0)with: (0@0) with: (1@1)with: (1@0) with: (0@2).
+	self fillBoardWith5Positions: aCollectionOfPositions in: newTerniLapilliGame .
+	
 	self assert: (newTerniLapilliGame hasPlayerXWon).
 	self deny: newTerniLapilliGame hasPlayerOWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 22:16:19'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:50:34'!
 test26OWinsDiagonally
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (2@0).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (2@1).
-	newTerniLapilliGame putOAt: (1@1).
-	newTerniLapilliGame putXAt: (0@2).
-	newTerniLapilliGame putOAt: (2@2).
+	aCollectionOfPositions := OrderedCollection with: (2@0)with: (0@0) with: (2@1)with: (1@1) with: (0@2)with: (2@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	self assert: (newTerniLapilliGame hasPlayerOWon).
 	self deny: newTerniLapilliGame hasPlayerXWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:38:23'!
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:51:18'!
 test27GameDoesNotContinueAfterWinningInPutingPhase
-	|newTerniLapilliGame|
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (2@0).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (2@1).
-	newTerniLapilliGame putOAt: (1@1).
-	newTerniLapilliGame putXAt: (2@2).
-	
+	aCollectionOfPositions := OrderedCollection with: (2@0)with: (0@0) with: (2@1)with: (1@1) with: (2@2).
+	self fillBoardWith5Positions: aCollectionOfPositions in: newTerniLapilliGame.
 	self   should: [newTerniLapilliGame putOAt: (1@0)] 
 		 raise: Error 
 		 withMessageText: TerniLapilli gameIsOver.
@@ -404,44 +388,14 @@ test27GameDoesNotContinueAfterWinningInPutingPhase
 	self deny: newTerniLapilliGame hasPlayerOWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:38:02'!
-test28CantPutWhileMovingPhase
-	
-	|newTerniLapilliGame|
+!TerniLapilliTest methodsFor: 'Tests' stamp: 'ad 11/2/2020 13:52:55'!
+test28AfterMovingWin
+	|newTerniLapilliGame aCollectionOfPositions|
 	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (0@1).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@2).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (2@2).
-	
-	newTerniLapilliGame move: (1@1) to: (1@0).
-	
+	aCollectionOfPositions := OrderedCollection with: (2@0)with: (0@0) with: (1@2)with: (2@1) with: (1@1)with: (2@2).
+	self fillBoardWith6Positions: aCollectionOfPositions in: newTerniLapilliGame .
 	self assert: newTerniLapilliGame isMovingPhase.
-			
-	self   should: [newTerniLapilliGame putOAt: (2@0)] 
-		 raise: Error 
-		 withMessageText: TerniLapilli cantPutIfInMovingPhase.
-		
-! !
-
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 01:18:26'!
-test29AfterMovingWin
-	
-	|newTerniLapilliGame|
-	newTerniLapilliGame := TerniLapilli new.
-	newTerniLapilliGame putXAt: (2@0).
-	newTerniLapilliGame putOAt: (0@0).
-	newTerniLapilliGame putXAt: (1@2).
-	newTerniLapilliGame putOAt: (2@1).
-	newTerniLapilliGame putXAt: (1@1).
-	newTerniLapilliGame putOAt: (2@2).
-	
-	self assert: newTerniLapilliGame isMovingPhase.
-	
 	newTerniLapilliGame move: (2@0) to: (1@0).
-	
 	self assert: newTerniLapilliGame isGameOver.
 ! !
 
@@ -726,9 +680,8 @@ isAnEmptyPosition: aPoint
 	^ ((chipsX includes: aPoint) or: (chipsO includes: aPoint)) not
 ! !
 
-!TerniLapilli methodsFor: 'comparing' stamp: 'DB 11/1/2020 20:44:37'!
+!TerniLapilli methodsFor: 'comparing' stamp: 'DB 11/2/2020 14:12:51'!
 isBoardFull
-
 	^(chipsX size = 3) and: (chipsO size = 3)! !
 
 !TerniLapilli methodsFor: 'comparing' stamp: 'DB 10/29/2020 20:28:51'!
