@@ -448,45 +448,62 @@ test29AfterMovingWin
 
 !classDefinition: #TerniLapilli category: 'Terni Lapilli'!
 Object subclass: #TerniLapilli
-	instanceVariableNames: 'currentTurn chipsX chipsO'
+	instanceVariableNames: 'chipsX chipsO turn'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
 
-!TerniLapilli methodsFor: 'private movement' stamp: 'DB 11/2/2020 01:38:49'!
-moveAndChangeTurnFrom: aSourcePoint to: aDestinationPoint
+!TerniLapilli methodsFor: 'private movement' stamp: 'DB 11/2/2020 03:54:00'!
+moveWhenItIsPlayerOsTurn: aSourcePoint to: aDestinationPoint
 
-	currentTurn = #X ifTrue: [
-		chipsX remove: aSourcePoint.
-		chipsX add: aDestinationPoint.
-		currentTurn := #O
-	]
-	 ifFalse: [
-		chipsO remove: aSourcePoint.
-		chipsO add: aDestinationPoint.
-		currentTurn := #X
-	].
-
-
+	chipsO remove: aSourcePoint.
+	chipsO add: aDestinationPoint.
+	
 	
 	
 	
 	! !
 
+!TerniLapilli methodsFor: 'private movement' stamp: 'DB 11/2/2020 03:53:45'!
+moveWhenItIsPlayerXsTurn: aSourcePoint to: aDestinationPoint
 
-!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/1/2020 23:08:47'!
+	chipsX remove: aSourcePoint.
+	chipsX add: aDestinationPoint.
+	
+	
+	
+	
+	! !
+
+!TerniLapilli methodsFor: 'private movement' stamp: 'DB 11/2/2020 03:20:22'!
+nextTurn
+	turn := turn + 1	
+	
+	
+	! !
+
+
+!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/2/2020 03:56:10'!
 move: aSourcePoint to: aDestinationPoint
 	
 	self validateMovementFrom: aSourcePoint to: aDestinationPoint.
 	
-	self moveAndChangeTurnFrom: aSourcePoint to: aDestinationPoint.
-
+	self player moveFrom: aSourcePoint to: aDestinationPoint.
+	
+	self nextTurn 
+	
 	
 	
 	
 	! !
 
-!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/2/2020 01:30:10'!
+!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/2/2020 03:34:30'!
+put: aPoint 
+
+	self player put: aPoint
+! !
+
+!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/2/2020 03:58:25'!
 putOAt: aPoint 
 	
 	self assertPositionAndState: aPoint.
@@ -494,11 +511,25 @@ putOAt: aPoint
 	self isPlayingX ifTrue: [^	self class signalErrorInvalidMoveNotYourTurn ].
 	chipsO add: aPoint.
 	
-	currentTurn := #X.
+	self nextTurn 
 	
 	! !
 
-!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/2/2020 01:30:16'!
+!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/2/2020 03:57:27'!
+putWhenItIsPlayerOsTurn: aPoint 
+	chipsO add: aPoint.
+
+	
+	! !
+
+!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/2/2020 03:57:34'!
+putWhenItIsPlayerXsTurn: aPoint 
+	chipsX add: aPoint.
+
+	
+	! !
+
+!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/2/2020 03:23:00'!
 putXAt: aPoint 
 	
 	self assertPositionAndState: aPoint.
@@ -506,19 +537,24 @@ putXAt: aPoint
 	self isPlayingO ifTrue: [^self class signalErrorInvalidMoveNotYourTurn ].
 	chipsX add: aPoint.
 	
-	currentTurn := #O.! !
+	self nextTurn ! !
 
 
-!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/1/2020 23:02:45'!
+!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/2/2020 03:45:15'!
 assertCorrectTurn: aSourcePoint 
 
-	(chipsX includes: aSourcePoint) ifTrue: [
-		currentTurn = #X ifFalse: [^self class signalInvalidMoveNotYourTurn ]	
-	].
+	self player assertCorrectTurn: aSourcePoint.
+! !
 
-	(chipsO includes: aSourcePoint) ifTrue: [
-		currentTurn = #O ifFalse: [^self class signalInvalidMoveNotYourTurn ]	
-	].! !
+!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/2/2020 03:44:53'!
+assertCorrectTurnWhenItIsPlayerOsTurn: aSourcePoint 
+
+	(chipsO includes: aSourcePoint) ifFalse: [^self class signalInvalidMoveNotYourTurn ]	! !
+
+!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/2/2020 03:45:09'!
+assertCorrectTurnWhenItIsPlayerXsTurn: aSourcePoint 
+
+	(chipsX includes: aSourcePoint) ifFalse: [^self class signalInvalidMoveNotYourTurn ]	! !
 
 !TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/1/2020 23:56:11'!
 assertInBounds: aPoint 
@@ -598,12 +634,11 @@ validateMovementFrom: aSourcePoint to: aDestinationPoint
 	! !
 
 
-!TerniLapilli methodsFor: 'initialization' stamp: 'DB 11/2/2020 00:43:59'!
+!TerniLapilli methodsFor: 'initialization' stamp: 'DB 11/2/2020 03:48:45'!
 initialize
-	currentTurn := #X.
 	chipsX := OrderedCollection new.
 	chipsO := OrderedCollection new.
-	state := TerniLapilliPuttingPhase for: self! !
+	turn := 1! !
 
 
 !TerniLapilli methodsFor: 'phases' stamp: 'DB 11/2/2020 00:14:13'!
@@ -617,6 +652,11 @@ isMovingPhase
 !TerniLapilli methodsFor: 'phases' stamp: 'DB 11/2/2020 01:33:15'!
 isPuttingPhase
 	^(self hasPlayerOWon not) and: (self hasPlayerXWon not) and: ((chipsX size) + (chipsO size) < 6)! !
+
+!TerniLapilli methodsFor: 'phases' stamp: 'DB 11/2/2020 03:33:39'!
+player
+	^TerniLapilliPlayer stateFor: self
+! !
 
 !TerniLapilli methodsFor: 'phases' stamp: 'DB 11/2/2020 01:29:18'!
 state
@@ -695,13 +735,15 @@ isBoardFull
 isEmpty
 	^(chipsX isEmpty) and: (chipsO isEmpty)! !
 
-!TerniLapilli methodsFor: 'comparing' stamp: 'ad 10/29/2020 18:25:56'!
+!TerniLapilli methodsFor: 'comparing' stamp: 'DB 11/2/2020 03:22:22'!
 isPlayingO
-	^currentTurn = #O! !
+	^turn even.! !
 
-!TerniLapilli methodsFor: 'comparing' stamp: 'ad 10/29/2020 18:26:18'!
+!TerniLapilli methodsFor: 'comparing' stamp: 'DB 11/2/2020 03:22:18'!
 isPlayingX
-	^currentTurn = #X.! !
+	^turn odd.
+	
+	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -939,6 +981,41 @@ Object subclass: #TerniLapilliPlayer
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
 
+!TerniLapilliPlayer methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:41:04'!
+assertCorrectTurn: aSourcePosition
+	self subclassResponsibility ! !
+
+!TerniLapilliPlayer methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:46:03'!
+initializeFor: aTerniLapilliGame
+	terniLapilliGame := aTerniLapilliGame 
+	! !
+
+!TerniLapilliPlayer methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:37:06'!
+moveFrom: aSourcePosition to: aDestinationPosition
+	self subclassResponsibility ! !
+
+!TerniLapilliPlayer methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:36:05'!
+put: aPosition
+	self subclassResponsibility ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPlayer class' category: 'Terni Lapilli'!
+TerniLapilliPlayer class
+	instanceVariableNames: ''!
+
+!TerniLapilliPlayer class methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:30:07'!
+canHandle: aTerniLapilliGame
+	self subclassResponsibility ! !
+
+!TerniLapilliPlayer class methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:31:26'!
+for: aTerniLapilliGame
+	^self new initializeFor: aTerniLapilliGame ! !
+
+!TerniLapilliPlayer class methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:31:56'!
+stateFor: aTerniLapilliGame
+	^(self subclasses detect: [:aTerniLapilliPhaseClass | aTerniLapilliPhaseClass canHandle: aTerniLapilliGame ]) for: aTerniLapilliGame.! !
+
 
 !classDefinition: #TerniLapilliPlayerO category: 'Terni Lapilli'!
 TerniLapilliPlayer subclass: #TerniLapilliPlayerO
@@ -947,6 +1024,32 @@ TerniLapilliPlayer subclass: #TerniLapilliPlayerO
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
 
+!TerniLapilliPlayerO methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:47:37'!
+assertCorrectTurn: aSourcePosition
+	terniLapilliGame assertCorrectTurnWhenItIsPlayerOsTurn: aSourcePosition 
+! !
+
+!TerniLapilliPlayerO methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:52:05'!
+moveFrom: aSourcePosition to: aDestinationPosition
+	 terniLapilliGame moveWhenItIsPlayerOsTurn: aSourcePosition to: aDestinationPosition ! !
+
+!TerniLapilliPlayerO methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:39:11'!
+put: aPosition
+	terniLapilliGame putOAt: aPosition
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPlayerO class' category: 'Terni Lapilli'!
+TerniLapilliPlayerO class
+	instanceVariableNames: ''!
+
+!TerniLapilliPlayerO class methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:30:27'!
+canHandle: aTerniLapilliGame
+
+	^aTerniLapilliGame isPlayingO 
+	! !
+
 
 !classDefinition: #TerniLapilliPlayerX category: 'Terni Lapilli'!
 TerniLapilliPlayer subclass: #TerniLapilliPlayerX
@@ -954,3 +1057,26 @@ TerniLapilliPlayer subclass: #TerniLapilliPlayerX
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
+
+!TerniLapilliPlayerX methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:47:06'!
+assertCorrectTurn: aSourcePosition
+	 terniLapilliGame assertCorrectTurnWhenItIsPlayerXsTurn: aSourcePosition ! !
+
+!TerniLapilliPlayerX methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:52:33'!
+moveFrom: aSourcePosition to: aDestinationPosition
+	  terniLapilliGame moveWhenItIsPlayerXsTurn: aSourcePosition to: aDestinationPosition ! !
+
+!TerniLapilliPlayerX methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:36:20'!
+put: aPosition
+	terniLapilliGame putXAt: aPosition
+	! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'TerniLapilliPlayerX class' category: 'Terni Lapilli'!
+TerniLapilliPlayerX class
+	instanceVariableNames: ''!
+
+!TerniLapilliPlayerX class methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 03:31:08'!
+canHandle: aTerniLapilliGame
+	^aTerniLapilliGame isPlayingX ! !
