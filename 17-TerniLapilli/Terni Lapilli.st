@@ -21,47 +21,47 @@ test02assertAfterXTurnGoesO
 	self assert: newTerniLapilliGame isPlayingO.
 	self deny: newTerniLapilliGame isPlayingX.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 10/29/2020 20:39:23'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:52'!
 test03assertPlayerOCantPutChipIfItIsntItsTurn
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
 	
 	self   should: [newTerniLapilliGame putOAt: (1@1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorInvalidMoveNotYourTurn .! !
+		 withMessageText: TerniLapilli invalidMoveNotYourTurn .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 10/29/2020 20:50:41'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:02'!
 test04assertPlayerOCantPutChipOnAnOccupiedSlot
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
 	newTerniLapilliGame putXAt: (1@1).
 	self   should: [newTerniLapilliGame putOAt: (1@1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorInvalidMoveCantPutChipOnOccupiedSlot .! !
+		 withMessageText: TerniLapilli invalidMoveCantPutChipOnOccupiedSlot .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 19:28:08'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:47'!
 test05CantPutChipOutOfBound
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
 	
 	self should: [newTerniLapilliGame putXAt: (3@1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveOrPutChipOutOfBounds .
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds .
 		
 	self should: [newTerniLapilliGame putXAt: (-1@1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveOrPutChipOutOfBounds.
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
 		
 	self should: [newTerniLapilliGame putXAt: (0@3)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveOrPutChipOutOfBounds.
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
 		
 	self should: [newTerniLapilliGame putXAt: (1@-1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveOrPutChipOutOfBounds.
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
 		! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 23:27:12'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:38:02'!
 test06assertPlayerXCantPutChipWhenAllChipsHaveBeenPut
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -73,9 +73,9 @@ test06assertPlayerXCantPutChipWhenAllChipsHaveBeenPut
 	newTerniLapilliGame putOAt: (0@1).
 	self   should: [newTerniLapilliGame putXAt: (2@0)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantPutIfInMovingPhase .! !
+		 withMessageText: TerniLapilli cantPutIfInMovingPhase .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 23:27:32'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:38:02'!
 test07assertPlayerOCantPutChipWhenAllChipsHaveBeenPut
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -88,9 +88,9 @@ test07assertPlayerOCantPutChipWhenAllChipsHaveBeenPut
 
 	self   should: [newTerniLapilliGame putOAt: (2@0)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantPutIfInMovingPhase .! !
+		 withMessageText: TerniLapilli cantPutIfInMovingPhase .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 18:10:05'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:52'!
 test08assertPlayerXCantPutChipIfItIsntItsTurn
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -99,9 +99,9 @@ test08assertPlayerXCantPutChipIfItIsntItsTurn
 	
 	self   should: [newTerniLapilliGame putXAt: (1@1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorInvalidMoveNotYourTurn .! !
+		 withMessageText: TerniLapilli invalidMoveNotYourTurn .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 18:12:01'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:02'!
 test09assertPlayerXCantPutChipOnAnOccupiedSlot
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -109,9 +109,9 @@ test09assertPlayerXCantPutChipOnAnOccupiedSlot
 	newTerniLapilliGame putOAt: (1@1).
 	self   should: [newTerniLapilliGame putXAt: (1@1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorInvalidMoveCantPutChipOnOccupiedSlot .! !
+		 withMessageText: TerniLapilli invalidMoveCantPutChipOnOccupiedSlot .! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 18:23:23'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:33'!
 test10assertCantMoveMoreThanOnePositionAtATime
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -123,9 +123,9 @@ test10assertCantMoveMoreThanOnePositionAtATime
 	newTerniLapilliGame putOAt: (0@0).
 	self   should: [newTerniLapilliGame move: (0@0) to: (2@0)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveMoreThanOnePositionAtATime.! !
+		 withMessageText: TerniLapilli cantMoveMoreThanOnePositionAtATime.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 20:28:36'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:36:54'!
 test11assertCantDoInvalidDiagonalMovement
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -138,9 +138,9 @@ test11assertCantDoInvalidDiagonalMovement
 	"(0@1) no me puedo mover para (1@0) o (1@2)"
 	self   should: [newTerniLapilliGame move: (0@1) to: (1@2)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantDoInvalidDiagonalMovement.! !
+		 withMessageText: TerniLapilli cantDoInvalidDiagonalMovement.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 19:41:26'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:17'!
 test12assertCantMoveAnEmptyPosition
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -153,9 +153,9 @@ test12assertCantMoveAnEmptyPosition
 	
 	self   should: [newTerniLapilliGame move: (1@0) to: (2@0)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveAnEmptyPosition.! !
+		 withMessageText: TerniLapilli cantMoveAnEmptyPosition.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 20:45:14'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:47'!
 test13assertCantMoveOutOfBounds
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -168,31 +168,31 @@ test13assertCantMoveOutOfBounds
 	
 	self   should: [newTerniLapilliGame move: (0@2) to: (-1@2)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveOrPutChipOutOfBounds.! !
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 20:45:30'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:37:47'!
 test14OCantPutChipOutOfBound
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
 	
 	self should: [newTerniLapilliGame putOAt: (3@1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveOrPutChipOutOfBounds.
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
 		
 	self should: [newTerniLapilliGame putOAt: (-1@1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveOrPutChipOutOfBounds.
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
 		
 	self should: [newTerniLapilliGame putOAt: (0@3)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveOrPutChipOutOfBounds.
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
 		
 	self should: [newTerniLapilliGame putOAt: (1@-1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantMoveOrPutChipOutOfBounds.
+		 withMessageText: TerniLapilli cantMoveOrPutChipOutOfBounds.
 		! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 20:46:53'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:39:52'!
 test15CantMoveIfIsNotYourTurn
 	
 	|newTerniLapilliGame|
@@ -206,10 +206,10 @@ test15CantMoveIfIsNotYourTurn
 	
 	self   should: [newTerniLapilliGame move: (2@1) to: (2@0)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorInvalidMoveNotYourTurn.
+		 withMessageText: TerniLapilli invalidMoveNotYourTurn.
 ! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 01:49:22'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:42:18'!
 test16CantMoveIfNotAllChipHaveBeenPutDown
 	
 	|newTerniLapilliGame|
@@ -222,7 +222,7 @@ test16CantMoveIfNotAllChipHaveBeenPutDown
 	
 	self   should: [newTerniLapilliGame move: (1@1) to: (2@1)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantPutIfInMovingPhase .! !
+		 withMessageText: TerniLapilli cantMoveIfInPuttingPhase .! !
 
 !TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 23:11:04'!
 test17InMovementPhasePlayerXStartsThenItIsPlayerOTurn
@@ -386,7 +386,7 @@ test26OWinsDiagonally
 	self deny: newTerniLapilliGame hasPlayerXWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 22:35:47'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:38:23'!
 test27GameDoesNotContinueAfterWinningInPutingPhase
 	|newTerniLapilliGame|
 	newTerniLapilliGame := TerniLapilli new.
@@ -398,13 +398,13 @@ test27GameDoesNotContinueAfterWinningInPutingPhase
 	
 	self   should: [newTerniLapilliGame putOAt: (1@0)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorGameOver.
+		 withMessageText: TerniLapilli gameIsOver.
 	
 	self assert: (newTerniLapilliGame hasPlayerXWon).
 	self deny: newTerniLapilliGame hasPlayerOWon.
 	! !
 
-!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 23:17:59'!
+!TerniLapilliTest methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:38:02'!
 test28CantPutWhileMovingPhase
 	
 	|newTerniLapilliGame|
@@ -422,7 +422,7 @@ test28CantPutWhileMovingPhase
 			
 	self   should: [newTerniLapilliGame putOAt: (2@0)] 
 		 raise: Error 
-		 withMessageText: TerniLapilli errorCantPutIfInMovingPhase.
+		 withMessageText: TerniLapilli cantPutIfInMovingPhase.
 		
 ! !
 
@@ -453,19 +453,7 @@ Object subclass: #TerniLapilli
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
 
-!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/1/2020 23:08:47'!
-move: aSourcePoint to: aDestinationPoint
-	
-	self validateMovementFrom: aSourcePoint to: aDestinationPoint.
-	
-	self moveAndChangeTurnFrom: aSourcePoint to: aDestinationPoint.
-
-	
-	
-	
-	! !
-
-!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/2/2020 01:38:49'!
+!TerniLapilli methodsFor: 'private movement' stamp: 'DB 11/2/2020 01:38:49'!
 moveAndChangeTurnFrom: aSourcePoint to: aDestinationPoint
 
 	currentTurn = #X ifTrue: [
@@ -479,6 +467,19 @@ moveAndChangeTurnFrom: aSourcePoint to: aDestinationPoint
 		currentTurn := #X
 	].
 
+
+	
+	
+	
+	! !
+
+
+!TerniLapilli methodsFor: 'movement' stamp: 'DB 11/1/2020 23:08:47'!
+move: aSourcePoint to: aDestinationPoint
+	
+	self validateMovementFrom: aSourcePoint to: aDestinationPoint.
+	
+	self moveAndChangeTurnFrom: aSourcePoint to: aDestinationPoint.
 
 	
 	
@@ -508,10 +509,6 @@ putXAt: aPoint
 	currentTurn := #O.! !
 
 
-!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/2/2020 01:49:06'!
-assertBoardFull
-	self isBoardFull ifFalse: [^self class signalCantPutIfInMovingPhase ].! !
-
 !TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/1/2020 23:02:45'!
 assertCorrectTurn: aSourcePoint 
 
@@ -530,19 +527,22 @@ assertInBounds: aPoint
 	
 	! !
 
-!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/1/2020 23:00:28'!
+!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/2/2020 02:55:29'!
 assertLengthOfMovementFrom: aSourcePoint to: aDestinationPoint 
-	((aSourcePoint x - aDestinationPoint x) abs) > 1 ifTrue: [^self class signalCantMoveMoreThanOnePositionAtATime.].
-	((aSourcePoint y - aDestinationPoint y) abs) > 1 ifTrue: [^self class signalCantMoveMoreThanOnePositionAtATime.].! !
+
+	(((aSourcePoint x - aDestinationPoint  x) abs > 1) or:
+ 	 ((aSourcePoint y - aSourcePoint y) abs > 1)) ifTrue: [
+	 	^self class signalCantMoveMoreThanOnePositionAtATime.
+	]! !
 
 !TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/1/2020 23:04:34'!
 assertNotEmptyPosition: aPoint 
 	(self isAnEmptyPosition: aPoint)  ifTrue: [^self class signalCantMoveAnEmptyPosition].! !
 
-!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/2/2020 01:29:59'!
+!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/2/2020 02:49:02'!
 assertPositionAndState: aPoint 
 	
-	self state assertPut: aPoint.
+	self state assertPut.
 	
 	self assertInBounds: aPoint.
 	
@@ -575,10 +575,10 @@ checkDiagonalMovementFrom: aSourcePoint to: aDestinationPoint
 	
 	! !
 
-!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/2/2020 01:53:13'!
+!TerniLapilli methodsFor: 'assertions' stamp: 'DB 11/2/2020 02:46:48'!
 validateMovementFrom: aSourcePoint to: aDestinationPoint
-	
-	self assertBoardFull.
+
+	self state assertMove.
 	
 	self assertLengthOfMovementFrom: aSourcePoint to: aDestinationPoint .
 	
@@ -709,95 +709,104 @@ isPlayingX
 TerniLapilli class
 	instanceVariableNames: ''!
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 18:45:33'!
-errorCantDoInvalidDiagonalMovement
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:36:54'!
+signalCantDoInvalidDiagonalMovement
+
+	self error: self cantDoInvalidDiagonalMovement.! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:37:17'!
+signalCantMoveAnEmptyPosition
+
+	self error: self cantMoveAnEmptyPosition.! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:43:15'!
+signalCantMoveIfInPuttingPhase
+
+	self error: self cantMoveIfInPuttingPhase .! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:37:33'!
+signalCantMoveMoreThanOnePositionAtATime
+
+	self error: self cantMoveMoreThanOnePositionAtATime.! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:37:47'!
+signalCantMoveOrPutChipOutOfBounds
+
+	self error: self 	cantMoveOrPutChipOutOfBounds.! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:38:02'!
+signalCantPutIfInMovingPhase
+
+	self error: self cantPutIfInMovingPhase .! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:39:02'!
+signalErrorInvalidMoveCantPutChipOnOccupiedSlot
+
+	self error: self invalidMoveCantPutChipOnOccupiedSlot .! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:39:32'!
+signalErrorInvalidMoveCantPutChipWhenGameIsOver
+
+	self error: self invalidMoveCantPutChipWhenGameIsOver .! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:39:52'!
+signalErrorInvalidMoveNotYourTurn
+
+	self error: self invalidMoveNotYourTurn .! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:38:23'!
+signalGameIsOver
+
+	self error: self gameIsOver.! !
+
+!TerniLapilli class methodsFor: 'signals' stamp: 'DB 11/2/2020 02:39:52'!
+signalInvalidMoveNotYourTurn
+
+	self error: self invalidMoveNotYourTurn ! !
+
+
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:36:54'!
+cantDoInvalidDiagonalMovement
 	^'You cant do invalidad diagonal movement'! !
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 19:41:57'!
-errorCantMoveAnEmptyPosition
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:37:17'!
+cantMoveAnEmptyPosition
 	^'You cant move an empty position'! !
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 18:24:56'!
-errorCantMoveMoreThanOnePositionAtATime
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:42:54'!
+cantMoveIfInPuttingPhase
+	^'you cant move if in Moving phase'! !
+
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:37:33'!
+cantMoveMoreThanOnePositionAtATime
 	^'You cant move more than one position at a time'.! !
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 19:26:20'!
-errorCantMoveOrPutChipOutOfBounds
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:37:47'!
+cantMoveOrPutChipOutOfBounds
 	^'You cant move or put a chip out of bounds'
 ! !
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 23:21:35'!
-errorCantPutIfInMovingPhase
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:38:02'!
+cantPutIfInMovingPhase
 	^'you cant put if in Moving phase'! !
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 22:36:49'!
-errorGameOver
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:38:23'!
+gameIsOver
 	^'Cant continue playing because the game is over!!!!!!'! !
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'ad 10/29/2020 18:45:21'!
-errorInvalidMoveCantPutChipOnOccupiedSlot
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:39:02'!
+invalidMoveCantPutChipOnOccupiedSlot
 	^'Cant put chip in an occupied slot'.! !
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'ad 10/29/2020 19:19:03'!
-errorInvalidMoveCantPutChipWhenGameIsOver
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:39:32'!
+invalidMoveCantPutChipWhenGameIsOver
 
 	^'Cant put chip because the game is already over'.! !
 
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 19:49:38'!
-errorInvalidMoveNotYourTurn
+!TerniLapilli class methodsFor: 'error messages' stamp: 'DB 11/2/2020 02:39:52'!
+invalidMoveNotYourTurn
 
 	^'It must be your turn to be able to move or put down a chip'.! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 18:46:12'!
-signalCantDoInvalidDiagonalMovement
-
-	self error: self errorCantDoInvalidDiagonalMovement.! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 19:42:07'!
-signalCantMoveAnEmptyPosition
-
-	self error: self errorCantMoveAnEmptyPosition.! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 18:32:40'!
-signalCantMoveMoreThanOnePositionAtATime
-
-	self error: self errorCantMoveMoreThanOnePositionAtATime.! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 19:26:36'!
-signalCantMoveOrPutChipOutOfBounds
-
-	self error: self 	errorCantMoveOrPutChipOutOfBounds.! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 23:26:40'!
-signalCantPutIfInMovingPhase
-
-	self error: self errorCantPutIfInMovingPhase .! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'ad 10/29/2020 18:44:56'!
-signalErrorInvalidMoveCantPutChipOnOccupiedSlot
-
-	self error: self errorInvalidMoveCantPutChipOnOccupiedSlot .! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'ad 10/29/2020 19:18:37'!
-signalErrorInvalidMoveCantPutChipWhenGameIsOver
-
-	self error: self errorInvalidMoveCantPutChipWhenGameIsOver .! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'ad 10/29/2020 18:40:19'!
-signalErrorInvalidMoveNotYourTurn
-
-	self error: self errorInvalidMoveNotYourTurn .! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 22:37:35'!
-signalGameOver
-
-	self error: self errorGameOver.! !
-
-!TerniLapilli class methodsFor: 'as yet unclassified' stamp: 'DB 11/1/2020 20:33:54'!
-signalInvalidMoveNotYourTurn
-
-	self error: self errorInvalidMoveNotYourTurn ! !
-
 
 
 !classDefinition: #TerniLapilliPhase category: 'Terni Lapilli'!
@@ -807,8 +816,13 @@ Object subclass: #TerniLapilliPhase
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
 
-!TerniLapilliPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 00:35:30'!
-assertPut: aPosition
+!TerniLapilliPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:47:10'!
+assertMove
+
+	self subclassResponsibility ! !
+
+!TerniLapilliPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:49:02'!
+assertPut
 
 	self subclassResponsibility ! !
 
@@ -843,9 +857,13 @@ TerniLapilliPhase subclass: #TerniLapilliGameOverPhase
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
 
-!TerniLapilliGameOverPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 00:35:44'!
-assertPut: aPosition
-	^terniLapilliGame class signalGameOver ! !
+!TerniLapilliGameOverPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:47:10'!
+assertMove
+	^terniLapilliGame class signalGameIsOver ! !
+
+!TerniLapilliGameOverPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:49:02'!
+assertPut
+	^terniLapilliGame class signalGameIsOver ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -865,8 +883,13 @@ TerniLapilliPhase subclass: #TerniLapilliMovingPhase
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
 
-!TerniLapilliMovingPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 01:11:56'!
-assertPut: aPosition
+!TerniLapilliMovingPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:47:10'!
+assertMove
+	
+! !
+
+!TerniLapilliMovingPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:49:02'!
+assertPut
 	^terniLapilliGame class signalCantPutIfInMovingPhase 
 ! !
 
@@ -888,8 +911,14 @@ TerniLapilliPhase subclass: #TerniLapilliPuttingPhase
 	poolDictionaries: ''
 	category: 'Terni Lapilli'!
 
-!TerniLapilliPuttingPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 01:07:41'!
-assertPut: aPosition
+!TerniLapilliPuttingPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:47:10'!
+assertMove
+
+	terniLapilliGame class signalCantMoveIfInPuttingPhase 
+! !
+
+!TerniLapilliPuttingPhase methodsFor: 'as yet unclassified' stamp: 'DB 11/2/2020 02:49:02'!
+assertPut
 ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
