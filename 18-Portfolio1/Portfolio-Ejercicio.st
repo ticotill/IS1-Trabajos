@@ -5,21 +5,21 @@ TestCase subclass: #PortfolioTest
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 13:25:24'!
-doesAccountDontExist: anAccount In: aPortfolio
+!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 21:34:45'!
+allTransactionOf: anAccount NotIn: aPortfolio
 
 	anAccount transactions do: [ :aTransaction |
 		self deny: (aPortfolio hasRegistered: aTransaction )
 	].! !
 
-!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 13:25:05'!
-doesAccountExist: anAccount In: aPortfolio
+!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 21:35:12'!
+allTransactionsOf: anAccount In: aPortfolio
 
 	anAccount transactions do: [ :aTransaction |
 		self assert: (aPortfolio hasRegistered: aTransaction )
 	].! !
 
-!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 13:25:48'!
+!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 21:34:45'!
 test06HasRegisteredReturnsFalseWithAnEmptyPortfolio
 
 	| portfolio account1 |
@@ -29,9 +29,9 @@ test06HasRegisteredReturnsFalseWithAnEmptyPortfolio
 	account1 := ReceptiveAccount  new.
 	Deposit register: 75 on: account1.
 	
-	self doesAccountDontExist: account1 In: portfolio.! !
+	self allTransactionOf: account1 NotIn: portfolio.! !
 
-!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 13:26:19'!
+!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 21:35:12'!
 test07HasRegisteredReturnsTrueWhenPortfolioHasOneTransaction
 
 	| portfolio account1 |
@@ -43,9 +43,9 @@ test07HasRegisteredReturnsTrueWhenPortfolioHasOneTransaction
 	
 	portfolio add: account1.
 	
-	self doesAccountExist: account1 In: portfolio .! !
+	self allTransactionsOf: account1 In: portfolio .! !
 
-!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 13:26:56'!
+!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 21:34:45'!
 test08HasRegisteredReturnsFalseWhenPortfolioHasMoreThanOneTransaction
 
 	| portfolio account1 account2 |
@@ -62,7 +62,7 @@ test08HasRegisteredReturnsFalseWhenPortfolioHasMoreThanOneTransaction
 	
 	portfolio add: account1.
 	
-	self doesAccountDontExist: account2 In: portfolio .! !
+	self allTransactionOf: account2 NotIn: portfolio .! !
 
 
 !PortfolioTest methodsFor: 'transactions' stamp: 'DB 11/4/2020 21:08:00'!
@@ -74,7 +74,7 @@ test09PortfolioHaveZeroTransactionsWhenIsCreated
 	
 	self assert: (portfolio transactions isEmpty)! !
 
-!PortfolioTest methodsFor: 'transactions' stamp: 'DB 11/8/2020 13:28:46'!
+!PortfolioTest methodsFor: 'transactions' stamp: 'DB 11/8/2020 21:35:12'!
 test10PortfolioHaveTheSameTransactionsThanYoursChild
 	
 	| portfolio  account |
@@ -89,9 +89,9 @@ test10PortfolioHaveTheSameTransactionsThanYoursChild
 	
 	portfolio add: account.
 	
-	self doesAccountExist: account In: portfolio .! !
+	self allTransactionsOf: account In: portfolio .! !
 
-!PortfolioTest methodsFor: 'transactions' stamp: 'DB 11/8/2020 13:28:24'!
+!PortfolioTest methodsFor: 'transactions' stamp: 'DB 11/8/2020 21:35:12'!
 test11PortfolioHaveTheSameTransactionsThanYoursChilds
 	
 	| portfolio account1 account2 |
@@ -109,8 +109,8 @@ test11PortfolioHaveTheSameTransactionsThanYoursChilds
 	portfolio add: account1.
 	portfolio add: account2.
 	
-	self doesAccountExist: account1 In: portfolio .
-	self doesAccountExist: account2 In: portfolio.! !
+	self allTransactionsOf: account1 In: portfolio .
+	self allTransactionsOf: account2 In: portfolio.! !
 
 
 !PortfolioTest methodsFor: 'tree' stamp: 'DB 11/8/2020 13:35:45'!
@@ -526,14 +526,14 @@ includes: anAsset
 isRoot 
 	^parents size = 0! !
 
-!Asset methodsFor: 'tree' stamp: 'DB 11/8/2020 12:35:40'!
+!Asset methodsFor: 'tree' stamp: 'DB 11/8/2020 21:25:13'!
 roots 
 	| roots |	
 	
 	roots := OrderedCollection new.
 	
 	parents do: [:aParent | 
-		(aParent isRoot) ifTrue: [ roots add: aParent ] ifFalse: [ roots addAll: aParent roots ]
+		(aParent isRoot) ifTrue: [ roots add: aParent ] ifFalse: [ roots addAllFirst: aParent roots ]
 	].
 
 	^roots.! !

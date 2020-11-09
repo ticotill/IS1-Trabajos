@@ -35780,3 +35780,130 @@ transactions
 	^transactions.! !
 
 ----QUIT----(8 November 2020 14:05:51) CuisUniversity-4384.image priorSource: 17456940!
+
+----STARTUP---- (8 November 2020 21:22:48) as /Users/dbenitez/uba/2c2020-IS1/Quiz/macos64-Portfolio1/CuisUniversity-4384.image!
+
+!Asset methodsFor: 'tree' stamp: 'DB 11/8/2020 21:25:13' prior: 50874473!
+roots 
+	| roots |	
+	
+	roots := OrderedCollection new.
+	
+	parents do: [:aParent | 
+		(aParent isRoot) ifTrue: [ roots add: aParent ] ifFalse: [ roots addAllFirst: aParent roots ]
+	].
+
+	^roots.! !
+!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 21:34:45'!
+allTransactionOf: anAccount NotIn: aPortfolio
+
+	anAccount transactions do: [ :aTransaction |
+		self deny: (aPortfolio hasRegistered: aTransaction )
+	].! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'DB 11/8/2020 21:34:45' prior: 50875600!
+test06HasRegisteredReturnsFalseWithAnEmptyPortfolio
+
+	| portfolio account1 |
+	
+	portfolio := Portfolio new.
+	
+	account1 := ReceptiveAccount  new.
+	Deposit register: 75 on: account1.
+	
+	self allTransactionOf: account1 NotIn: portfolio.! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'DB 11/8/2020 21:34:45' prior: 50875639!
+test08HasRegisteredReturnsFalseWhenPortfolioHasMoreThanOneTransaction
+
+	| portfolio account1 account2 |
+	
+	portfolio := Portfolio new.
+	
+	account1 := ReceptiveAccount  new.
+	account2:= ReceptiveAccount  new.
+	Deposit register: 75 on: account1.
+	
+	Deposit register: 89 on: account2.
+	Deposit register: 78 on: account2.
+	Deposit register: 56 on: account2.
+	
+	portfolio add: account1.
+	
+	self allTransactionOf: account2 NotIn: portfolio .! !
+
+!methodRemoval: PortfolioTest #doesAccountDontExist:In: stamp: 'DB 11/8/2020 21:34:45'!
+doesAccountDontExist: anAccount In: aPortfolio
+
+	anAccount transactions do: [ :aTransaction |
+		self deny: (aPortfolio hasRegistered: aTransaction )
+	].!
+!PortfolioTest methodsFor: 'hasRegistered' stamp: 'DB 11/8/2020 21:35:12'!
+allTransactionsOf: anAccount In: aPortfolio
+
+	anAccount transactions do: [ :aTransaction |
+		self assert: (aPortfolio hasRegistered: aTransaction )
+	].! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'DB 11/8/2020 21:35:12' prior: 50875687!
+test10PortfolioHaveTheSameTransactionsThanYoursChild
+	
+	| portfolio  account |
+	
+	portfolio := Portfolio new.
+
+	account := ReceptiveAccount  new.
+	
+	Deposit register: 89 on: account.
+	Deposit register: 78 on: account.
+	Deposit register: 56 on: account.
+	
+	portfolio add: account.
+	
+	self allTransactionsOf: account In: portfolio .! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'DB 11/8/2020 21:35:12' prior: 50875668!
+test11PortfolioHaveTheSameTransactionsThanYoursChilds
+	
+	| portfolio account1 account2 |
+	
+	portfolio := Portfolio new.
+	
+	account1 := ReceptiveAccount  new.
+	account2:= ReceptiveAccount  new.
+	Deposit register: 75 on: account1.
+	
+	Deposit register: 89 on: account2.
+	Deposit register: 78 on: account2.
+	Deposit register: 56 on: account2.
+	
+	portfolio add: account1.
+	portfolio add: account2.
+	
+	self allTransactionsOf: account1 In: portfolio .
+	self allTransactionsOf: account2 In: portfolio.! !
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'DB 11/8/2020 21:35:12' prior: 50875615!
+test07HasRegisteredReturnsTrueWhenPortfolioHasOneTransaction
+
+	| portfolio account1 |
+	
+	portfolio := Portfolio new.
+	
+	account1 := ReceptiveAccount  new.
+	Deposit register: 75 on: account1.
+	
+	portfolio add: account1.
+	
+	self allTransactionsOf: account1 In: portfolio .! !
+
+!methodRemoval: PortfolioTest #doesAccountExist:In: stamp: 'DB 11/8/2020 21:35:12'!
+doesAccountExist: anAccount In: aPortfolio
+
+	anAccount transactions do: [ :aTransaction |
+		self assert: (aPortfolio hasRegistered: aTransaction )
+	].!
+
+----SNAPSHOT----(8 November 2020 21:36:49) CuisUniversity-4384.image priorSource: 17457317!
+
+----QUIT----(8 November 2020 21:36:51) CuisUniversity-4384.image priorSource: 17461118!
+
+----STARTUP---- (9 November 2020 15:14:52) as /Users/dbenitez/uba/2c2020-IS1/Quiz/macos64-Portfolio1/CuisUniversity-4384.image!
+
+
+----QUIT----(9 November 2020 15:15:26) CuisUniversity-4384.image priorSource: 17461211!
