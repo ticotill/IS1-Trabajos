@@ -803,16 +803,8 @@ addTransactionsTo: aCollectionOfTransactions
 
 	self subclassResponsibility ! !
 
-!Account methodsFor: 'transactions' stamp: 'DB 11/16/2020 16:16:14'!
-reportTreeTo: aReport
-
-	self transactions do: [ :aTransaction | 
-		aTransaction reportTo: aReport.
-	].
-! !
-
-!Account methodsFor: 'transactions' stamp: 'DB 11/16/2020 16:31:21'!
-tabs: tabs reportTo: aReport
+!Account methodsFor: 'transactions' stamp: 'DB 11/16/2020 20:54:37'!
+reportTo: aReport
 
 	self transactions do: [ :aTransaction | 
 		aTransaction reportTo: aReport.
@@ -1462,10 +1454,10 @@ reportATransferWithdraw: aDeposit
 reportAWithdraw: aDeposit
 	summary add: 'Extraction for ', aDeposit value asString .! !
 
-!SummaryReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:31:21'!
+!SummaryReport methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 15:56:04'!
 summary
 
-	account tabs: tabs reportTo: self.
+	account reportTo: self.
 	summary add: 'Balance = ' , account balance asString .
 	^summary.! !
 
@@ -1475,10 +1467,10 @@ summary
 SummaryReport class
 	instanceVariableNames: ''!
 
-!SummaryReport class methodsFor: 'as yet unclassified' stamp: 'DB 11/12/2020 21:33:59'!
-with: transactions
+!SummaryReport class methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 20:46:51'!
+with: account
 
-	^self new initializeWith: transactions.! !
+	^self new initializeWith: account.! !
 
 
 !classDefinition: #TransferNetReport category: 'Portfolio-Solucion'!
@@ -1511,10 +1503,10 @@ reportATransferWithdraw: aTransferWithdraw
 reportAWithdraw: aDeposit
 	! !
 
-!TransferNetReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:31:21'!
+!TransferNetReport methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 15:56:04'!
 transferNet
 
-	account tabs: tabs reportTo: self.
+	account reportTo: self.
 	^net.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -1536,14 +1528,14 @@ Object subclass: #Transfer
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!Transfer methodsFor: 'as yet unclassified' stamp: 'DB 11/10/2020 20:35:21'!
+!Transfer methodsFor: 'operations' stamp: 'DB 11/10/2020 20:35:21'!
 amount
 	^amount
 	
 	
 	! !
 
-!Transfer methodsFor: 'as yet unclassified' stamp: 'DB 11/10/2020 20:36:16'!
+!Transfer methodsFor: 'operations' stamp: 'DB 11/10/2020 20:36:16'!
 depositTransaction
 
 	^depositTransaction 
@@ -1551,20 +1543,21 @@ depositTransaction
 	
 	! !
 
-!Transfer methodsFor: 'as yet unclassified' stamp: 'DB 11/10/2020 20:30:03'!
+!Transfer methodsFor: 'operations' stamp: 'DB 11/10/2020 20:36:05'!
+withdrawTransaction
+
+	^withdrawTransaction 
+	
+	
+	! !
+
+
+!Transfer methodsFor: 'initialization' stamp: 'DB 11/10/2020 20:30:03'!
 initializeWith: anAmount From: aSenderAccount to: aReceiverAccount
 
 	amount := anAmount.
 	withdrawTransaction := TransferWithdraw register: self on: aSenderAccount .
 	depositTransaction := TransferDeposit register: self on: aReceiverAccount.
-	
-	! !
-
-!Transfer methodsFor: 'as yet unclassified' stamp: 'DB 11/10/2020 20:36:05'!
-withdrawTransaction
-
-	^withdrawTransaction 
-	
 	
 	! !
 
