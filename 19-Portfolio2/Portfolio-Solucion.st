@@ -221,21 +221,21 @@ TestCase subclass: #PortfolioTreeReportTest
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:31:59'!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:25:15'!
 test01TreeReportForEmptyPortfolioReturnsEmptyReport
 
 	|  portfolio report |
 	
 	portfolio :=  Portfolio named: 'Empty Portfolio'.
 	
-	report := (FamilyTreeReport with: portfolio) report. 
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
  	
 	self assert: 1 equals: report size.
 	self assert:  'Empty Portfolio' equals: (report at: 1)
 
 	! !
 
-!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:51:46'!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:25:15'!
 test02TreeReportForPortfolioWithOneChildReturnsA
 
 	|  portfolio report myAccount |
@@ -243,12 +243,57 @@ test02TreeReportForPortfolioWithOneChildReturnsA
 	portfolio :=  Portfolio named: 'Portfolio de la familia'.
 	
 	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
 	
-	report := (FamilyTreeReport with: portfolio) report. 
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
  	
 	self assert: 2 equals: report size.
 	self assert:  'Portfolio de la familia' equals: (report at: 1).
-	self assert:  'Cuenta mia' equals: (report at: 2)
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:25:15'!
+test03TreeReportForPortfolioWithMoreThanOneChildReturnsA
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	report := (PortfolioTreeReport with: familyPorfolio) familyTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert:  Character tab asString,'Portfolio de hijos' equals: (report at: 3).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Juan' equals: (report at: 4).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Angeles' equals: (report at: 5).	
+
+
+	! !
+
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:18:28'!
+test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport
+
+	|  portfolio report |
+	
+	portfolio :=  Portfolio named: 'Empty Portfolio'.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	self assert: 1 equals: report size.
+	self assert:  'Empty Portfolio' equals: (report at: 1)
 
 	! !
 
@@ -344,14 +389,14 @@ test07AccountKnowsItsTransactions
 ! !
 
 
-!classDefinition: #SummaryReportTest category: 'Portfolio-Solucion'!
-TestCase subclass: #SummaryReportTest
+!classDefinition: #ReportSummaryTest category: 'Portfolio-Solucion'!
+TestCase subclass: #ReportSummaryTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!SummaryReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:20:53'!
+!ReportSummaryTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:20:53'!
 test06SummaryReportForEmptyAccountReturnsOnlyBalance
 
 	| account report |
@@ -364,7 +409,7 @@ test06SummaryReportForEmptyAccountReturnsOnlyBalance
 	self assert: 'Balance = 0' equals: (report at: 1)
 	! !
 
-!SummaryReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:21:06'!
+!ReportSummaryTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:21:06'!
 test07SummaryReportForDepositReturnsBalanceAndDeposit
 
 	| account report |
@@ -379,7 +424,7 @@ test07SummaryReportForDepositReturnsBalanceAndDeposit
 	self assert: 'Balance = 100' equals: (report at: 2)
 	! !
 
-!SummaryReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:21:20'!
+!ReportSummaryTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:21:20'!
 test08SummaryReportForWithdrawReturnsBalanceAndWithdraw
 
 	| account report |
@@ -395,7 +440,7 @@ test08SummaryReportForWithdrawReturnsBalanceAndWithdraw
 	
 	! !
 
-!SummaryReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:21:33'!
+!ReportSummaryTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:21:33'!
 test09SummaryReportForTransferReturnsBalanceAndTransferTransaction
 
 	| sender receiver report |
@@ -419,7 +464,7 @@ test09SummaryReportForTransferReturnsBalanceAndTransferTransaction
 	
 	! !
 
-!SummaryReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:21:46'!
+!ReportSummaryTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:21:46'!
 test10SummaryOfPortfolioWithoutAccountsHasOnlyBalance
 
 	| portfolio report |
@@ -433,7 +478,7 @@ test10SummaryOfPortfolioWithoutAccountsHasOnlyBalance
 	
 	! !
 
-!SummaryReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:22:06'!
+!ReportSummaryTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:22:06'!
 test11SummaryOfPortfolioWithOneAccount
 
 	| account portfolio report |
@@ -450,7 +495,7 @@ test11SummaryOfPortfolioWithOneAccount
 	
 	! !
 
-!SummaryReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:22:21'!
+!ReportSummaryTest methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:22:21'!
 test12SummaryOfPortfolioIsCalculatedRecursivelyOnPortfolios
 
 	| simplePortfolioAccount simplePortfolio composedPortfolioAccount composedPortofolio report |
@@ -473,12 +518,105 @@ test12SummaryOfPortfolioIsCalculatedRecursivelyOnPortfolios
 	! !
 
 
-!classDefinition: #TransferNetReportTest category: 'Portfolio-Solucion'!
-TestCase subclass: #TransferNetReportTest
+!classDefinition: #ReportTransferNetTest category: 'Portfolio-Solucion'!
+TestCase subclass: #ReportTransferNetTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
+
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:05:07'!
+assertTransferNetAccount: anAccount value: expectedValue
+ 	
+	self assert: expectedValue equals: (TransferNetReport with: anAccount) transferNet..
+	! !
+
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:05:29'!
+test01TransferNetReportForEmptyAccountReturnsOnlyBalance
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	self assertTransferNetAccount: account value: 0.! !
+
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:05:49'!
+test02TransferNetReportForDepositReturnsZero
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	self assertTransferNetAccount: account value: 0.! !
+
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:06:01'!
+test03TransferNetReportForWithdrawReturnsZero
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	self assertTransferNetAccount: account value: 0.
+	
+	! !
+
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:06:37'!
+test04TransferNetReportForATransferReturnsNetBalance
+
+	| sender receiver |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer register: 60 from: sender to: receiver.
+	
+	self assertTransferNetAccount: sender value: -60.
+	self assertTransferNetAccount: receiver value: 60.
+	! !
+
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:06:51'!
+test05TransferNetOfAPortfolioWithoutAccountsReturnsZero
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assertTransferNetAccount: portfolio value: 0.
+	! !
+
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:07:18'!
+test06TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue
+
+	| account portfolio |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	portfolio := Portfolio with: account.
+	
+	self assertTransferNetAccount: portfolio value: 0.
+	! !
+
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:07:39'!
+test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue
+
+	| sender receiver |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	Deposit register: 100 on: sender.
+	Withdraw register: 50 on: sender.
+	
+	Transfer register: 20 from: sender to: receiver.
+	Transfer register: 30 from: receiver to: sender.	
+	
+	self assertTransferNetAccount: sender value: 10.
+	
+	
+	
+	
+	! !
 
 
 !classDefinition: #TransferTest category: 'Portfolio-Solucion'!
@@ -641,6 +779,17 @@ add: accountToAdd
 	accountToAdd addedTo: self 
 	! !
 
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 12:37:14'!
+familyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	"aReport addMe: self name tabs: tabs."
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: tabs,(Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+
 !Portfolio methodsFor: 'accounts management' stamp: 'DB 11/14/2020 16:48:29'!
 name
 
@@ -655,30 +804,6 @@ rootParents
 	self addRootParentsTo: rootParents.
 	
 	^ rootParents! !
-
-!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/14/2020 17:20:54'!
-xxx: aReport
-
-	aReport addMeAsParent: aReport name.
-	accounts do: [:anAccount |
-		
-		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (anAccount name) to: (self name)].
-		(anAccount isKindOf: Portfolio) ifTrue: [anAccount xxx: aReport]
-				
-	]
-	! !
-
-!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/14/2020 17:37:51'!
-xxx: aReport myParent: myParent
-
-	aReport  addMe: (self name) to: myParent
-	accounts do: [:anAccount |
-		
-		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (anAccount name) to: (self name)].
-		(anAccount isKindOf: Portfolio) ifTrue: [anAccount xxx: aReport myParent: self name]
-				
-	].
-	! !
 
 
 !Portfolio methodsFor: 'initialization' stamp: 'HAW 5/25/2019 12:03:18'!
@@ -1085,45 +1210,64 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
-!classDefinition: #FamilyTreeReport category: 'Portfolio-Solucion'!
-Object subclass: #FamilyTreeReport
-	instanceVariableNames: 'portfolio'
+!classDefinition: #PortfolioSpecialTreeReport category: 'Portfolio-Solucion'!
+Object subclass: #PortfolioSpecialTreeReport
+	instanceVariableNames: 'portfolio report'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 17:16:30'!
-addMe: aName in: aParent
-
-	| childs dic |
-	childs := dic found: aParent
-
-	childs add: aName! !
-
-!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:43:50'!
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:36:34'!
 initializeWith: aPortfolio
-	portfolio := aPortfolio .! !
-
-!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 17:14:49'!
-report 
-	| report |
-	report := OrderedCollection new.
-	
-	report add: portfolio name.
-	
-	portfolio xxx: self.
-	
-	
-
-	^report! !
+	portfolio := aPortfolio.
+	report := OrderedCollection new.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'FamilyTreeReport class' category: 'Portfolio-Solucion'!
-FamilyTreeReport class
+!classDefinition: 'PortfolioSpecialTreeReport class' category: 'Portfolio-Solucion'!
+PortfolioSpecialTreeReport class
 	instanceVariableNames: ''!
 
-!FamilyTreeReport class methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:44:29'!
+!PortfolioSpecialTreeReport class methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:35:55'!
+with: aPortfolio
+
+	^self new initializeWith: aPortfolio 
+	! !
+
+
+!classDefinition: #PortfolioTreeReport category: 'Portfolio-Solucion'!
+Object subclass: #PortfolioTreeReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:39:06'!
+addMe: name.
+
+	report add: name.
+
+	! !
+
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:27:06'!
+familyTreeReport 
+
+	portfolio familyTree: self tabs: ''.
+	^report.
+	! !
+
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:05:15'!
+initializeWith: aPortfolio
+	portfolio := aPortfolio.
+	report := OrderedCollection new.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PortfolioTreeReport class' category: 'Portfolio-Solucion'!
+PortfolioTreeReport class
+	instanceVariableNames: ''!
+
+!PortfolioTreeReport class methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:44:29'!
 with: aPortfolio
 
 	^self new initializeWith: aPortfolio 
