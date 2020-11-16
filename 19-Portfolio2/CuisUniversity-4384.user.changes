@@ -42424,3 +42424,3820 @@ TestCase subclass: #TransferNetReportTest
 ----SNAPSHOT----(14 November 2020 18:15:34) CuisUniversity-4384.image priorSource: 17744048!
 
 ----QUIT----(14 November 2020 18:15:41) CuisUniversity-4384.image priorSource: 17754435!
+
+----STARTUP---- (16 November 2020 10:53:49) as /Users/dbenitez/uba/2c2020-IS1/Quiz/macos64-Portfolio1/CuisUniversity-4384.image!
+
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 10:58:01'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 10:58:01'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 10:58:12'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 10:58:12'!
+ERROR!
+!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/14/2020 16:48:02' prior: 50886334!
+report 
+	| report |
+	report := OrderedCollection new.
+	
+	report add: portfolio name.
+
+	^report! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:00:01'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:00:01'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:00:01'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:01:54' prior: 50886277!
+test02TreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	
+	report := (FamilyTreeReport with: portfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  '			Cuenta mia' equals: (report at: 2)
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:02:30' prior: 50886523!
+test02TreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (FamilyTreeReport with: portfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  '			Cuenta mia' equals: (report at: 2)
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:03:11'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:03:11'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:03:11'!
+FAILURE!
+!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:04:44' prior: 50886504!
+report 
+
+	portfolio xxx: self.
+	
+	! !
+
+!classDefinition: #FamilyTreeReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 11:05:17'!
+Object subclass: #FamilyTreeReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:05:15' prior: 50886225!
+initializeWith: aPortfolio
+	portfolio := aPortfolio.
+	report := OrderedCollection new.! !
+!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:05:52' prior: 50886570!
+report 
+
+	portfolio xxx: self.
+	
+	
+	! !
+!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:06:27' prior: 50886589!
+report 
+
+	portfolio xxx: self.
+	^report.
+	! !
+!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:07:55'!
+addMeAsParent: name.
+
+	report add name.
+
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:13:40' prior: 50886364!
+xxx: aReport
+
+	aReport addMeAsParent: aReport name.
+	accounts do: [:anAccount |
+		
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: ('		',anAccount name) to: (self name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount xxx: aReport]
+				
+	]
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:14:43'!
+xxx: aReport with: tabs
+
+	aReport addMeAsParent: aReport name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (tabs,anAccount name) to: (self name)].
+	]
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:14:55' prior: 50886615!
+xxx: aReport with: tabs
+
+	aReport addMeAsParent: aReport name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (tabs,'-',anAccount name) to: (self name)].
+	]
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:15:04' prior: 50886625!
+xxx: aReport with: tabs
+
+	aReport addMeAsParent: aReport name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (tabs,'-',anAccount name)].
+	]
+	! !
+
+!methodRemoval: Portfolio #xxx:myParent: stamp: 'DB 11/16/2020 11:15:42'!
+xxx: aReport myParent: myParent
+
+	aReport  addMe: (self name) to: myParent
+	accounts do: [:anAccount |
+		
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (anAccount name) to: (self name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount xxx: aReport myParent: self name]
+				
+	].
+	!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:16:04' prior: 50886604!
+xxx: aReport
+
+	aReport addMeAsParent: aReport name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: ('-',anAccount name)].
+	]
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:16:20' prior: 50886656!
+xxx: aReport
+
+	aReport addMe: aReport name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: ('-',anAccount name)].
+	]
+	! !
+
+!methodRemoval: FamilyTreeReport #addMe:in: stamp: 'DB 11/16/2020 11:35:56'!
+addMe: aName in: aParent
+
+	| childs dic |
+	childs := dic found: aParent
+
+	childs add: aName!
+!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:36:25'!
+addMe: name.
+
+	report add name.
+
+	! !
+
+!methodRemoval: FamilyTreeReport #addMeAsParent: stamp: 'DB 11/16/2020 11:36:25'!
+addMeAsParent: name.
+
+	report add name.
+
+	!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:37:07'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:37:07'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:37:09'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:37:41'!
+ERROR!
+!FamilyTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:39:06' prior: 50886679!
+addMe: name.
+
+	report add: name.
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:39:12'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:39:12'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:39:14'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:39:56'!
+FAILURE!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:40:53' prior: 50886665!
+xxx: aReport
+
+	aReport addMe: (self name).
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: ('-',anAccount name)].
+	]
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:41:03' prior: 50886725!
+xxx: aReport
+
+	aReport addMe: self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: ('-',anAccount name)].
+	]
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:41:20'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:41:20'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:41:20'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:41:35' prior: 50886540!
+test02TreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (FamilyTreeReport with: portfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  '	-Cuenta mia' equals: (report at: 2)
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:41:39'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:41:39'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:41:39'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:42:48' prior: 50886755!
+test02TreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (FamilyTreeReport with: portfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  '	-Cuenta mia' equals: (report at: 2)
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:43:01'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:43:17' prior: 50886785!
+test02TreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (FamilyTreeReport with: portfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  '-Cuenta mia' equals: (report at: 2)
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:43:20'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:43:20'!
+PASSED!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:44:56' prior: 50886734!
+xxx: aReport
+
+	aReport addMe: self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (Character tab asString,anAccount name)].
+	]
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:45:40'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:45:40'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:45:40'!
+FAILURE!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:46:33' prior: 50886832!
+xxx: aReport
+
+	aReport addMe: self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: Character tab asString,(anAccount name)].
+	]
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:46:39'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:46:39'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:46:39'!
+FAILURE!
+
+Character tab asString,(anAccount name)!
+
+Character tab asString!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:48:51' prior: 50886853!
+xxx: aReport
+
+	aReport addMe: self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: '<t>',(anAccount name)].
+	]
+	! !
+
+'<t>',(anAccount name)!
+
+(String tab),(anAccount name)!
+
+'Name ', String tab, ' Age ', String tab, ' Occupation'!
+
+ String tab!
+
+'Here is<t>a tab and<n>a blank line'!
+
+	'Here is<t>a tab and<n>a blank line'!
+
+	Character tab.!
+
+	Character tab asString.!
+
+	String tab!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 11:55:56' prior: 50886876!
+xxx: aReport
+
+	aReport addMe: self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (Character tab asString),(anAccount name)].
+	].
+	
+	
+	
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:56:08' prior: 50886807!
+test02TreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (FamilyTreeReport with: portfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:56:10'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 11:56:14'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 11:56:14'!
+PASSED!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:56:37'!
+test03TreeReportForPortfolioWithMoreThanOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (FamilyTreeReport with: portfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 11:59:16' prior: 50886933!
+test03TreeReportForPortfolioWithMoreThanOneChildReturnsA
+
+	|  familyPorfolio childPortfolio report childAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	report := (FamilyTreeReport with: familyPorfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+	
+	Portfolio de la familia
+   Cuenta Mia
+   Portfolio de hijos
+      Cuenta de Juan
+      Cuenta de Angeles
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:00:19' prior: 50886952!
+test03TreeReportForPortfolioWithMoreThanOneChildReturnsA
+
+	|  familyPorfolio childPortfolio report childAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	report := (FamilyTreeReport with: familyPorfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert:  Character tab asString,Character tab asString,'Portfolio de hijos' equals: (report at: 2).	
+	
+Portfolio de la familia
+   Cuenta Mia
+   Portfolio de hijos
+      Cuenta de Juan
+      Cuenta de Angeles
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:02:55' prior: 50886978!
+test03TreeReportForPortfolioWithMoreThanOneChildReturnsA
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	report := (FamilyTreeReport with: familyPorfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert:  Character tab asString,'Portfolio de hijos' equals: (report at: 3).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Juan' equals: (report at: 4).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Angeles' equals: (report at: 5).	
+	
+Portfolio de la familia
+   Cuenta Mia
+   Portfolio de hijos
+      Cuenta de Juan
+      Cuenta de Angeles
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:03:28' prior: 50887008!
+test03TreeReportForPortfolioWithMoreThanOneChildReturnsA
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	report := (FamilyTreeReport with: familyPorfolio) report. 
+ 	
+	self assert: 5 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert:  Character tab asString,'Portfolio de hijos' equals: (report at: 3).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Juan' equals: (report at: 4).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Angeles' equals: (report at: 5).	
+
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 12:03:32'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 12:03:32'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 12:03:32'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 12:03:32'!
+FAILURE!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 12:24:05' prior: 50886893!
+xxx: aReport
+
+	aReport addMe: self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [aReport addMe: (Character tab asString),(anAccount name)].
+	].
+	
+	
+	
+	! !
+
+!classRenamed: #FamilyTreeReport as: #PortfolioTreeReport stamp: 'DB 11/16/2020 12:24:53'!
+Smalltalk renameClassNamed: #FamilyTreeReport as: #PortfolioTreeReport!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:24:53' prior: 50886903!
+test02TreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (PortfolioTreeReport with: portfolio) report. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:24:53' prior: 50887051!
+test03TreeReportForPortfolioWithMoreThanOneChildReturnsA
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	report := (PortfolioTreeReport with: familyPorfolio) report. 
+ 	
+	self assert: 5 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert:  Character tab asString,'Portfolio de hijos' equals: (report at: 3).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Juan' equals: (report at: 4).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Angeles' equals: (report at: 5).	
+
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:24:53' prior: 50886110!
+test01TreeReportForEmptyPortfolioReturnsEmptyReport
+
+	|  portfolio report |
+	
+	portfolio :=  Portfolio named: 'Empty Portfolio'.
+	
+	report := (PortfolioTreeReport with: portfolio) report. 
+ 	
+	self assert: 1 equals: report size.
+	self assert:  'Empty Portfolio' equals: (report at: 1)
+
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:25:15'!
+familyTreeReport 
+
+	portfolio xxx: self.
+	^report.
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:25:15' prior: 50887143!
+test03TreeReportForPortfolioWithMoreThanOneChildReturnsA
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	report := (PortfolioTreeReport with: familyPorfolio) familyTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert:  Character tab asString,'Portfolio de hijos' equals: (report at: 3).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Juan' equals: (report at: 4).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Angeles' equals: (report at: 5).	
+
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:25:15' prior: 50887182!
+test01TreeReportForEmptyPortfolioReturnsEmptyReport
+
+	|  portfolio report |
+	
+	portfolio :=  Portfolio named: 'Empty Portfolio'.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 1 equals: report size.
+	self assert:  'Empty Portfolio' equals: (report at: 1)
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:25:15' prior: 50887124!
+test02TreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+
+!methodRemoval: PortfolioTreeReport #report stamp: 'DB 11/16/2020 12:25:15'!
+report 
+
+	portfolio xxx: self.
+	^report.
+	!
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:25:39' prior: 50887194!
+familyTreeReport 
+
+	portfolio xxx: self tabs: ''.
+	^report.
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 12:26:38' prior: 50887106!
+xxx: aReport
+
+	aReport addMe: self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [aReport addMe: (Character tab asString),(anAccount name)].
+	].
+	
+	
+	
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:27:06' prior: 50887276!
+familyTreeReport 
+
+	portfolio familyTree: self tabs: ''.
+	^report.
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 12:27:46'!
+familyTree: aReport tabs: tabs
+
+	aReport addMeAsParent: aReport name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (tabs,'-',anAccount name)].
+	]
+	! !
+
+!methodRemoval: Portfolio #xxx:with: stamp: 'DB 11/16/2020 12:27:46'!
+xxx: aReport with: tabs
+
+	aReport addMeAsParent: aReport name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (tabs,'-',anAccount name)].
+	]
+	!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 12:28:26' prior: 50887299!
+familyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [aReport addMe: (Character tab asString),(anAccount name)].
+	].
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 12:29:18' prior: 50887317!
+familyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: tabs,(Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 12:29:34'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 12:29:34'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 12:29:34'!
+PASSED!
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:31:14'!
+addMeAsParent: aPortfolio tabs: tabs
+
+	report add: aPortfolio name.
+	aPortfolio familyTreeReport: aPortfolio tabs: tabs.
+
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:31:36' prior: 50887356!
+addMeAsParent: aPortfolio tabs: tabs
+
+	report add: aPortfolio name.
+	aPortfolio familyTree: aPortfolio tabs: tabs.
+
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 12:32:06' prior: 50887330!
+familyTree: aReport tabs: tabs
+
+	aReport addMeAsParent: self tabs: tabs.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: tabs,(Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+
+!methodRemoval: Portfolio #xxx: stamp: 'DB 11/16/2020 12:32:50'!
+xxx: aReport
+
+	aReport addMe: self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: (Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [aReport addMe: (Character tab asString),(anAccount name)].
+	].
+	
+	
+	
+	!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 12:33:00'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 12:33:00'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 12:33:01'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 12:33:05'!
+ERROR!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 12:37:12' prior: 50887371!
+familyTree: aReport tabs: tabs
+
+
+	aReport addMe: tabs,self name.
+	"aReport addMe: self name tabs: tabs."
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: tabs,(Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 12:37:14' prior: 50887412!
+familyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	"aReport addMe: self name tabs: tabs."
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: tabs,(Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 12:37:37'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 12:37:37'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 12:37:37'!
+PASSED!
+!TransferNetReportTest methodsFor: 'nil' stamp: 'DB 11/16/2020 12:41:06'!
+test06SummaryReportForEmptyAccountReturnsOnlyBalance
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	
+	report := (TransferNetReport with: account) net. 
+ 	
+	self assert: 1 equals: report size.
+	self assert: 'Balance = 0' equals: (report at: 1)
+	! !
+!TransferNetReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:41:45' prior: 50887453!
+test06SummaryReportForEmptyAccountReturnsOnlyBalance
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	
+	report := (TransferNetReport with: account) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	! !
+
+!testRun: #TransferNetReportTest #test06SummaryReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 12:41:49'!
+PASSED!
+!TransferNetReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:42:33'!
+test02TransferNetReportForDepositReturnsBalanceAndDeposit
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	report := (TransferNetReport with: account) transferNet. 
+ 	
+	self assert: 2 equals: report size.
+	self assert: 'Deposit for 100' equals: (report at: 1).
+	self assert: 'Balance = 100' equals: (report at: 2)
+	! !
+!TransferNetReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:42:39'!
+test02TransferNetReportForDepositReturnsZero
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	report := (TransferNetReport with: account) transferNet. 
+ 	
+	self assert: 2 equals: report size.
+	self assert: 'Deposit for 100' equals: (report at: 1).
+	self assert: 'Balance = 100' equals: (report at: 2)
+	! !
+
+!methodRemoval: TransferNetReportTest #test02TransferNetReportForDepositReturnsBalanceAndDeposit stamp: 'DB 11/16/2020 12:42:42'!
+test02TransferNetReportForDepositReturnsBalanceAndDeposit
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	report := (TransferNetReport with: account) transferNet. 
+ 	
+	self assert: 2 equals: report size.
+	self assert: 'Deposit for 100' equals: (report at: 1).
+	self assert: 'Balance = 100' equals: (report at: 2)
+	!
+!TransferNetReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:43:04' prior: 50887494!
+test02TransferNetReportForDepositReturnsZero
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	report := (TransferNetReport with: account) transferNet. 
+ 	
+	self assert: 0 equals: report.	! !
+
+!testRun: #TransferNetReportTest #test02TransferNetReportForDepositReturnsZero stamp: 'DB 11/16/2020 12:43:07'!
+PASSED!
+
+!testRun: #TransferNetReportTest #test06SummaryReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 12:43:07'!
+PASSED!
+!TransferNetReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:43:17'!
+test01SummaryReportForEmptyAccountReturnsOnlyBalance
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	
+	report := (TransferNetReport with: account) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	! !
+
+!methodRemoval: TransferNetReportTest #test06SummaryReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 12:43:17'!
+test06SummaryReportForEmptyAccountReturnsOnlyBalance
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	
+	report := (TransferNetReport with: account) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	!
+
+!classRenamed: #TransferNetReportTest as: #ReportTransferNetTest stamp: 'DB 11/16/2020 12:43:56'!
+Smalltalk renameClassNamed: #TransferNetReportTest as: #ReportTransferNetTest!
+
+!classRenamed: #SummaryReportTest as: #ReportSummaryTest stamp: 'DB 11/16/2020 12:44:10'!
+Smalltalk renameClassNamed: #SummaryReportTest as: #ReportSummaryTest!
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:45:20'!
+test03TransferNetReportForWithdrawReturnsZero
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	report := (TransferNetReport with: account) transferNet . 
+ 	
+	self assert: 2 equals: report size.
+	self assert: 'Extraction for 50' equals: (report at: 1).
+	self assert: 'Balance = -50' equals: (report at: 2)
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:45:36' prior: 50887574!
+test03TransferNetReportForWithdrawReturnsZero
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	report := (TransferNetReport with: account) transferNet . 
+ 	
+	self assert: 0 equals: report
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:45:50'!
+test01TransferNetReportForEmptyAccountReturnsOnlyBalance
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	
+	report := (TransferNetReport with: account) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	! !
+
+!methodRemoval: ReportTransferNetTest #test01SummaryReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 12:45:50'!
+test01SummaryReportForEmptyAccountReturnsOnlyBalance
+
+	| account report |
+	
+	account := ReceptiveAccount new.
+	
+	report := (TransferNetReport with: account) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	!
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:46:47'!
+test04TransferNetReportForATransferReturnsNetBalance
+
+	| sender receiver report |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer register: 60 from: sender to: receiver.
+	
+	report := (SummaryReport with: sender) summary. 
+ 	
+	self assert: 2 equals: report size.
+	self assert: 'Output by transfer of 60' equals: (report at: 1).
+	self assert: 'Balance = -60' equals: (report at: 2).
+	
+	report := (SummaryReport with: receiver) summary. 
+ 	
+	self assert: 2 equals: report size.
+	self assert: 'Entry by transfer of 60' equals: (report at: 1).
+	self assert: 'Balance = 60' equals: (report at: 2)
+	
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:47:35' prior: 50887620!
+test04TransferNetReportForATransferReturnsNetBalance
+
+	| sender receiver report |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer register: 60 from: sender to: receiver.
+	
+	report := (TransferNetReport with: sender) summary. 
+ 	
+	self assert: -60 equals: report.
+	
+	report := (TransferNetReport with: receiver) summary. 
+ 	
+	self assert: 60 equals: report.
+	! !
+
+!testRun: #ReportTransferNetTest #test01TransferNetReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 12:47:38'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test02TransferNetReportForDepositReturnsZero stamp: 'DB 11/16/2020 12:47:38'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test03TransferNetReportForWithdrawReturnsZero stamp: 'DB 11/16/2020 12:47:38'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test04TransferNetReportForATransferReturnsNetBalance stamp: 'DB 11/16/2020 12:47:38'!
+ERROR!
+
+!testRun: #ReportTransferNetTest #test04TransferNetReportForATransferReturnsNetBalance stamp: 'DB 11/16/2020 12:47:38'!
+ERROR!
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:47:48' prior: 50887644!
+test04TransferNetReportForATransferReturnsNetBalance
+
+	| sender receiver report |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer register: 60 from: sender to: receiver.
+	
+	report := (TransferNetReport with: sender) transferNet . 
+ 	
+	self assert: -60 equals: report.
+	
+	report := (TransferNetReport with: receiver) transferNet. 
+ 	
+	self assert: 60 equals: report.
+	! !
+
+!testRun: #ReportTransferNetTest #test01TransferNetReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 12:47:51'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test02TransferNetReportForDepositReturnsZero stamp: 'DB 11/16/2020 12:47:51'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test03TransferNetReportForWithdrawReturnsZero stamp: 'DB 11/16/2020 12:47:51'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test04TransferNetReportForATransferReturnsNetBalance stamp: 'DB 11/16/2020 12:47:51'!
+PASSED!
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:48:58'!
+test10TransferNetOfAPortfolioWithoutAccountsReturnsZero
+
+	| portfolio report |
+	
+	portfolio := Portfolio new.
+	
+	report := (TransferNetReport with: portfolio) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:49:08'!
+test5TransferNetOfAPortfolioWithoutAccountsReturnsZero
+
+	| portfolio report |
+	
+	portfolio := Portfolio new.
+	
+	report := (TransferNetReport with: portfolio) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	
+	! !
+
+!methodRemoval: ReportTransferNetTest #test10TransferNetOfAPortfolioWithoutAccountsReturnsZero stamp: 'DB 11/16/2020 12:49:08'!
+test10TransferNetOfAPortfolioWithoutAccountsReturnsZero
+
+	| portfolio report |
+	
+	portfolio := Portfolio new.
+	
+	report := (TransferNetReport with: portfolio) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	
+	!
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:49:13'!
+test05TransferNetOfAPortfolioWithoutAccountsReturnsZero
+
+	| portfolio report |
+	
+	portfolio := Portfolio new.
+	
+	report := (TransferNetReport with: portfolio) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	
+	! !
+
+!methodRemoval: ReportTransferNetTest #test5TransferNetOfAPortfolioWithoutAccountsReturnsZero stamp: 'DB 11/16/2020 12:49:13'!
+test5TransferNetOfAPortfolioWithoutAccountsReturnsZero
+
+	| portfolio report |
+	
+	portfolio := Portfolio new.
+	
+	report := (TransferNetReport with: portfolio) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	
+	!
+
+!testRun: #ReportTransferNetTest #test01TransferNetReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 12:49:19'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test02TransferNetReportForDepositReturnsZero stamp: 'DB 11/16/2020 12:49:19'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test03TransferNetReportForWithdrawReturnsZero stamp: 'DB 11/16/2020 12:49:19'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test04TransferNetReportForATransferReturnsNetBalance stamp: 'DB 11/16/2020 12:49:19'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test05TransferNetOfAPortfolioWithoutAccountsReturnsZero stamp: 'DB 11/16/2020 12:49:19'!
+PASSED!
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:50:18'!
+test06TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue
+
+	| account portfolio report |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	portfolio := Portfolio with: account.
+	
+	report := (SummaryReport with: portfolio) summary. 
+ 	
+	self assert: 2 equals: report size.
+	self assert: 'Deposit for 100' equals: (report at: 1).
+	self assert: 'Balance = 100' equals: (report at: 2)
+	
+	
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:50:41' prior: 50887784!
+test06TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue
+
+	| account portfolio report |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	portfolio := Portfolio with: account.
+	
+	report := (TransferNetReport with: portfolio) transferNet. 
+ 	
+	self assert: 0 equals: report.
+	
+	! !
+
+!testRun: #ReportTransferNetTest #test01TransferNetReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 12:50:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test02TransferNetReportForDepositReturnsZero stamp: 'DB 11/16/2020 12:50:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test03TransferNetReportForWithdrawReturnsZero stamp: 'DB 11/16/2020 12:50:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test04TransferNetReportForATransferReturnsNetBalance stamp: 'DB 11/16/2020 12:50:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test05TransferNetOfAPortfolioWithoutAccountsReturnsZero stamp: 'DB 11/16/2020 12:50:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test06TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue stamp: 'DB 11/16/2020 12:50:43'!
+PASSED!
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:51:47'!
+test07TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue
+
+	| account portfolio report |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	portfolio := Portfolio with: account.
+	
+	report := (SummaryReport with: portfolio) summary. 
+ 	
+	self assert: 2 equals: report size.
+	self assert: 'Deposit for 100' equals: (report at: 1).
+	self assert: 'Balance = 100' equals: (report at: 2)
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:54:04' prior: 50887839!
+test07TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue
+
+	| simplePortfolioAccount simplePortfolio composedPortfolioAccount composedPortofolio report |
+	
+	simplePortfolioAccount := ReceptiveAccount new.
+	Deposit register: 100 on: simplePortfolioAccount.
+	simplePortfolio := Portfolio with: simplePortfolioAccount.
+	
+	composedPortfolioAccount := ReceptiveAccount new.
+	Withdraw register: 50 on: composedPortfolioAccount.
+	composedPortofolio := Portfolio with: simplePortfolio with: composedPortfolioAccount.
+	
+	report := (TransferNetReport with: composedPortofolio) transferNet. 
+ 	
+	self assert: 10 equals: report size.
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:58:03'!
+test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue
+
+	| simplePortfolioAccount |
+	
+	simplePortfolioAccount := ReceptiveAccount new.
+	Deposit register: 100 on: simplePortfolioAccount.
+	Withdraw register: 50 on: simplePortfolioAccount.
+	
+	
+	! !
+
+!methodRemoval: ReportTransferNetTest #test07TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue stamp: 'DB 11/16/2020 12:58:13'!
+test07TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue
+
+	| simplePortfolioAccount simplePortfolio composedPortfolioAccount composedPortofolio report |
+	
+	simplePortfolioAccount := ReceptiveAccount new.
+	Deposit register: 100 on: simplePortfolioAccount.
+	simplePortfolio := Portfolio with: simplePortfolioAccount.
+	
+	composedPortfolioAccount := ReceptiveAccount new.
+	Withdraw register: 50 on: composedPortfolioAccount.
+	composedPortofolio := Portfolio with: simplePortfolio with: composedPortfolioAccount.
+	
+	report := (TransferNetReport with: composedPortofolio) transferNet. 
+ 	
+	self assert: 10 equals: report size.
+	!
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:59:05' prior: 50887879!
+test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue
+
+	| sender reciever receiver transfer |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	Deposit register: 100 on: sender.
+	Withdraw register: 50 on: sender.
+	
+	transfer := Transfer register: 20 from: sender to: receiver.
+	
+	
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:59:19' prior: 50887916!
+test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue
+
+	| sender receiver transfer |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	Deposit register: 100 on: sender.
+	Withdraw register: 50 on: sender.
+	
+	transfer := Transfer register: 20 from: sender to: receiver.
+	
+	
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 12:59:41' prior: 50887930!
+test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue
+
+	| sender receiver transfer |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	Deposit register: 100 on: sender.
+	Withdraw register: 50 on: sender.
+	
+	transfer := Transfer register: 20 from: sender to: receiver.
+	transfer := Transfer register: 30 from: receiver to: sender.	
+	
+	
+	
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:00:18' prior: 50887944!
+test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue
+
+	| sender receiver transfer report |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	Deposit register: 100 on: sender.
+	Withdraw register: 50 on: sender.
+	
+	transfer := Transfer register: 20 from: sender to: receiver.
+	transfer := Transfer register: 30 from: receiver to: sender.	
+	
+	report := (TransferNetReport with: sender) transferNet.
+	
+	
+	
+	
+	
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:00:49' prior: 50887960!
+test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue
+
+	| sender receiver transfer report |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	Deposit register: 100 on: sender.
+	Withdraw register: 50 on: sender.
+	
+	transfer := Transfer register: 20 from: sender to: receiver.
+	transfer := Transfer register: 30 from: receiver to: sender.	
+	
+	report := (TransferNetReport with: sender) transferNet.
+	
+	self assert: 10 equals: report.
+	
+	
+	
+	
+	
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:01:00' prior: 50887978!
+test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue
+
+	| sender receiver report |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	Deposit register: 100 on: sender.
+	Withdraw register: 50 on: sender.
+	
+	Transfer register: 20 from: sender to: receiver.
+	Transfer register: 30 from: receiver to: sender.	
+	
+	report := (TransferNetReport with: sender) transferNet.
+	
+	self assert: 10 equals: report.
+	
+	
+	
+	
+	
+	! !
+
+!testRun: #ReportTransferNetTest #test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue stamp: 'DB 11/16/2020 13:01:08'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test01TransferNetReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 13:01:11'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test02TransferNetReportForDepositReturnsZero stamp: 'DB 11/16/2020 13:01:11'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test03TransferNetReportForWithdrawReturnsZero stamp: 'DB 11/16/2020 13:01:11'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test04TransferNetReportForATransferReturnsNetBalance stamp: 'DB 11/16/2020 13:01:11'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test05TransferNetOfAPortfolioWithoutAccountsReturnsZero stamp: 'DB 11/16/2020 13:01:11'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test06TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue stamp: 'DB 11/16/2020 13:01:11'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue stamp: 'DB 11/16/2020 13:01:11'!
+PASSED!
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:05:07'!
+assertTransferNetAccount: anAccount value: expectedValue
+ 	
+	self assert: expectedValue equals: (TransferNetReport with: anAccount) transferNet..
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:05:29' prior: 50887600!
+test01TransferNetReportForEmptyAccountReturnsOnlyBalance
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	
+	self assertTransferNetAccount: account value: 0.! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:05:49' prior: 50887524!
+test02TransferNetReportForDepositReturnsZero
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	
+	self assertTransferNetAccount: account value: 0.! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:06:01' prior: 50887589!
+test03TransferNetReportForWithdrawReturnsZero
+
+	| account |
+	
+	account := ReceptiveAccount new.
+	Withdraw register: 50 on: account.
+	
+	self assertTransferNetAccount: account value: 0.
+	
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:06:37' prior: 50887680!
+test04TransferNetReportForATransferReturnsNetBalance
+
+	| sender receiver |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	
+	Transfer register: 60 from: sender to: receiver.
+	
+	self assertTransferNetAccount: sender value: -60.
+	self assertTransferNetAccount: receiver value: 60.
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:06:51' prior: 50887743!
+test05TransferNetOfAPortfolioWithoutAccountsReturnsZero
+
+	| portfolio |
+	
+	portfolio := Portfolio new.
+	
+	self assertTransferNetAccount: portfolio value: 0.
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:07:18' prior: 50887801!
+test06TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue
+
+	| account portfolio |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+	portfolio := Portfolio with: account.
+	
+	self assertTransferNetAccount: portfolio value: 0.
+	! !
+!ReportTransferNetTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:07:39' prior: 50887997!
+test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue
+
+	| sender receiver |
+	
+	sender := ReceptiveAccount new.
+	receiver := ReceptiveAccount new.
+	Deposit register: 100 on: sender.
+	Withdraw register: 50 on: sender.
+	
+	Transfer register: 20 from: sender to: receiver.
+	Transfer register: 30 from: receiver to: sender.	
+	
+	self assertTransferNetAccount: sender value: 10.
+	
+	
+	
+	
+	! !
+
+!testRun: #ReportTransferNetTest #test01TransferNetReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 13:07:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test02TransferNetReportForDepositReturnsZero stamp: 'DB 11/16/2020 13:07:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test03TransferNetReportForWithdrawReturnsZero stamp: 'DB 11/16/2020 13:07:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test04TransferNetReportForATransferReturnsNetBalance stamp: 'DB 11/16/2020 13:07:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test05TransferNetOfAPortfolioWithoutAccountsReturnsZero stamp: 'DB 11/16/2020 13:07:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test06TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue stamp: 'DB 11/16/2020 13:07:43'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue stamp: 'DB 11/16/2020 13:07:43'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test06SummaryReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 13:07:47'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test07SummaryReportForDepositReturnsBalanceAndDeposit stamp: 'DB 11/16/2020 13:07:47'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test08SummaryReportForWithdrawReturnsBalanceAndWithdraw stamp: 'DB 11/16/2020 13:07:47'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test09SummaryReportForTransferReturnsBalanceAndTransferTransaction stamp: 'DB 11/16/2020 13:07:47'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test10SummaryOfPortfolioWithoutAccountsHasOnlyBalance stamp: 'DB 11/16/2020 13:07:47'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test11SummaryOfPortfolioWithOneAccount stamp: 'DB 11/16/2020 13:07:47'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test12SummaryOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'DB 11/16/2020 13:07:47'!
+PASSED!
+
+!testRun: #TransferTest #test01TransferAffectBalance stamp: 'DB 11/16/2020 13:07:51'!
+PASSED!
+
+!testRun: #TransferTest #test02SenderAndReceiverCantBeTheSameAccount stamp: 'DB 11/16/2020 13:07:51'!
+PASSED!
+
+!testRun: #TransferTest #test03TransferAmountCantBeZeroOrNegative stamp: 'DB 11/16/2020 13:07:51'!
+PASSED!
+
+!testRun: #TransferTest #test04TransferTransactionesWereRegisteredInTheAccounts stamp: 'DB 11/16/2020 13:07:51'!
+PASSED!
+
+!testRun: #TransferTest #test05SenderAndReceiverHaveTheSameTransfer stamp: 'DB 11/16/2020 13:07:51'!
+PASSED!
+
+!methodRemoval: PortfolioTreeReport #addMeAsParent:tabs: stamp: 'DB 11/16/2020 13:17:08'!
+addMeAsParent: aPortfolio tabs: tabs
+
+	report add: aPortfolio name.
+	aPortfolio familyTree: aPortfolio tabs: tabs.
+
+	!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 13:17:14'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 13:17:14'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 13:17:14'!
+PASSED!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:17:40'!
+test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport
+
+	|  portfolio report |
+	
+	portfolio :=  Portfolio named: 'Empty Portfolio'.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 1 equals: report size.
+	self assert:  'Empty Portfolio' equals: (report at: 1)
+
+	! !
+
+!classDefinition: #PortfolioSpeicalTreeReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 13:18:04'!
+Object subclass: #PortfolioSpeicalTreeReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:17:59' prior: 50888230!
+test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport
+
+	|  portfolio report |
+	
+	portfolio :=  Portfolio named: 'Empty Portfolio'.
+	
+	report := (PortfolioSpeicalTreeReport with: portfolio) specialTreeReport. 
+ 	
+	self assert: 1 equals: report size.
+	self assert:  'Empty Portfolio' equals: (report at: 1)
+
+	! !
+
+!classRenamed: #PortfolioSpeicalTreeReport as: #PortfolioSpecialTreeReport stamp: 'DB 11/16/2020 13:18:27'!
+Smalltalk renameClassNamed: #PortfolioSpeicalTreeReport as: #PortfolioSpecialTreeReport!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 13:18:28' prior: 50888252!
+test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport
+
+	|  portfolio report |
+	
+	portfolio :=  Portfolio named: 'Empty Portfolio'.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	self assert: 1 equals: report size.
+	self assert:  'Empty Portfolio' equals: (report at: 1)
+
+	! !
+
+----SNAPSHOT----(16 November 2020 13:28:35) CuisUniversity-4384.image priorSource: 17754529!
+!PortfolioSpecialTreeReport class methodsFor: 'no messages' stamp: 'DB 11/16/2020 13:35:55'!
+with: aPortfolio
+
+	^self new initializeWith: aPortfolio 
+	! !
+
+!classDefinition: #PortfolioSpecialTreeReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 13:36:36'!
+Object subclass: #PortfolioSpecialTreeReport
+	instanceVariableNames: 'portfolio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #PortfolioSpecialTreeReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 13:36:39'!
+Object subclass: #PortfolioSpecialTreeReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!PortfolioSpecialTreeReport methodsFor: 'nil' stamp: 'DB 11/16/2020 13:36:34'!
+initializeWith: aPortfolio
+	portfolio := aPortfolio.
+	report := OrderedCollection new.! !
+
+----SNAPSHOT----(16 November 2020 13:41:55) CuisUniversity-4384.image priorSource: 17812283!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:33:22'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:33:22'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 15:33:22'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:33:22'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:33:22'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:33:31'!
+ERROR!
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:33:41'!
+specialTreeReport
+	self shouldBeImplemented.! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:34:21' prior: 50888344!
+specialTreeReport
+
+	report add: portfolio name.
+	^report! !
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:34:22'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:34:25'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:34:25'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 15:34:25'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:34:25'!
+PASSED!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:34:38'!
+test04SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:35:57'!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+
+!methodRemoval: PortfolioTreeReportTest #test04SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:35:57'!
+test04SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:36:54' prior: 50888394!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	portfolio add: myAccount.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:37:34' prior: 50888432!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:38:47' prior: 50888452!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Cuenta mia' equals: (report at: 2).	
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:40:39' prior: 50888473!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) familyTreeReport. 
+ 	
+	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 2).	
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:40:53'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:40:53'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 15:40:53'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:40:53'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:40:53'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:40:53'!
+ERROR!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:41:15' prior: 50888501!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 2).	
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:41:18'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:41:18'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 15:41:18'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:41:18'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:41:18'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:41:18'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:41:32' prior: 50888554!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	
+	self assert: 4 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 2).	
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:41:52' prior: 50888607!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 2).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 2).
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:41:55'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:41:55'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 15:41:55'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:41:55'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:41:55'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:41:55'!
+FAILURE!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 15:42:13'!
+specialfamilyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	"aReport addMe: self name tabs: tabs."
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: tabs,(Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 15:42:21' prior: 50888690!
+specialfamilyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: tabs,(Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 15:45:15' prior: 50888705!
+specialfamilyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount | |report|
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [
+			aReport addMe: tabs,(Character tab asString),(anAccount name).
+			
+			report := (SummaryReport with: anAccount) summary.
+			
+			report do: [ :aDetail |
+				aReport addMe: tabs,(Character tab asString),(Character tab asString), aDetail.
+			]
+			
+		].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:45:51' prior: 50888349!
+specialTreeReport
+
+	
+	portfolio familyTree: self tabs: ''.
+	^report.
+	! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:45:56' prior: 50888740!
+specialTreeReport
+
+	
+	portfolio specialfamilyTree: self tabs: ''.
+	^report.
+	! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:46:00' prior: 50888746!
+specialTreeReport
+
+	portfolio specialfamilyTree: self tabs: ''.
+	^report.
+	! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:46:28'!
+addMe: name.
+
+	report add: name.
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:46:33'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:46:33'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 15:46:33'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:46:33'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:46:33'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:46:33'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:47:01' prior: 50888635!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:47:03'!
+PASSED!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:47:30'!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:47:40' prior: 50888823!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:48:11'!
+test05SpecialTreeReportForPortfolioWithOneChildReturns
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+
+	! !
+
+!methodRemoval: PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:48:11'!
+test05SpecialTreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+
+	!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:48:17'!
+test03TreeReportForPortfolioWithMoreThanOneChildReturns
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	report := (PortfolioTreeReport with: familyPorfolio) familyTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert:  Character tab asString,'Portfolio de hijos' equals: (report at: 3).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Juan' equals: (report at: 4).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Angeles' equals: (report at: 5).	
+
+
+	! !
+
+!methodRemoval: PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturnsA stamp: 'DB 11/16/2020 15:48:17'!
+test03TreeReportForPortfolioWithMoreThanOneChildReturnsA
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	report := (PortfolioTreeReport with: familyPorfolio) familyTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert:  Character tab asString,'Portfolio de hijos' equals: (report at: 3).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Juan' equals: (report at: 4).	
+	self assert:  Character tab asString,Character tab asString,'Cuenta de Angeles' equals: (report at: 5).	
+
+
+	!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:48:21'!
+test02TreeReportForPortfolioWithOneChildReturns
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	! !
+
+!methodRemoval: PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturnsA stamp: 'DB 11/16/2020 15:48:21'!
+test02TreeReportForPortfolioWithOneChildReturnsA
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	portfolio add: myAccount.
+	
+	report := (PortfolioTreeReport with: portfolio) familyTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Portfolio de la familia' equals: (report at: 1).
+	self assert:  Character tab asString,'Cuenta mia' equals: (report at: 2)
+
+	!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:48:57' prior: 50888855!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 2).
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:50:38' prior: 50889065!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount portfolio |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 2).
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:52:53' prior: 50889099!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount portfolio |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 5).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 5).	
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:54:41' prior: 50889150!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 5).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 5).	
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:55:15' prior: 50889227!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 5 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 6).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 7).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 8).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 9).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 10).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 11).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 12).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 13).	
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:55:19'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 15:55:19'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 15:55:19'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:55:19'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 15:55:19'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 15:55:19'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 15:55:19'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:55:31' prior: 50889304!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 13 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 6).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 7).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 8).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 9).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 10).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 11).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 12).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 13).	
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:55:36'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 15:55:36'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 15:55:36'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:55:36'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 15:55:36'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 15:55:36'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 15:55:36'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:57:23' prior: 50889411!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 60 on: childAccount.
+	Withdraw register: 30 on: childAccount.
+	
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 13 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 6).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 7).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 8).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 9).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 10).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 11).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 12).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 13).	
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:57:47' prior: 50889518!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 60 on: childAccount.
+	Withdraw register: 30 on: childAccount.
+	
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 13 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 60' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 20' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 40' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 6).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 7).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 8).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 9).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 10).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 11).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 12).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 13).	
+
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 15:57:51' prior: 50889598!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 60 on: childAccount.
+	Withdraw register: 20 on: childAccount.
+	
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 13 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 60' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 20' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 40' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 6).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 7).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 8).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 9).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 10).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 11).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 12).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 13).	
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:58:01'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 15:58:01'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 15:58:01'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 15:58:01'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 15:58:01'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 15:58:01'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 15:58:01'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 15:59:00'!
+FAILURE!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 15:59:49' prior: 50888719!
+specialfamilyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount | |report|
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [
+			aReport addMe: tabs,(Character tab asString),(anAccount name).
+			
+			report := (SummaryReport with: anAccount) summary.
+			
+			report do: [ :aDetail |
+				aReport addMe: tabs,(Character tab asString),(Character tab asString), aDetail.
+			]
+			
+		].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount specialfamilyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 15:59:51'!
+FAILURE!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 16:00:25' prior: 50889791!
+specialfamilyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount | |report|
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [
+			aReport addMe: tabs,(Character tab asString),(anAccount name).
+			
+			report := (SummaryReport with: anAccount) summary.
+			
+			report do: [ :aDetail |
+				aReport addMe: tabs,(Character tab asString),(Character tab asString), aDetail.
+			]
+			
+		].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount specialfamilyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	aReport addMe: tabs, self balance.
+	! !
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:00:29'!
+ERROR!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 16:00:54' prior: 50889816!
+specialfamilyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount | |report|
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [
+			aReport addMe: tabs,(Character tab asString),(anAccount name).
+			
+			report := (SummaryReport with: anAccount) summary.
+			
+			report do: [ :aDetail |
+				aReport addMe: tabs,(Character tab asString),(Character tab asString), aDetail.
+			]
+			
+		].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount specialfamilyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	aReport addMe: tabs, self balance.
+	! !
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:01:19'!
+ERROR!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 16:02:31' prior: 50889842!
+specialfamilyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount | |report|
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [
+			aReport addMe: tabs,(Character tab asString),(anAccount name).
+			
+			report := (SummaryReport with: anAccount) summary.
+			
+			report do: [ :aDetail |
+				aReport addMe: tabs,(Character tab asString),(Character tab asString), aDetail.
+			]
+			
+		].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount specialfamilyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	aReport addMe: tabs, 'Balance = ',(self balance asString).
+	! !
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:02:34'!
+ERROR!
+
+self balance asString!
+
+ report size!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:04:31' prior: 50889678!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 60 on: childAccount.
+	Withdraw register: 20 on: childAccount.
+	
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 15 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 60' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 20' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 40' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 6).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 7).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 8).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 9).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 10).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 11).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 12).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 13).	
+	self assert: Character tab asString, Character tab asString,'Balance = -50' equals: (report at: 14).	
+	self assert: Character tab asString,'Balance = -50' equals: (report at: 15).	
+	! !
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:04:53'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:07:03'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:07:24'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:08:02'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:08:17' prior: 50889896!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 60 on: childAccount.
+	Withdraw register: 20 on: childAccount.
+	
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 15 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 60' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 20' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 40' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 6).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 7).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 8).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 9).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 10).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 11).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 12).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 13).	
+	self assert: Character tab asString, Character tab asString,'Balance = -20' equals: (report at: 14).	
+	self assert: Character tab asString,'Balance = -50' equals: (report at: 15).	
+	! !
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:08:18'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:08:50' prior: 50889999!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 60 on: childAccount.
+	Withdraw register: 20 on: childAccount.
+	
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 15 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 60' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 20' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 40' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 6).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 7).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 8).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 9).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 10).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 11).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 12).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 13).	
+	self assert: Character tab asString, Character tab asString,'Balance = -20' equals: (report at: 14).	
+	self assert: Character tab asString,'Balance = 20' equals: (report at: 15).	
+	! !
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:09:32' prior: 50890089!
+test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild
+
+	|  familyPorfolio childPortfolio report  angelesAccount childAccount juansAccount anotherAccount |
+	
+	familyPorfolio :=  Portfolio named: 'Portfolio de la familia'.
+	childPortfolio := Portfolio named: 'Portfolio de hijos'.
+	
+	childAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 60 on: childAccount.
+	Withdraw register: 20 on: childAccount.
+	
+	juansAccount := ReceptiveAccount named: 'Cuenta de Juan'.
+	angelesAccount := ReceptiveAccount named: 'Cuenta de Angeles'.
+	anotherAccount := ReceptiveAccount named: 'Ahother account'.
+	
+	Deposit register: 40 on: juansAccount .
+	Withdraw register: 10 on: juansAccount .
+	
+	Transfer register: 50 from: angelesAccount  to: anotherAccount. 
+	
+	childPortfolio add: juansAccount.
+	childPortfolio add: angelesAccount.
+	
+	familyPorfolio add: childAccount.
+	familyPorfolio add: childPortfolio.
+	
+	
+	report := (PortfolioSpecialTreeReport with: familyPorfolio) specialTreeReport. 
+ 	
+	self assert: 15 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 60' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 20' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 40' equals: (report at: 5).
+	self assert: Character tab asString,'Portfolio de hijos' equals: (report at: 6).
+	self assert: Character tab asString, Character tab asString,'Cuenta de Juan' equals: (report at: 7).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Deposit for 40' equals: (report at: 8).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Extraction for 10' equals: (report at: 9).	
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = 30' equals: (report at: 10).	
+	self assert: Character tab asString, Character tab asString,'Cuenta de Angeles' equals: (report at: 11).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Output by transfer of 50' equals: (report at: 12).
+	self assert: Character tab asString, Character tab asString,Character tab asString,'Balance = -50' equals: (report at: 13).	
+	self assert: Character tab asString, Character tab asString,'Balance = -20' equals: (report at: 14).	
+	self assert: Character tab asString,'Balance = 20' equals: (report at: 15).	
+	! !
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:10:08'!
+FAILURE!
+!Portfolio methodsFor: 'accounts management' stamp: 'DB 11/16/2020 16:12:15' prior: 50889868!
+specialfamilyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount | |report|
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [
+			aReport addMe: tabs,(Character tab asString),(anAccount name).
+			
+			report := (SummaryReport with: anAccount) summary.
+			
+			report do: [ :aDetail |
+				aReport addMe: tabs,(Character tab asString),(Character tab asString), aDetail.
+			]
+			
+		].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount specialfamilyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	aReport addMe: tabs,(Character tab asString), 'Balance = ',(self balance asString).
+	! !
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:12:19'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:12:21'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:12:21'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:12:21'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:12:21'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:12:21'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:12:21'!
+PASSED!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:12:55' prior: 50888272!
+test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport
+
+	|  portfolio report |
+	
+	portfolio :=  Portfolio named: 'Empty Portfolio'.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Empty Portfolio' equals: (report at: 1).
+	self assert:  'Balance = 0' equals: (report at: 2).
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:12:56'!
+FAILURE!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:13:16' prior: 50890316!
+test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport
+
+	|  portfolio report |
+	
+	portfolio :=  Portfolio named: 'Empty Portfolio'.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	self assert: 2 equals: report size.
+	self assert:  'Empty Portfolio' equals: (report at: 1).
+	self assert:  Character tab asString,'Balance = 0' equals: (report at: 2).
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:13:17'!
+PASSED!
+!PortfolioTreeReportTest methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:13:44' prior: 50888886!
+test05SpecialTreeReportForPortfolioWithOneChildReturns
+
+	|  portfolio report myAccount |
+	
+	portfolio :=  Portfolio named: 'Portfolio de la familia'.
+	
+	myAccount := ReceptiveAccount named: 'Cuenta mia'.
+	Deposit register: 100 on: myAccount. 
+	Withdraw register: 50 on: myAccount.
+	portfolio add: myAccount.
+	
+	report := (PortfolioSpecialTreeReport with: portfolio) specialTreeReport. 
+ 	
+	
+	self assert: 6 equals: report size.
+	self assert: 'Portfolio de la familia' equals: (report at: 1).
+	self assert: Character tab asString,'Cuenta mia' equals: (report at: 2).
+	self assert: Character tab asString, Character tab asString,'Deposit for 100' equals: (report at: 3).
+	self assert: Character tab asString, Character tab asString,'Extraction for 50' equals: (report at: 4).	
+	self assert: Character tab asString, Character tab asString,'Balance = 50' equals: (report at: 5).
+	self assert: Character tab asString, 'Balance = 50' equals: (report at: 6).
+
+	! !
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:13:45'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:13:48'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:13:48'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:13:48'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:13:48'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:13:48'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:13:48'!
+PASSED!
+!Portfolio methodsFor: 'reports' stamp: 'DB 11/16/2020 16:14:29' prior: 50887427!
+familyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: tabs,(Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	! !
+!Account methodsFor: 'transactions' stamp: 'DB 11/16/2020 16:15:48'!
+reportTreeTo: aReport
+
+	self transactions do: [ :aTransaction | 
+		aTransaction reportTo: aReport.
+	].! !
+!Account methodsFor: 'transactions' stamp: 'DB 11/16/2020 16:16:14' prior: 50890431!
+reportTreeTo: aReport
+
+	self transactions do: [ :aTransaction | 
+		aTransaction reportTo: aReport.
+	].
+! !
+!Portfolio methodsFor: 'reports' stamp: 'DB 11/16/2020 16:19:39' prior: 50890263!
+specialfamilyTree: aReport tabs: tabs
+
+
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount | |report|
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [
+			aReport addMe: tabs,(Character tab asString),(anAccount name).
+			
+			report := (SummaryReport with: anAccount) summary.
+			
+			report do: [ :aDetail |
+				aReport addMe: tabs,(Character tab asString),(Character tab asString), aDetail.
+			]
+			
+		].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount specialfamilyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	aReport addMe: tabs,(Character tab asString), 'Balance = ',(self balance asString).
+	! !
+!ReceptiveAccount methodsFor: 'composition' stamp: 'DB 11/16/2020 16:21:16' overrides: 50885536!
+reportTo: aReport
+	aReport reportAsReceptiveAccount: self. 
+	
+	! !
+!Portfolio methodsFor: 'reports' stamp: 'DB 11/16/2020 16:23:16'!
+reportTo: aReport tabs: tabs
+	aReport reportAsPortfolio: self tabs: tabs.
+	accounts do: [:anAccount |
+		aReport reportTo: aReport.
+	].
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:23:52' prior: 50887294!
+familyTreeReport 
+
+	portfolio reportTo: self tabs: ''.
+	^report.
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:24:21'!
+reportAsReceptiveAccount: anAccount
+
+
+	portfolio reportTo: self tabs: ''.
+	^report.
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:24:27'!
+reportAsReceptiveAccount: anAccount tabs: tabs.
+
+
+	portfolio reportTo: self tabs: ''.
+	^report.
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:25:06' prior: 50890490!
+reportAsReceptiveAccount: anAccount tabs: tabs.
+
+	self addMe: tabs,(Character tab asString),(anAccount name)
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:25:07' prior: 50890497!
+reportAsReceptiveAccount: anAccount tabs: tabs.
+	self addMe: tabs,(Character tab asString),(anAccount name)
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:25:14'!
+reportAsPortfolioAccount: anAccount tabs: tabs.
+	self addMe: tabs,(Character tab asString),(anAccount name)
+	! !
+
+!methodRemoval: PortfolioTreeReport #reportAsReceptiveAccount: stamp: 'DB 11/16/2020 16:25:19'!
+reportAsReceptiveAccount: anAccount
+
+
+	portfolio reportTo: self tabs: ''.
+	^report.
+	!
+!Portfolio methodsFor: 'reports' stamp: 'DB 11/16/2020 16:27:17' prior: 50890471!
+reportTo: aReport tabs: tabs
+	aReport reportAsPortfolioPrefix: self tabs: tabs.
+	accounts do: [:anAccount |
+		aReport reportTo: aReport.
+	].
+	aReport reportAsPortfolioPostfix: self tabs: tabs.
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:27:44'!
+reportAsPortfolioPrefix: anAccount tabs: tabs.
+	self addMe: tabs,(Character tab asString),(anAccount name)
+	! !
+
+!methodRemoval: PortfolioTreeReport #reportAsPortfolioAccount:tabs: stamp: 'DB 11/16/2020 16:27:44'!
+reportAsPortfolioAccount: anAccount tabs: tabs.
+	self addMe: tabs,(Character tab asString),(anAccount name)
+	!
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:27:53'!
+reportAsPortfolioPostfix: anAccount tabs: tabs.
+	
+	! !
+!Account methodsFor: 'transactions' stamp: 'DB 11/16/2020 16:31:21'!
+tabs: tabs reportTo: aReport
+
+	self transactions do: [ :aTransaction | 
+		aTransaction reportTo: aReport.
+	].! !
+!ReceptiveAccount methodsFor: 'composition' stamp: 'DB 11/16/2020 16:31:21' overrides: 50890549!
+tabs: tabs reportTo: aReport
+	aReport reportAsReceptiveAccount: self. 
+	
+	! !
+!SummaryReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:31:21' prior: 50885176!
+summary
+
+	account tabs: tabs reportTo: self.
+	summary add: 'Balance = ' , account balance asString .
+	^summary.! !
+!TransferNetReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:31:21' prior: 50885183!
+transferNet
+
+	account tabs: tabs reportTo: self.
+	^net.! !
+!Account methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:31:21' prior: 50890549!
+tabs: tabs reportTo: aReport
+
+	self transactions do: [ :aTransaction | 
+		aTransaction reportTo: aReport.
+	].! !
+
+!methodRemoval: Account #reportTo: stamp: 'DB 11/16/2020 16:31:21'!
+reportTo: aReport
+
+	self transactions do: [ :aTransaction | 
+		aTransaction reportTo: aReport.
+	].!
+
+!methodRemoval: ReceptiveAccount #reportTo: stamp: 'DB 11/16/2020 16:31:21'!
+reportTo: aReport
+	aReport reportAsReceptiveAccount: self. 
+	
+	!
+!ReceptiveAccount methodsFor: 'composition' stamp: 'DB 11/16/2020 16:31:43'!
+reportTo: aReport tabs: tabs 
+	aReport reportAsReceptiveAccount: self tabs: tabs.
+	
+	! !
+
+!methodRemoval: ReceptiveAccount #tabs:reportTo: stamp: 'DB 11/16/2020 16:31:48'!
+tabs: tabs reportTo: aReport
+	aReport reportAsReceptiveAccount: self. 
+	
+	!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:33:03'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:33:03'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:33:03'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:33:03'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:33:03'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:33:03'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:33:08'!
+FAILURE!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:33:08'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:33:08'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:33:08'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:33:08'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:33:08'!
+PASSED!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:33:24'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:33:52'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:34:00'!
+ERROR!
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:34:07'!
+ERROR!
+!Portfolio methodsFor: 'reports' stamp: 'DB 11/16/2020 16:34:31' prior: 50890523!
+reportTo: aReport tabs: tabs
+	aReport reportAsPortfolioPrefix: self tabs: tabs.
+	accounts do: [:anAccount |
+		aReport reportTo: aReport tabs: tabs.
+	].
+	aReport reportAsPortfolioPostfix: self tabs: tabs.
+	! !
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:34:52'!
+ERROR!
+!Portfolio methodsFor: 'reports' stamp: 'DB 11/16/2020 16:35:06' prior: 50890666!
+reportTo: aReport tabs: tabs
+	aReport reportAsPortfolioPrefix: self tabs: tabs.
+	accounts do: [:anAccount |
+		anAccount reportTo: aReport tabs: tabs.
+	].
+	aReport reportAsPortfolioPostfix: self tabs: tabs.
+	! !
+
+!testRun: #PortfolioTreeReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:35:48'!
+FAILURE!
+
+Object subclass: #PortfolioReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #PortfolioReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 16:37:22'!
+Object subclass: #PortfolioReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+PortfolioReport subclass: #PortfolioSpecialTreeReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #PortfolioSpecialTreeReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 16:37:33'!
+PortfolioReport subclass: #PortfolioSpecialTreeReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+PortfolioReport subclass: #PortfolioTreeReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #PortfolioTreeReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 16:37:39'!
+PortfolioReport subclass: #PortfolioTreeReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:38:05' prior: 50890532!
+reportAsPortfolioPrefix: anAccount tabs: tabs.
+	self addMe: tabs,anAccount name
+	! !
+
+!classRenamed: #PortfolioTreeReportTest as: #PortfolioReportTest stamp: 'DB 11/16/2020 16:38:31'!
+Smalltalk renameClassNamed: #PortfolioTreeReportTest as: #PortfolioReportTest!
+
+!testRun: #PortfolioReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:38:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:38:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:38:35'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:38:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:38:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:38:35'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:38:35'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:38:50'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:38:54'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:38:57'!
+FAILURE!
+
+!testRun: #PortfolioReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:38:57'!
+FAILURE!
+!Portfolio methodsFor: 'reports' stamp: 'DB 11/16/2020 16:41:12' prior: 50890679!
+reportTo: aReport tabs: tabs
+	aReport reportAsPortfolioPrefix: self tabs: tabs.
+	accounts do: [:anAccount |
+		anAccount reportTo: aReport tabs:(Character tab asString), tabs.
+	].
+	aReport reportAsPortfolioPostfix: self tabs: tabs.
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:41:25' prior: 50890504!
+reportAsReceptiveAccount: anAccount tabs: tabs.
+	self addMe: tabs,(anAccount name)
+	! !
+
+!testRun: #PortfolioReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:42:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:42:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:42:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:42:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:42:00'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:42:00'!
+PASSED!
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:42:30' prior: 50888752!
+specialTreeReport
+
+	portfolio reportTo: self tabs: ''.
+	^report.
+	! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:42:57'!
+reportAsReceptiveAccount: anAccount tabs: tabs.
+	self addMe: tabs,(anAccount name)! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:44:03' prior: 50890801!
+reportAsReceptiveAccount: anAccount tabs: tabs.
+	self addMe: tabs,(anAccount name).
+			
+	report := (SummaryReport with: anAccount) summary.
+			
+	report do: [ :aDetail |
+		self addMe: tabs,(Character tab asString), aDetail.
+	].! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:44:08' prior: 50890844!
+reportAsReceptiveAccount: anAccount tabs: tabs.
+	self addMe: tabs,(anAccount name).
+			
+	report := (SummaryReport with: anAccount) summary.
+	report do: [ :aDetail |
+		self addMe: tabs,(Character tab asString), aDetail.
+	].! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:44:20' prior: 50890855!
+reportAsReceptiveAccount: anAccount tabs: tabs| detail |
+.
+	self addMe: tabs,(anAccount name).
+			
+	detail := (SummaryReport with: anAccount) summary.
+	detail do: [ :aDetail |
+		self addMe: tabs,(Character tab asString), aDetail.
+	].! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:44:29' prior: 50890866!
+reportAsReceptiveAccount: anAccount tabs: tabs
+
+	| detail |.
+	self addMe: tabs,(anAccount name).
+			
+	detail := (SummaryReport with: anAccount) summary.
+	detail do: [ :aDetail |
+		self addMe: tabs,(Character tab asString), aDetail.
+	].! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:44:59' prior: 50890838!
+reportAsReceptiveAccount: anAccount tabs: tabs
+
+	| detail |.
+	self addMe: tabs,(anAccount name).
+			
+	detail := (SummaryReport with: anAccount) summary.
+	detail do: [ :aDetail |
+		self addMe: tabs,(Character tab asString), aDetail.
+	].! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:41:25' prior: 50890877!
+reportAsReceptiveAccount: anAccount tabs: tabs.
+	self addMe: tabs,(anAccount name)
+	! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:45:30'!
+reportAsPortfolioPostfix: anAccount tabs: tabs.
+	
+	! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:46:05' prior: 50890905!
+reportAsPortfolioPostfix: anAccount tabs: tabs.
+	
+	self addMe: tabs,(Character tab asString), 'Balance = ',(self balance asString).! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:46:33'!
+reportAsPortfolioPrefix: anAccount tabs: tabs.
+	self addMe: tabs,anAccount name
+	! !
+
+!testRun: #PortfolioReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:46:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:46:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:46:45'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:46:45'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:46:45'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:46:45'!
+ERROR!
+
+!testRun: #PortfolioReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:46:48'!
+ERROR!
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:47:30' prior: 50890911!
+reportAsPortfolioPostfix: anAccount tabs: tabs.
+	
+	self addMe: tabs,(Character tab asString), 'Balance = ',(anAccount balance asString).! !
+
+!testRun: #PortfolioReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:47:32'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:47:33'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:47:34'!
+PASSED!
+
+!methodRemoval: Portfolio #specialfamilyTree:tabs: stamp: 'DB 11/16/2020 16:47:50'!
+specialfamilyTree: aReport tabs: tabs
+
+
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount | |report|
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [
+			aReport addMe: tabs,(Character tab asString),(anAccount name).
+			
+			report := (SummaryReport with: anAccount) summary.
+			
+			report do: [ :aDetail |
+				aReport addMe: tabs,(Character tab asString),(Character tab asString), aDetail.
+			]
+			
+		].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount specialfamilyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	aReport addMe: tabs,(Character tab asString), 'Balance = ',(self balance asString).
+	!
+
+!methodRemoval: Portfolio #familyTree:tabs: stamp: 'DB 11/16/2020 16:47:55'!
+familyTree: aReport tabs: tabs
+
+	aReport addMe: tabs,self name.
+	accounts do: [:anAccount |
+		(anAccount isKindOf: ReceptiveAccount) ifTrue: [aReport addMe: tabs,(Character tab asString),(anAccount name)].
+		(anAccount isKindOf: Portfolio) ifTrue: [anAccount familyTree: aReport tabs: tabs,(Character tab asString)].
+	].
+	!
+!PortfolioReport methodsFor: 'no messages' stamp: 'DB 11/16/2020 16:49:12'!
+reportAsPortfolioPostfix: anAccount tabs: tabs
+	self subclassResponsibility .! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:49:14' prior: 50891008!
+reportAsPortfolioPostfix: anAccount tabs: tabs
+	self subclassResponsibility.! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:49:30' prior: 50891014!
+reportAsPortfolioPostfix: anAccount tabs: tabs
+	self subclassResponsibility.! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:49:43' prior: 50890954 overrides: 50891020!
+reportAsPortfolioPostfix: anAccount tabs: tabs
+	
+	self addMe: tabs,(Character tab asString), 'Balance = ',(anAccount balance asString).! !
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:49:48' prior: 50890919!
+reportAsPortfolioPrefix: anAccount tabs: tabs
+	self addMe: tabs,anAccount name
+	! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:49:57'!
+reportAsPortfolioPrefix: anAccount tabs: tabs
+	self subclassResponsibility.! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:50:26'!
+reportAsReceptiveAccount: anAccount tabs: tabs
+	self subclassResponsibility.! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:50:56'!
+addMe: name| report |
+.
+
+	report add: name.! !
+
+PortfolioReport subclass: #PortfolioSpecialTreeReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #PortfolioSpecialTreeReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 16:51:07'!
+PortfolioReport subclass: #PortfolioSpecialTreeReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+PortfolioReport subclass: #PortfolioTreeReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #PortfolioTreeReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 16:51:13'!
+PortfolioReport subclass: #PortfolioTreeReport
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+Object subclass: #PortfolioReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:51:30' prior: 50891053!
+addMe: name! !
+
+Object subclass: #PortfolioReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!classDefinition: #PortfolioReport category: 'Portfolio-Solucion' stamp: 'DB 11/16/2020 16:51:36'!
+Object subclass: #PortfolioReport
+	instanceVariableNames: 'portfolio report'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:51:46' prior: 50891089!
+addMe: name
+	! !
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:51:57' prior: 50891106!
+addMe: name
+	report add: name.! !
+
+!methodRemoval: PortfolioSpecialTreeReport #addMe: stamp: 'DB 11/16/2020 16:52:05'!
+addMe: name.
+
+	report add: name.
+
+	!
+
+!methodRemoval: PortfolioTreeReport #addMe: stamp: 'DB 11/16/2020 16:52:10'!
+addMe: name.
+
+	report add: name.
+
+	!
+
+!testRun: #PortfolioReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:52:15'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:52:15'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:52:15'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:52:15'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:52:15'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:52:15'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test01ReceptiveAccountHaveZeroAsBalanceWhenCreated stamp: 'DB 11/16/2020 16:52:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test02DepositIncreasesBalanceOnTransactionValue stamp: 'DB 11/16/2020 16:52:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test03WithdrawDecreasesBalanceOnTransactionValue stamp: 'DB 11/16/2020 16:52:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test04WithdrawValueMustBePositive stamp: 'DB 11/16/2020 16:52:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test05ReceptiveAccountKnowsRegisteredTransactions stamp: 'DB 11/16/2020 16:52:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test06ReceptiveAccountDoNotKnowNotRegisteredTransactions stamp: 'DB 11/16/2020 16:52:20'!
+PASSED!
+
+!testRun: #ReceptiveAccountTest #test07AccountKnowsItsTransactions stamp: 'DB 11/16/2020 16:52:20'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test06SummaryReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 16:52:25'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test07SummaryReportForDepositReturnsBalanceAndDeposit stamp: 'DB 11/16/2020 16:52:25'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test08SummaryReportForWithdrawReturnsBalanceAndWithdraw stamp: 'DB 11/16/2020 16:52:25'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test09SummaryReportForTransferReturnsBalanceAndTransferTransaction stamp: 'DB 11/16/2020 16:52:25'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test10SummaryOfPortfolioWithoutAccountsHasOnlyBalance stamp: 'DB 11/16/2020 16:52:25'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test11SummaryOfPortfolioWithOneAccount stamp: 'DB 11/16/2020 16:52:25'!
+PASSED!
+
+!testRun: #ReportSummaryTest #test12SummaryOfPortfolioIsCalculatedRecursivelyOnPortfolios stamp: 'DB 11/16/2020 16:52:25'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test01TransferNetReportForEmptyAccountReturnsOnlyBalance stamp: 'DB 11/16/2020 16:52:28'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test02TransferNetReportForDepositReturnsZero stamp: 'DB 11/16/2020 16:52:28'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test03TransferNetReportForWithdrawReturnsZero stamp: 'DB 11/16/2020 16:52:28'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test04TransferNetReportForATransferReturnsNetBalance stamp: 'DB 11/16/2020 16:52:28'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test05TransferNetOfAPortfolioWithoutAccountsReturnsZero stamp: 'DB 11/16/2020 16:52:28'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test06TransferNetOfAPortfolioWithOneAccountReturnsTransferNetAccountValue stamp: 'DB 11/16/2020 16:52:28'!
+PASSED!
+
+!testRun: #ReportTransferNetTest #test07TransferNetOfAPortfolioWithMoreThanOneAccountReturnsTransferNetAccountValue stamp: 'DB 11/16/2020 16:52:28'!
+PASSED!
+!PortfolioReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:53:01'!
+initializeWith: aPortfolio
+	portfolio := aPortfolio.
+	report := OrderedCollection new.! !
+!PortfolioReport class methodsFor: 'nil' stamp: 'DB 11/16/2020 16:53:33'!
+with: aPortfolio
+
+	^self new initializeWith: aPortfolio 
+	! !
+
+!methodRemoval: PortfolioSpecialTreeReport class #with: stamp: 'DB 11/16/2020 16:53:42'!
+with: aPortfolio
+
+	^self new initializeWith: aPortfolio 
+	!
+
+!methodRemoval: PortfolioTreeReport class #with: stamp: 'DB 11/16/2020 16:53:47'!
+with: aPortfolio
+
+	^self new initializeWith: aPortfolio 
+	!
+
+!methodRemoval: PortfolioTreeReport #initializeWith: stamp: 'DB 11/16/2020 16:53:58'!
+initializeWith: aPortfolio
+	portfolio := aPortfolio.
+	report := OrderedCollection new.!
+
+!methodRemoval: PortfolioSpecialTreeReport #initializeWith: stamp: 'DB 11/16/2020 16:54:03'!
+initializeWith: aPortfolio
+	portfolio := aPortfolio.
+	report := OrderedCollection new.!
+!PortfolioSpecialTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:55:18' prior: 50891035 overrides: 50891041!
+reportAsPortfolioPrefix: anAccount tabs: tabs
+
+	self addMe: tabs,anAccount name
+	! !
+!PortfolioTreeReport methodsFor: 'as yet unclassified' stamp: 'DB 11/16/2020 16:55:43' prior: 50890899 overrides: 50891047!
+reportAsReceptiveAccount: anAccount tabs: tabs.
+	self addMe: tabs,anAccount name
+	! !
+
+!testRun: #PortfolioReportTest #test01TreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:55:55'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test02TreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:55:55'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test03TreeReportForPortfolioWithMoreThanOneChildReturns stamp: 'DB 11/16/2020 16:55:55'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test04SpecialTreeReportForEmptyPortfolioReturnsEmptyReport stamp: 'DB 11/16/2020 16:55:55'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test05SpecialTreeReportForPortfolioWithOneChildReturns stamp: 'DB 11/16/2020 16:55:55'!
+PASSED!
+
+!testRun: #PortfolioReportTest #test06SpecialTreeReportForPortfolioWithOneChildAndPorfolioChild stamp: 'DB 11/16/2020 16:55:55'!
+PASSED!
+
+----SNAPSHOT----(16 November 2020 16:55:58) CuisUniversity-4384.image priorSource: 17813273!
