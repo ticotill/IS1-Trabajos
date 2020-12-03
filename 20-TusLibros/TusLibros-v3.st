@@ -921,17 +921,17 @@ initializeWithAuthenticator: anAuthenticator throught: aMerchantProcessor withCa
 	clock := aClock ! !
 
 
-!InternalApi methodsFor: 'salesBook' stamp: 'db 12/2/2020 19:30:50'!
+!InternalApi methodsFor: 'salesBook' stamp: 'db 12/3/2020 00:42:14'!
 salesBookFrom: aCartSession
 
-	^salesBook at:	 aCartSession clientAssociated ifAbsent: [^OrderedCollection new.].
+	^salesBook at:	 aCartSession clientIDSession ifAbsent: [^OrderedCollection new.].
 	
 	! !
 
-!InternalApi methodsFor: 'salesBook' stamp: 'db 12/2/2020 19:31:37'!
+!InternalApi methodsFor: 'salesBook' stamp: 'db 12/3/2020 00:42:26'!
 updateSalesbookOf: aCartSession with: aClientSalesBook 
 
-	salesBook at: aCartSession clientAssociated put: aClientSalesBook.
+	salesBook at: aCartSession clientIDSession put: aClientSalesBook.
 	
 	! !
 
@@ -1173,43 +1173,49 @@ of: aTotal withItems: aListOfItems
 
 !classDefinition: #Session category: 'TusLibros'!
 Object subclass: #Session
-	instanceVariableNames: 'lastTimeUsed'
+	instanceVariableNames: 'lastAccessedTime owner clientID'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:22:55'!
+!Session methodsFor: 'private methods' stamp: 'db 12/3/2020 00:38:15'!
 activeTimeFrom: aDate.
 
-	^ (lastTimeUsed distanceTo: aDate) convertTo: minute.
+	^ (lastAccessedTime distanceTo: aDate) convertTo: minute.
 	! !
 
-!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:23:25'!
+
+!Session methodsFor: 'opeartions' stamp: 'db 12/3/2020 00:41:53'!
+clientIDSession
+	^clientID
+	! !
+
+!Session methodsFor: 'opeartions' stamp: 'db 12/2/2020 22:23:25'!
 isExpiredOn: aDate
 	
 	^(self activeTimeFrom: aDate) >= (SimpleMeasure amount: 30 unit: minute).
 	! !
 
-!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:26:14'!
+!Session methodsFor: 'opeartions' stamp: 'db 12/3/2020 00:38:05'!
 stamp: aDateAndTime
 
-	lastTimeUsed := aDateAndTime.
+	lastAccessedTime := aDateAndTime.
 	! !
 
 
 !classDefinition: #CartSession category: 'TusLibros'!
 Session subclass: #CartSession
-	instanceVariableNames: 'clientID cart'
+	instanceVariableNames: 'cart'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CartSession methodsFor: 'initialization' stamp: 'db 12/2/2020 21:41:07'!
+!CartSession methodsFor: 'initialization' stamp: 'db 12/3/2020 00:41:30'!
 initializeWith: aCart associatedTo: aClientID andCreatedAt: aDateAndTime
 
 	cart := aCart.
 	clientID := aClientID.
-	lastTimeUsed := aDateAndTime.
+	lastAccessedTime := aDateAndTime.
 	
 	
 	! !
@@ -1231,11 +1237,6 @@ items
 !CartSession methodsFor: 'carts operations' stamp: 'db 12/2/2020 21:45:51'!
 total
 	^cart total ! !
-
-
-!CartSession methodsFor: 'operations' stamp: 'db 12/2/2020 20:13:29'!
-clientAssociated
-	^clientID ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 

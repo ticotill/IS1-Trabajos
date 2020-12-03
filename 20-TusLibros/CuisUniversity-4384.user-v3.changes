@@ -53754,3 +53754,360 @@ PASSED!
 
 !testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:49:08'!
 PASSED!
+
+----SNAPSHOT----(2 December 2020 22:52:48) CuisUniversity-4384.image priorSource: 18301407!
+
+----QUIT----(2 December 2020 22:53:42) CuisUniversity-4384.image priorSource: 18402822!
+
+----STARTUP---- (3 December 2020 00:34:56) as /Users/dbenitez/uba/2c2020-IS1/IS1-Trabajos/20-TusLibros/macos64-TusLibros/CuisUniversity-4384.image!
+
+
+!classDefinition: #Session category: 'TusLibros' stamp: 'db 12/3/2020 00:36:16'!
+Object subclass: #Session
+	instanceVariableNames: 'lastTimeUsed owner'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Session methodsFor: 'opeartions' stamp: 'db 12/3/2020 00:36:14'!
+owner
+	^owner
+	! !
+!CartSession methodsFor: 'initialization' stamp: 'db 12/3/2020 00:36:30' prior: 50903700!
+initializeWith: aCart associatedTo: aClientID andCreatedAt: aDateAndTime
+
+	cart := aCart.
+	owner := aClientID.
+	lastTimeUsed := aDateAndTime.
+	
+	
+	! !
+
+!methodRemoval: CartSession #clientAssociated stamp: 'db 12/3/2020 00:36:42'!
+clientAssociated
+	^clientID !
+
+Object subclass: #Session
+	instanceVariableNames: 'lastAccessedTime owner'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Session category: 'TusLibros' stamp: 'db 12/3/2020 00:38:00'!
+Object subclass: #Session
+	instanceVariableNames: 'lastAccessedTime owner'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Session methodsFor: 'opeartions' stamp: 'db 12/3/2020 00:38:05' prior: 50904850!
+stamp: aDateAndTime
+
+	lastAccessedTime := aDateAndTime.
+	! !
+!Session methodsFor: 'private methods' stamp: 'db 12/3/2020 00:38:15' prior: 50904823!
+activeTimeFrom: aDate.
+
+	^ (lastAccessedTime distanceTo: aDate) convertTo: minute.
+	! !
+!CartSession methodsFor: 'initialization' stamp: 'db 12/3/2020 00:38:21' prior: 50906760!
+initializeWith: aCart associatedTo: aClientID andCreatedAt: aDateAndTime
+
+	cart := aCart.
+	owner := aClientID.
+	lastAccessedTime := aDateAndTime.
+	
+	
+	! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/3/2020 00:38:28'!
+ERROR!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/3/2020 00:38:28'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/3/2020 00:38:28'!
+ERROR!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/3/2020 00:38:30'!
+ERROR!
+!InternalApi methodsFor: 'salesBook' stamp: 'db 12/3/2020 00:38:40' prior: 50902096!
+salesBookFrom: aCartSession
+
+	^salesBook at:	 aCartSession owner ifAbsent: [^OrderedCollection new.].
+	
+	! !
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/3/2020 00:38:41'!
+ERROR!
+!InternalApi methodsFor: 'salesBook' stamp: 'db 12/3/2020 00:38:50' prior: 50902110!
+updateSalesbookOf: aCartSession with: aClientSalesBook 
+
+	salesBook at: aCartSession owner put: aClientSalesBook.
+	
+	! !
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/3/2020 00:38:52'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/3/2020 00:38:54'!
+PASSED!
+
+Object subclass: #Session
+	instanceVariableNames: 'lastAccessedTime clientID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Session subclass: #CartSession
+	instanceVariableNames: 'cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartSession category: 'TusLibros' stamp: 'db 12/3/2020 00:41:08'!
+Session subclass: #CartSession
+	instanceVariableNames: 'cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Session category: 'TusLibros' stamp: 'db 12/3/2020 00:41:20'!
+Object subclass: #Session
+	instanceVariableNames: 'lastAccessedTime owner clientID'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Session methodsFor: 'opeartions' stamp: 'db 12/3/2020 00:41:18' prior: 50906756!
+owner
+	^clientID
+	! !
+!CartSession methodsFor: 'initialization' stamp: 'db 12/3/2020 00:41:30' prior: 50906794!
+initializeWith: aCart associatedTo: aClientID andCreatedAt: aDateAndTime
+
+	cart := aCart.
+	clientID := aClientID.
+	lastAccessedTime := aDateAndTime.
+	
+	
+	! !
+!Session methodsFor: 'opeartions' stamp: 'db 12/3/2020 00:41:53'!
+clientIDSession
+	^clientID
+	! !
+
+!methodRemoval: Session #owner stamp: 'db 12/3/2020 00:41:59'!
+owner
+	^clientID
+	!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/3/2020 00:42:05'!
+ERROR!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/3/2020 00:42:05'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/3/2020 00:42:05'!
+ERROR!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/3/2020 00:42:06'!
+ERROR!
+!InternalApi methodsFor: 'salesBook' stamp: 'db 12/3/2020 00:42:14' prior: 50906918!
+salesBookFrom: aCartSession
+
+	^salesBook at:	 aCartSession clientIDSession ifAbsent: [^OrderedCollection new.].
+	
+	! !
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/3/2020 00:42:18'!
+ERROR!
+!InternalApi methodsFor: 'salesBook' stamp: 'db 12/3/2020 00:42:26' prior: 50906928!
+updateSalesbookOf: aCartSession with: aClientSalesBook 
+
+	salesBook at: aCartSession clientIDSession put: aClientSalesBook.
+	
+	! !
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/3/2020 00:42:27'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/3/2020 00:42:29'!
+PASSED!
