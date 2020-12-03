@@ -50894,3 +50894,2863 @@ Cart subclass: #CartSessionCart
 ----SNAPSHOT----(2 December 2020 20:17:16) CuisUniversity-4384.image priorSource: 18294818!
 
 ----QUIT----(2 December 2020 20:17:18) CuisUniversity-4384.image priorSource: 18301314!
+
+----STARTUP---- (2 December 2020 21:39:40) as /Users/dbenitez/uba/2c2020-IS1/IS1-Trabajos/20-TusLibros/macos64-TusLibros/CuisUniversity-4384.image!
+
+
+Object subclass: #CartSession
+	instanceVariableNames: 'clientID lastTimeUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartSession category: 'TusLibros' stamp: 'db 12/2/2020 21:39:57'!
+Object subclass: #CartSession
+	instanceVariableNames: 'clientID lastTimeUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:40:01'!
+ERROR!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:40:01'!
+ERROR!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:40:01'!
+ERROR!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:40:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:40:11'!
+ERROR!
+
+!classDefinition: #CartSession category: 'TusLibros' stamp: 'db 12/2/2020 21:41:09'!
+Object subclass: #CartSession
+	instanceVariableNames: 'clientID lastTimeUsed cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!CartSession methodsFor: 'initialization' stamp: 'db 12/2/2020 21:41:07'!
+initializeWith: aCart associatedTo: aClientID andCreatedAt: aDateAndTime
+
+	cart := aCart.
+	clientID := aClientID.
+	lastTimeUsed := aDateAndTime.
+	
+	
+	! !
+
+!methodRemoval: CartSession #initializeAcceptingItemsOf:associatedTo:andCreatedAt: stamp: 'db 12/2/2020 21:41:18'!
+initializeAcceptingItemsOf: aCatalog associatedTo: aClientID andCreatedAt: aDateAndTime
+
+	catalog := aCatalog.
+	clientID := aClientID.
+	lastTimeUsed := aDateAndTime.
+	
+	items := OrderedCollection new.
+	
+	
+	!
+!CartSession class methodsFor: 'initialization' stamp: 'db 12/2/2020 21:41:35' prior: 50903552!
+with: aCart associatedTo: aClientID createAt: aDateAndTime
+
+	^CartSession new initializeWith: aCart associatedTo: aClientID andCreatedAt: aDateAndTime! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:41:44'!
+ERROR!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:41:44'!
+ERROR!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:41:44'!
+ERROR!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:41:44'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:41:47'!
+ERROR!
+!InternalApi methodsFor: 'client - methods' stamp: 'db 12/2/2020 21:42:39' prior: 50903540!
+createCartFor: aClientID withPassword: aPassword
+
+	| cartID |
+	
+	self assertIsNotAuthenticatedClient: aClientID withPassword: aPassword.
+	
+	cartID := self nextID.
+	
+	carts at: cartID put: (CartSession with: (Cart acceptingItemsOf: catalog) associatedTo: aClientID createAt: clock now) .
+	
+	^cartID.! !
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:42:40'!
+ERROR!
+!CartSession methodsFor: 'operations' stamp: 'db 12/2/2020 21:43:19'!
+items
+	^cart items ! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:43:24'!
+ERROR!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:43:24'!
+ERROR!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:43:24'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:43:27'!
+ERROR!
+!CartSession methodsFor: 'operations' stamp: 'db 12/2/2020 21:44:10'!
+add: aQuantity of: anItem
+	^cart add: aQuantity of: anItem! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:44:15'!
+ERROR!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:44:15'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:44:15'!
+ERROR!
+!CartSession methodsFor: 'operations' stamp: 'db 12/2/2020 21:44:35'!
+isEmpty
+	^cart isEmpty ! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:44:40'!
+ERROR!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:44:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:44:40'!
+ERROR!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:44:56'!
+ERROR!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:45:01'!
+ERROR!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:45:01'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:45:01'!
+ERROR!
+!CartSession methodsFor: 'operations' stamp: 'db 12/2/2020 21:45:51'!
+total
+	^cart total ! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 21:45:54'!
+PASSED!
+
+Object subclass: #Session
+	instanceVariableNames: 'lastTimeUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Session category: 'TusLibros' stamp: 'db 12/2/2020 21:47:20'!
+Object subclass: #Session
+	instanceVariableNames: 'lastTimeUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Object subclass: #Session
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Session category: 'TusLibros' stamp: 'db 12/2/2020 21:47:25'!
+Object subclass: #Session
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+Session subclass: #CartSession
+	instanceVariableNames: 'clientID lastTimeUsed cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartSession category: 'TusLibros' stamp: 'db 12/2/2020 21:47:31'!
+Session subclass: #CartSession
+	instanceVariableNames: 'clientID lastTimeUsed cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 21:50:16'!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword .
+
+	clock advance: 30.
+
+	self assertOperationOnExpiredCart: [apiCaller listCart: cartID].
+		
+	self 
+		should: [	apiCaller listCart: cartID.] 
+		raise: Error - MessageNotUnderstood
+	 	withExceptionDo: [:anError | 
+			self assert: anError messageText = InternalApi cartNotFoundErrorDescription ]	.
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 21:50:37' prior: 50904413!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword .
+
+	clock advance: 30.
+
+	self assertOperationOnExpiredCart: [apiCaller listCart: cartID].
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 21:51:01' prior: 50904439!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	
+
+	clock advance: 30.
+
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 21:51:20' prior: 50904458!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+
+	clock advance: 30.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore
+
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:12:52' prior: 50904475!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+
+	clock advance: 30.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:14:00' prior: 50904494!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+
+	clock advance: 30.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	
+	cartSession := apiCaller currentCartSession: cartID
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:14:56' prior: 50904514!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+
+	clock advance: 30.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self assert: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:15:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:15:04'!
+ERROR!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:15:04'!
+ERROR!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:15:30' prior: 50904536!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+
+	
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 30.
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self assert: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:15:35'!
+ERROR!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:16:12' prior: 50904612!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+
+	clock advance: 5.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 30.
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self assert: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:16:54' prior: 50904639!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+
+	clock advance: 5.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 30.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self assert: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:17:48' prior: 50904663!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self assert: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:17:56'!
+ERROR!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:18:22' prior: 50904689!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self assert: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:18:34' prior: 50904717!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self assert: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:18:40'!
+ERROR!
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:20:40' prior: 50902250!
+add: aQuantity to: aCartID of: anItem
+	
+	| cartSession |
+	cartSession := self currentCartSession: aCartID.
+	cartSession add: aQuantity of: anItem.
+	
+	self extendTime: cartSession
+	
+	 
+! !
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:20:52' prior: 50904769!
+add: aQuantity to: aCartID of: anItem
+	
+	| cartSession |
+	cartSession := self currentCartSession: aCartID.
+	cartSession add: aQuantity of: anItem.
+	
+	self extendTime: cartSession.
+	
+	 
+! !
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:21:36' prior: 50904778!
+add: aQuantity to: aCartID of: anItem
+	
+	| cartSession |
+	cartSession := self currentCartSession: aCartID.
+	cartSession add: aQuantity of: anItem.
+	
+	cartSession extendTime: clock now.
+	
+	 
+! !
+!Session methodsFor: 'nil' stamp: 'db 12/2/2020 22:22:15'!
+extendTime: aDateAndTime
+	! !
+
+Session subclass: #CartSession
+	instanceVariableNames: 'clientID cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #CartSession category: 'TusLibros' stamp: 'db 12/2/2020 22:22:21'!
+Session subclass: #CartSession
+	instanceVariableNames: 'clientID cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!classDefinition: #Session category: 'TusLibros' stamp: 'db 12/2/2020 22:22:40'!
+Object subclass: #Session
+	instanceVariableNames: 'lastTimeUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:22:38' prior: 50904795!
+extendTime: aDateAndTime
+	lastTimeUsed := aDateAndTime.
+	! !
+!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:22:55'!
+activeTimeFrom: aDate.
+
+	^ (lastTimeUsed distanceTo: aDate) convertTo: minute.
+	! !
+
+!methodRemoval: CartSession #activeTimeFrom: stamp: 'db 12/2/2020 22:23:03'!
+activeTimeFrom: aDate.
+
+	^ (lastTimeUsed distanceTo: aDate) convertTo: minute.
+	!
+!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:23:25'!
+isExpiredOn: aDate
+	
+	^(self activeTimeFrom: aDate) >= (SimpleMeasure amount: 30 unit: minute).
+	! !
+
+!methodRemoval: CartSession #isExpiredOn: stamp: 'db 12/2/2020 22:23:36'!
+isExpiredOn: aDate
+	
+	^(self activeTimeFrom: aDate) >= (SimpleMeasure amount: 30 unit: minute).
+	
+	!
+!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:23:59' prior: 50904818!
+extendTime: aDateAndTime
+
+	lastTimeUsed := aDateAndTime.
+	! !
+!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:26:14'!
+stamp: aDateAndTime
+
+	lastTimeUsed := aDateAndTime.
+	! !
+
+!methodRemoval: Session #extendTime: stamp: 'db 12/2/2020 22:26:41'!
+extendTime: aDateAndTime
+
+	lastTimeUsed := aDateAndTime.
+	!
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:27:12' prior: 50904787!
+add: aQuantity to: aCartID of: anItem
+	
+	| cartSession |
+	cartSession := self currentCartSession: aCartID.
+	cartSession add: aQuantity of: anItem.
+	
+	cartSession stamp: clock now.
+	
+	 
+! !
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:27:23' prior: 50904859!
+add: aQuantity to: aCartID of: anItem
+	
+	| cartSession |
+	cartSession := self currentCartSession: aCartID.
+	
+	cartSession add: aQuantity of: anItem.
+	
+	cartSession stamp: clock now.
+	
+	 
+! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:27:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:27:26'!
+FAILURE!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:27:26'!
+FAILURE!
+
+self activeTimeFrom: aDate!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:28:32' prior: 50904741!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:28:33'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:28:38'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:28:39'!
+PASSED!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:29:30'!
+test14AfterExecutingListCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller listCart: cartID.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:29:38'!
+test15AfterExecutingListCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller listCart: cartID.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+
+!methodRemoval: InternalApiTest #test14AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:29:38'!
+test14AfterExecutingListCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller listCart: cartID.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:29:42'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:29:42'!
+ERROR!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:29:42'!
+ERROR!
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:30:40' prior: 50902089!
+listCart: aCartID 
+	
+	| cartSession items |
+	cartSession := self currentCartSession: aCartID.
+	
+	items := cartSession items asBag.
+	
+	cartSession stamp: clock now.
+	
+	^items! !
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:30:52'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:30:55'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:30:56'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:30:56'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:30:56'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:30:56'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:30:56'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:30:56'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:30:56'!
+PASSED!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:31:11'!
+test16AfterExecutingCheckoutTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller listCart: cartID.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:31:33' prior: 50905419!
+test16AfterExecutingCheckoutTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller 
+			checkout: cartID 
+			withCreditCardNumber: testObjectFactory defaultCreditCardNumber 
+			andCreditCardExpirationDate: testObjectFactory notExpiredDate
+			andCreditCardOwner: testObjectFactory defaultCreditCardOwner.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:31:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:31:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:31:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:31:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:31:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:31:39'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:31:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:31:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:31:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:31:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:31:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:31:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:31:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:31:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:31:40'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:31:40'!
+ERROR!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:31:40'!
+ERROR!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:32:43' prior: 50905442!
+test16AfterExecutingCheckoutTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 29.
+	
+	apiCaller 
+			checkout: cartID 
+			withCreditCardNumber: testObjectFactory defaultCreditCardNumber 
+			andCreditCardExpirationDate: testObjectFactory notExpiredDate
+			andCreditCardOwner: testObjectFactory defaultCreditCardOwner.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:33:04'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:33:04'!
+ERROR!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:33:04'!
+ERROR!
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:34:28' prior: 50902233!
+checkout: aCartID withCreditCardNumber: aCCN andCreditCardExpirationDate: aCCED andCreditCardOwner: aCCO 
+	
+	| cartSession clientSalesBook |
+	
+	cartSession := self currentCartSession: aCartID.
+
+	clientSalesBook := self salesBookFrom: cartSession.
+	
+	self checkoutTo: cartSession payingWith: (CreditCard with: aCCN expiration: aCCED creditCardOwner: aCCO) andRegisterIn: clientSalesBook.
+	
+	self updateSalesbookOf: cartSession with: clientSalesBook.
+	
+	cartSession stamp: clock now.
+	! !
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:34:30'!
+PASSED!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:34:35'!
+PASSED!
+!InternalApiTest methodsFor: 'assertions' stamp: 'db 12/2/2020 22:35:22'!
+assertIsNotAuthenticatedClientFor: aOperationBlock
+
+	self 
+		should: [aOperationBlock value] 
+		raise: Error - MessageNotUnderstood
+	 	withExceptionDo: [:anError | 
+			self assert: anError messageText = InternalApi nonAuthenticatedClientErrorDescription ]
+	! !
+!InternalApiTest methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:35:22' prior: 50896500!
+test08CannotListPurchasesOfNonAuthenticatedClient
+
+	| apiCaller |
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: defaultClock.
+	
+	self assertIsNotAuthenticatedClientFor: [apiCaller 
+				listPurchasesOf: testObjectFactory defaultClientID 
+				withPassword: testObjectFactory invalidPassword].
+
+		
+	! !
+!InternalApiTest methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:35:22' prior: 50896360!
+test01CannotCreateACartWithAnInvalidUserID
+
+	| apiCaller |
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: defaultClock .
+
+	self assertIsNotAuthenticatedClientFor: [apiCaller createCartFor: testObjectFactory invalidClientID withPassword: testObjectFactory invalidPassword].
+! !
+!InternalApiTest methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:35:22' prior: 50896375!
+test02CannotCreateACartWithAnInvalidPassword
+
+	| apiCaller |
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock:  defaultClock.
+
+	self assertIsNotAuthenticatedClientFor: [apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory invalidPassword].
+	! !
+
+!methodRemoval: InternalApiTest #assertNonAuthenticatedClientFor: stamp: 'db 12/2/2020 22:35:22'!
+assertNonAuthenticatedClientFor: aOperationBlock
+
+	self 
+		should: [aOperationBlock value] 
+		raise: Error - MessageNotUnderstood
+	 	withExceptionDo: [:anError | 
+			self assert: anError messageText = InternalApi nonAuthenticatedClientErrorDescription ]
+	!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:35:26'!
+PASSED!
+!InternalApi class methodsFor: 'error messages' stamp: 'db 12/2/2020 22:35:42'!
+notAuthenticatedClientErrorDescription
+	^'Non authenticated client'! !
+!InternalApiTest methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:35:42' prior: 50905812!
+assertIsNotAuthenticatedClientFor: aOperationBlock
+
+	self 
+		should: [aOperationBlock value] 
+		raise: Error - MessageNotUnderstood
+	 	withExceptionDo: [:anError | 
+			self assert: anError messageText = InternalApi notAuthenticatedClientErrorDescription ]
+	! !
+!InternalApi class methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:35:42' prior: 50891225!
+signalNonAuthenticatedClient
+	
+	^self error: self notAuthenticatedClientErrorDescription! !
+
+!methodRemoval: InternalApi class #nonAuthenticatedClientErrorDescription stamp: 'db 12/2/2020 22:35:42'!
+nonAuthenticatedClientErrorDescription
+	^'Non authenticated client'!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:35:45'!
+PASSED!
+!InternalApi class methodsFor: 'signals' stamp: 'db 12/2/2020 22:36:03'!
+signalNotAuthenticatedClient
+	
+	^self error: self notAuthenticatedClientErrorDescription! !
+!InternalApi methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:36:03' prior: 50902418!
+assertIsNotAuthenticatedClient: aClientID withPassword: aPassword  
+
+	(authenticator authenticate: aClientID withPassword: aPassword) ifFalse: [^self class signalNotAuthenticatedClient].
+! !
+
+!methodRemoval: InternalApi class #signalNonAuthenticatedClient stamp: 'db 12/2/2020 22:36:03'!
+signalNonAuthenticatedClient
+	
+	^self error: self notAuthenticatedClientErrorDescription!
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:36:06'!
+PASSED!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:36:48'!
+denyIsAfterExecutingOperationTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:37:07'!
+denyIsAfterExecutingOperationTheExpirationTimeIsExtended: aOperationBlock
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	aOperationBlock value.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+
+!methodRemoval: InternalApiTest #denyIsAfterExecutingOperationTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:37:13'!
+denyIsAfterExecutingOperationTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock cartSession |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:38:47' prior: 50906291!
+denyIsAfterExecutingOperationTheExpirationTimeIsExtended: cartID
+
+	| apiCaller cartSession clock |
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:39:56'!
+denyIsAfterExecutingOperationTheExpirationTimeIsExtended2: cartID with: apiCaller clioc: aClock
+
+	|  cartSession clock |
+	aClock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:40:07' prior: 50906349!
+denyIsAfterExecutingOperationTheExpirationTimeIsExtended2: cartID with: apiCaller clioc: aClock
+
+	|  cartSession  |
+	aClock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: aClock now)
+	
+	
+		
+	! !
+
+!methodRemoval: InternalApiTest #denyIsAfterExecutingOperationTheExpirationTimeIsExtended: stamp: 'db 12/2/2020 22:40:15'!
+denyIsAfterExecutingOperationTheExpirationTimeIsExtended: cartID
+
+	| apiCaller cartSession clock |
+	clock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: clock now)
+	
+	
+		
+	!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:41:21' prior: 50904987!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	self denyIsAfterExecutingOperationTheExpirationTimeIsExtended2: apiCaller with: cartID clioc: clock.
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:41:39' prior: 50905141!
+test15AfterExecutingListCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller listCart: cartID.
+	
+	self denyIsAfterExecutingOperationTheExpirationTimeIsExtended2: apiCaller with: cartID clioc: clock.
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:41:46' prior: 50905531!
+test16AfterExecutingCheckoutTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 29.
+	
+	apiCaller 
+			checkout: cartID 
+			withCreditCardNumber: testObjectFactory defaultCreditCardNumber 
+			andCreditCardExpirationDate: testObjectFactory notExpiredDate
+			andCreditCardOwner: testObjectFactory defaultCreditCardOwner.
+	
+	self denyIsAfterExecutingOperationTheExpirationTimeIsExtended2: apiCaller with: cartID clioc: clock.
+	
+		
+	! !
+!InternalApiTest methodsFor: 'assertions' stamp: 'db 12/2/2020 22:48:04'!
+denyCartSessionExpiredAfter30MinutesOfCreated: cartID through: apiCaller using: aClock
+
+	|  cartSession  |
+	aClock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: aClock now)
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:48:04' prior: 50906407!
+test15AfterExecutingListCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller listCart: cartID.
+	
+	self denyCartSessionExpiredAfter30MinutesOfCreated: apiCaller through: cartID using: clock.
+	
+	
+		
+	! !
+!InternalApiTest methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:48:04' prior: 50906384!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	self denyCartSessionExpiredAfter30MinutesOfCreated: apiCaller through: cartID using: clock.
+	
+		
+	! !
+!InternalApiTest methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:48:04' prior: 50906429!
+test16AfterExecutingCheckoutTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 29.
+	
+	apiCaller 
+			checkout: cartID 
+			withCreditCardNumber: testObjectFactory defaultCreditCardNumber 
+			andCreditCardExpirationDate: testObjectFactory notExpiredDate
+			andCreditCardOwner: testObjectFactory defaultCreditCardOwner.
+	
+	self denyCartSessionExpiredAfter30MinutesOfCreated: apiCaller through: cartID using: clock.
+	
+		
+	! !
+
+!methodRemoval: InternalApiTest #denyIsAfterExecutingOperationTheExpirationTimeIsExtended2:with:clioc: stamp: 'db 12/2/2020 22:48:04'!
+denyIsAfterExecutingOperationTheExpirationTimeIsExtended2: cartID with: apiCaller clioc: aClock
+
+	|  cartSession  |
+	aClock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: aClock now)
+	
+	
+		
+	!
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:48:27' prior: 50906490!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	self denyCartSessionExpiredAfter30MinutesOfCreated: cartID through: apiCaller using: clock.
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:48:57' prior: 50906469!
+test15AfterExecutingListCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller listCart: cartID.
+	
+	
+	self denyCartSessionExpiredAfter30MinutesOfCreated: cartID through: apiCaller using: clock.
+	
+		
+	! !
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:49:05' prior: 50906512!
+test16AfterExecutingCheckoutTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 29.
+	
+	apiCaller 
+			checkout: cartID 
+			withCreditCardNumber: testObjectFactory defaultCreditCardNumber 
+			andCreditCardExpirationDate: testObjectFactory notExpiredDate
+			andCreditCardOwner: testObjectFactory defaultCreditCardOwner.
+			
+	self denyCartSessionExpiredAfter30MinutesOfCreated: cartID through: apiCaller using: clock.
+	
+		
+	! !
+
+!testRun: #CartTest #test01NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CartTest #test02CanNotAddItemsThatDoNotBelongToStore stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CartTest #test03AfterAddingAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CartTest #test04CanNotAddNonPositiveNumberOfItems stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CartTest #test05CanNotAddMoreThanOneItemNotSellByTheStore stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CartTest #test06CartRemembersAddedItems stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CartTest #test07CartDoesNotHoldNotAddedItems stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CartTest #test08CartRemembersTheNumberOfAddedItems stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CashierTest #test01CanNotCheckoutAnEmptyCart stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CashierTest #test02CalculatedTotalIsCorrect stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CashierTest #test03CanNotCheckoutWithAnExpiredCreditCart stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CashierTest #test04CheckoutRegistersASale stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CashierTest #test05CashierChargesCreditCardUsingMerchantProcessor stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CashierTest #test06CashierDoesNotSaleWhenTheCreditCardHasNoCredit stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CreditCardTest #test01CreditCardNumberShouldHave16digits stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CreditCardTest #test02CreditCardOwnerCannotBeEmpty stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #CreditCardTest #test03CreditCardOwnerNameCantBeLongerThan30Letters stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test01CannotCreateACartWithAnInvalidUserID stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test02CannotCreateACartWithAnInvalidPassword stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test03NewCartsAreCreatedEmpty stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test04AfterRequestingToAddAnItemTheCartIsNotEmptyAnymore stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test05CannotAddItemsToAnInvalidCartID stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test06CannotCheckoutACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test07AfterSucessfulCheckoutThePurchaseIsSaved stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test08CannotListPurchasesOfNonAuthenticatedClient stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test09CannotAddToCartToAnExpiredCart stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test10CannotListCartToAnExpiredCart stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test11CannotCheckoutToAnExpiredCart stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test12ExpiredCartShouldBeRemoved stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test13CannotListACartWithAnInvalidCartID stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test14AfterExecutingAddToCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test15AfterExecutingListCartTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:49:08'!
+PASSED!
+
+!testRun: #InternalApiTest #test16AfterExecutingCheckoutTheExpirationTimeIsExtended stamp: 'db 12/2/2020 22:49:08'!
+PASSED!

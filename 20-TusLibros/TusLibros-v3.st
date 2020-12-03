@@ -319,14 +319,14 @@ setUp
 	defaultClock := ClockSimulator with: GregorianDateTime now.! !
 
 
-!InternalApiTest methodsFor: 'assertions' stamp: 'db 12/1/2020 16:40:44'!
-assertNonAuthenticatedClientFor: aOperationBlock
+!InternalApiTest methodsFor: 'assertions' stamp: 'db 12/2/2020 22:35:42'!
+assertIsNotAuthenticatedClientFor: aOperationBlock
 
 	self 
 		should: [aOperationBlock value] 
 		raise: Error - MessageNotUnderstood
 	 	withExceptionDo: [:anError | 
-			self assert: anError messageText = InternalApi nonAuthenticatedClientErrorDescription ]
+			self assert: anError messageText = InternalApi notAuthenticatedClientErrorDescription ]
 	! !
 
 !InternalApiTest methodsFor: 'assertions' stamp: 'db 12/1/2020 17:53:05'!
@@ -338,6 +338,20 @@ assertOperationOnExpiredCart: operationBlock
 	 	withExceptionDo: [:anError | 
 			self assert: anError messageText = InternalApi operationOnExpiredCartErrorDescription ]
 ! !
+
+!InternalApiTest methodsFor: 'assertions' stamp: 'db 12/2/2020 22:48:04'!
+denyCartSessionExpiredAfter30MinutesOfCreated: cartID through: apiCaller using: aClock
+
+	|  cartSession  |
+	aClock advance: 1.
+	
+	cartSession := apiCaller currentCartSession: cartID.
+	
+	self deny: (cartSession isExpiredOn: aClock now)
+	
+	
+		
+	! !
 
 
 !InternalApiTest methodsFor: 'testing - invalid cartID' stamp: 'db 12/1/2020 17:01:21'!
@@ -384,22 +398,22 @@ test13CannotListACartWithAnInvalidCartID
 	! !
 
 
-!InternalApiTest methodsFor: 'testing - interface' stamp: 'db 12/1/2020 17:00:58'!
+!InternalApiTest methodsFor: 'testing - interface' stamp: 'db 12/2/2020 22:35:22'!
 test01CannotCreateACartWithAnInvalidUserID
 
 	| apiCaller |
 	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: defaultClock .
 
-	self assertNonAuthenticatedClientFor: [apiCaller createCartFor: testObjectFactory invalidClientID withPassword: testObjectFactory invalidPassword].
+	self assertIsNotAuthenticatedClientFor: [apiCaller createCartFor: testObjectFactory invalidClientID withPassword: testObjectFactory invalidPassword].
 ! !
 
-!InternalApiTest methodsFor: 'testing - interface' stamp: 'db 12/1/2020 17:01:11'!
+!InternalApiTest methodsFor: 'testing - interface' stamp: 'db 12/2/2020 22:35:22'!
 test02CannotCreateACartWithAnInvalidPassword
 
 	| apiCaller |
 	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock:  defaultClock.
 
-	self assertNonAuthenticatedClientFor: [apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory invalidPassword].
+	self assertIsNotAuthenticatedClientFor: [apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory invalidPassword].
 	! !
 
 !InternalApiTest methodsFor: 'testing - interface' stamp: 'db 12/1/2020 17:01:14'!
@@ -452,13 +466,13 @@ test07AfterSucessfulCheckoutThePurchaseIsSaved
 	
 	! !
 
-!InternalApiTest methodsFor: 'testing - interface' stamp: 'db 12/1/2020 17:01:30'!
+!InternalApiTest methodsFor: 'testing - interface' stamp: 'db 12/2/2020 22:35:22'!
 test08CannotListPurchasesOfNonAuthenticatedClient
 
 	| apiCaller |
 	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: defaultClock.
 	
-	self assertNonAuthenticatedClientFor: [apiCaller 
+	self assertIsNotAuthenticatedClientFor: [apiCaller 
 				listPurchasesOf: testObjectFactory defaultClientID 
 				withPassword: testObjectFactory invalidPassword].
 
@@ -533,6 +547,70 @@ test12ExpiredCartShouldBeRemoved
 		raise: Error - MessageNotUnderstood
 	 	withExceptionDo: [:anError | 
 			self assert: anError messageText = InternalApi cartNotFoundErrorDescription ]	.
+	! !
+
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:48:27'!
+test14AfterExecutingAddToCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	self denyCartSessionExpiredAfter30MinutesOfCreated: cartID through: apiCaller using: clock.
+	
+		
+	! !
+
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:48:57'!
+test15AfterExecutingListCartTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	clock advance: 29.
+	
+	apiCaller listCart: cartID.
+	
+	
+	self denyCartSessionExpiredAfter30MinutesOfCreated: cartID through: apiCaller using: clock.
+	
+		
+	! !
+
+!InternalApiTest methodsFor: 'testing - expired cart' stamp: 'db 12/2/2020 22:49:05'!
+test16AfterExecutingCheckoutTheExpirationTimeIsExtended
+
+	| apiCaller cartID clock |
+	clock := ClockSimulator with: GregorianDateTime now.
+	
+	apiCaller := InternalApi withAuthenticator: self throught: merchantProcessor withCatalog: testObjectFactory defaultCatalog andClock: clock.
+	
+	cartID := apiCaller createCartFor: testObjectFactory defaultClientID withPassword: testObjectFactory defaultPassword.
+	
+	apiCaller add: 2 to: cartID of: testObjectFactory itemSellByTheStore.
+	
+	clock advance: 29.
+	
+	apiCaller 
+			checkout: cartID 
+			withCreditCardNumber: testObjectFactory defaultCreditCardNumber 
+			andCreditCardExpirationDate: testObjectFactory notExpiredDate
+			andCreditCardOwner: testObjectFactory defaultCreditCardOwner.
+			
+	self denyCartSessionExpiredAfter30MinutesOfCreated: cartID through: apiCaller using: clock.
+	
+		
 	! !
 
 
@@ -623,56 +701,6 @@ Cart class
 acceptingItemsOf: aCatalog
 
 	^self new initializeAcceptingItemsOf: aCatalog ! !
-
-
-!classDefinition: #CartSession category: 'TusLibros'!
-Cart subclass: #CartSession
-	instanceVariableNames: 'clientID lastTimeUsed'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-
-!CartSession methodsFor: 'initialization' stamp: 'db 12/2/2020 20:13:38'!
-initializeAcceptingItemsOf: aCatalog associatedTo: aClientID andCreatedAt: aDateAndTime
-
-	catalog := aCatalog.
-	clientID := aClientID.
-	lastTimeUsed := aDateAndTime.
-	
-	items := OrderedCollection new.
-	
-	
-	! !
-
-
-!CartSession methodsFor: 'private' stamp: 'db 12/2/2020 20:13:20'!
-activeTimeFrom: aDate.
-
-	^ (lastTimeUsed distanceTo: aDate) convertTo: minute.
-	! !
-
-
-!CartSession methodsFor: 'operations' stamp: 'db 12/2/2020 20:13:29'!
-clientAssociated
-	^clientID ! !
-
-!CartSession methodsFor: 'operations' stamp: 'db 12/2/2020 20:13:46'!
-isExpiredOn: aDate
-	
-	^(self activeTimeFrom: aDate) >= (SimpleMeasure amount: 30 unit: minute).
-	
-	! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'CartSession class' category: 'TusLibros'!
-CartSession class
-	instanceVariableNames: ''!
-
-!CartSession class methodsFor: 'initialization' stamp: 'db 12/2/2020 20:16:30'!
-with: aCatalog associatedTo: aClientID createAt: aDateAndTime
-
-	^CartSession new initializeAcceptingItemsOf: aCatalog associatedTo: aClientID andCreatedAt: aDateAndTime! !
 
 
 !classDefinition: #Cashier category: 'TusLibros'!
@@ -940,10 +968,10 @@ nextID
 	^sequence.! !
 
 
-!InternalApi methodsFor: 'assertions' stamp: 'db 12/2/2020 19:41:38'!
+!InternalApi methodsFor: 'assertions' stamp: 'db 12/2/2020 22:36:03'!
 assertIsNotAuthenticatedClient: aClientID withPassword: aPassword  
 
-	(authenticator authenticate: aClientID withPassword: aPassword) ifFalse: [^self class signalNonAuthenticatedClient].
+	(authenticator authenticate: aClientID withPassword: aPassword) ifFalse: [^self class signalNotAuthenticatedClient].
 ! !
 
 !InternalApi methodsFor: 'assertions' stamp: 'db 12/2/2020 19:44:01'!
@@ -957,7 +985,7 @@ assertIsNotExpiredCartAndRemoveItIfItIsExpired: aCartID
 ! !
 
 
-!InternalApi methodsFor: 'client - methods' stamp: 'db 12/2/2020 20:15:46'!
+!InternalApi methodsFor: 'client - methods' stamp: 'db 12/2/2020 21:42:39'!
 createCartFor: aClientID withPassword: aPassword
 
 	| cartID |
@@ -966,7 +994,7 @@ createCartFor: aClientID withPassword: aPassword
 	
 	cartID := self nextID.
 	
-	carts at: cartID put: (CartSession with: catalog associatedTo: aClientID createAt: clock now) .
+	carts at: cartID put: (CartSession with: (Cart acceptingItemsOf: catalog) associatedTo: aClientID createAt: clock now) .
 	
 	^cartID.! !
 
@@ -977,17 +1005,20 @@ listPurchasesOf: aClientID withPassword: aPassword
 	^salesBook at: aClientID ! !
 
 
-!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 19:35:07'!
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:27:23'!
 add: aQuantity to: aCartID of: anItem
 	
 	| cartSession |
 	cartSession := self currentCartSession: aCartID.
+	
 	cartSession add: aQuantity of: anItem.
+	
+	cartSession stamp: clock now.
 	
 	 
 ! !
 
-!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 19:33:45'!
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:34:28'!
 checkout: aCartID withCreditCardNumber: aCCN andCreditCardExpirationDate: aCCED andCreditCardOwner: aCCO 
 	
 	| cartSession clientSalesBook |
@@ -999,14 +1030,21 @@ checkout: aCartID withCreditCardNumber: aCCN andCreditCardExpirationDate: aCCED 
 	self checkoutTo: cartSession payingWith: (CreditCard with: aCCN expiration: aCCED creditCardOwner: aCCO) andRegisterIn: clientSalesBook.
 	
 	self updateSalesbookOf: cartSession with: clientSalesBook.
+	
+	cartSession stamp: clock now.
 	! !
 
-!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 19:29:29'!
+!InternalApi methodsFor: 'cart - method' stamp: 'db 12/2/2020 22:30:40'!
 listCart: aCartID 
 	
-	| cartSession |
+	| cartSession items |
 	cartSession := self currentCartSession: aCartID.
-	^cartSession items asBag.! !
+	
+	items := cartSession items asBag.
+	
+	cartSession stamp: clock now.
+	
+	^items! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1024,8 +1062,8 @@ withAuthenticator: anAuthenticator throught: aMerchantProcessor withCatalog: aCa
 cartNotFoundErrorDescription
 	^'Cart not found'! !
 
-!InternalApi class methodsFor: 'error messages' stamp: 'db 11/30/2020 22:32:22'!
-nonAuthenticatedClientErrorDescription
+!InternalApi class methodsFor: 'error messages' stamp: 'db 12/2/2020 22:35:42'!
+notAuthenticatedClientErrorDescription
 	^'Non authenticated client'! !
 
 !InternalApi class methodsFor: 'error messages' stamp: 'db 12/2/2020 19:38:27'!
@@ -1038,10 +1076,10 @@ signalCartNotFound
 	
 	^self error: self cartNotFoundErrorDescription ! !
 
-!InternalApi class methodsFor: 'signals' stamp: 'db 11/30/2020 22:32:03'!
-signalNonAuthenticatedClient
+!InternalApi class methodsFor: 'signals' stamp: 'db 12/2/2020 22:36:03'!
+signalNotAuthenticatedClient
 	
-	^self error: self nonAuthenticatedClientErrorDescription! !
+	^self error: self notAuthenticatedClientErrorDescription! !
 
 !InternalApi class methodsFor: 'signals' stamp: 'db 12/1/2020 17:17:27'!
 signalOperationOnExpiredCart
@@ -1131,6 +1169,84 @@ of: aTotal withItems: aListOfItems
 
 	"should assert total is not negative or 0!!"
 	^self new initializeTotal: aTotal withItems: aListOfItems ! !
+
+
+!classDefinition: #Session category: 'TusLibros'!
+Object subclass: #Session
+	instanceVariableNames: 'lastTimeUsed'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:22:55'!
+activeTimeFrom: aDate.
+
+	^ (lastTimeUsed distanceTo: aDate) convertTo: minute.
+	! !
+
+!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:23:25'!
+isExpiredOn: aDate
+	
+	^(self activeTimeFrom: aDate) >= (SimpleMeasure amount: 30 unit: minute).
+	! !
+
+!Session methodsFor: 'as yet unclassified' stamp: 'db 12/2/2020 22:26:14'!
+stamp: aDateAndTime
+
+	lastTimeUsed := aDateAndTime.
+	! !
+
+
+!classDefinition: #CartSession category: 'TusLibros'!
+Session subclass: #CartSession
+	instanceVariableNames: 'clientID cart'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!CartSession methodsFor: 'initialization' stamp: 'db 12/2/2020 21:41:07'!
+initializeWith: aCart associatedTo: aClientID andCreatedAt: aDateAndTime
+
+	cart := aCart.
+	clientID := aClientID.
+	lastTimeUsed := aDateAndTime.
+	
+	
+	! !
+
+
+
+!CartSession methodsFor: 'carts operations' stamp: 'db 12/2/2020 21:44:10'!
+add: aQuantity of: anItem
+	^cart add: aQuantity of: anItem! !
+
+!CartSession methodsFor: 'carts operations' stamp: 'db 12/2/2020 21:44:35'!
+isEmpty
+	^cart isEmpty ! !
+
+!CartSession methodsFor: 'carts operations' stamp: 'db 12/2/2020 21:43:19'!
+items
+	^cart items ! !
+
+!CartSession methodsFor: 'carts operations' stamp: 'db 12/2/2020 21:45:51'!
+total
+	^cart total ! !
+
+
+!CartSession methodsFor: 'operations' stamp: 'db 12/2/2020 20:13:29'!
+clientAssociated
+	^clientID ! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CartSession class' category: 'TusLibros'!
+CartSession class
+	instanceVariableNames: ''!
+
+!CartSession class methodsFor: 'initialization' stamp: 'db 12/2/2020 21:41:35'!
+with: aCart associatedTo: aClientID createAt: aDateAndTime
+
+	^CartSession new initializeWith: aCart associatedTo: aClientID andCreatedAt: aDateAndTime! !
 
 
 !classDefinition: #StoreTestObjectsFactory category: 'TusLibros'!
